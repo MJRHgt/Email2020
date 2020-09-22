@@ -1,3 +1,6 @@
+
+import java.awt.Color;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,7 +17,7 @@ public class CrearCuenta extends javax.swing.JFrame {
      * Creates new form CrearCuenta
      */
     public CrearCuenta() {
-        initComponents();
+        initComponents();       
     }
 
     /**
@@ -85,11 +88,21 @@ public class CrearCuenta extends javax.swing.JFrame {
         ButtonInsert.setBackground(new java.awt.Color(204, 255, 204));
         ButtonInsert.setText("CREAR CUENTA");
 
+        TFAddPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFAddPasswordActionPerformed(evt);
+            }
+        });
+        TFAddPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TFAddPasswordKeyReleased(evt);
+            }
+        });
+
         CBAddDay.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         CBAddDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         LabelLevel.setForeground(new java.awt.Color(255, 0, 0));
-        LabelLevel.setText("Nivel Bajo");
 
         ButtonRegresar.setBackground(new java.awt.Color(255, 204, 204));
         ButtonRegresar.setText("REGRESAR");
@@ -106,18 +119,20 @@ public class CrearCuenta extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(185, 185, 185)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ButtonRegresar)
-                            .addComponent(jLabel9))))
-                .addContainerGap(198, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(LabelLevel)
-                .addGap(30, 30, 30))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(185, 185, 185)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ButtonRegresar)
+                                    .addComponent(jLabel9))))
+                        .addGap(0, 294, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(LabelLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(34, 34, 34)
@@ -161,7 +176,7 @@ public class CrearCuenta extends javax.swing.JFrame {
                                 .addComponent(TFAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(TFAddName, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(46, 46, 46)))
-                    .addContainerGap(42, Short.MAX_VALUE)))
+                    .addContainerGap(144, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,9 +185,9 @@ public class CrearCuenta extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(87, 87, 87)
                 .addComponent(jLabel9)
-                .addGap(20, 20, 20)
-                .addComponent(LabelLevel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addGap(25, 25, 25)
+                .addComponent(LabelLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
                 .addComponent(ButtonRegresar)
                 .addGap(16, 16, 16))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,6 +241,52 @@ public class CrearCuenta extends javax.swing.JFrame {
         open.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_ButtonRegresarActionPerformed
+
+    private void TFAddPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFAddPasswordActionPerformed
+        // Insert password the new user
+        
+    }//GEN-LAST:event_TFAddPasswordActionPerformed
+
+    private void TFAddPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddPasswordKeyReleased
+        //Permiso para modificar la etiqueta
+        LabelLevel.setOpaque(true);
+        // Para modificar el nivel de la contraseña
+        String password = TFAddPassword.getText();
+        //instancear clase
+        Password CP = new Password();//class password
+        String levelPass = CP.algorithmPass(password);
+        //depend the level
+        if(levelPass.equals("Nivel Bajo."))
+        {
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.red);
+            LabelLevel.setBackground(Color.white);
+        }
+        else if (levelPass.equals("Nivel Medio.")) 
+        {
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.orange);
+            LabelLevel.setBackground(Color.white);
+        }
+        else if (levelPass.equals("Nivel Medio alto.")) 
+        {
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.yellow);
+            LabelLevel.setBackground(Color.white);
+        }
+        else if (levelPass.equals("Nivel Alto.")) 
+        {
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.green);
+            LabelLevel.setBackground(Color.white);
+        }
+        else 
+        {
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.blue);
+            LabelLevel.setBackground(Color.white);
+        }
+    }//GEN-LAST:event_TFAddPasswordKeyReleased
 
     /**
      * @param args the command line arguments

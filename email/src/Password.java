@@ -15,7 +15,7 @@ public class Password {
     
     //code.tutsplus.com/es/tutorials/build-a-simple-password-strength-checker--net-7565
     //Method to perform password security measurement algorithm
-    public static String algorithmPass(String strPassword){
+    public String algorithmPass(String strPassword){
         char[] charPassword = strPassword.toCharArray();
         int baseScore = 0;
         int minPasswordLength = 8;
@@ -44,7 +44,7 @@ public class Password {
     //Method to decrypt
      public String P_dencode(String key, String cadena){
         String desencriptacion = "";
-        desencriptacion = Encode(key, cadena);
+        desencriptacion = Dencode(key, cadena);
         return desencriptacion;
     }
   
@@ -98,38 +98,71 @@ public class Password {
         String level = "";
         if (score == 0) 
         {
-            level = "Se requiere minimo de caracteres: "+ minPass + " .";
+            level = "Minimo de caracteres: "+ minPass + " .";
         }
         else if (score < 50)
         {
-            level = "Bajo.";
+            level = "Nivel Bajo.";
         }
         else if (score >= 50 && score < 75)
         {
-            level = "Medio.";
+            level = "Nivel Medio.";
         }
         else if (score >= 75 && score < 100)
         {
-            level = "Medio alto.";
+            level = "Nivel Medio alto.";
         }
         else if (score >= 100)
         {
-            level = "Alto.";
+            level = "Nivel Alto.";
         }
         
         return level;
     }
     
     //Method to encrypt
-    private String Encode(String key, String cadena){
+    private String Encode(String secretKey, String cadena){
         String encriptacion = "";
-        
+        try
+        {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            byte[] llavePassword = md5.digest(secretKey.getBytes("utf-8"));
+            byte[] BytesKey = Arrays.copyOf(llavePassword, 24);
+            SecretKey key = new SecretKeySpec(BytesKey,"DESede");
+            Cipher cifrado = Cipher.getInstance("DESede");
+            cifrado.init(Cipher.ENCRYPT_MODE, key);
+            byte[] plainTextBytes = cadena.getBytes("utf-8");
+            byte[] buf = cifrado.doFinal(plainTextBytes);
+            byte[] base64Bytes = Base64.encodeBase64(buf);
+            encriptacion = new String (base64Bytes);           
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, "No se pudo encriptar");
+        }
         return encriptacion;
     }
     
     //Method to decrypt
-     private String Dencode(String key, String cadena){
-        return null;
+     private String Dencode(String secretKey, String cadenaEncriptada){
+        String desencriptacion = "";
+        try
+        {
+            byte[] message = Base64.decodeBase64(cadenaEncriptada.getBytes("utf-8"));
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            byte[] digestOfPassword = md5.digest(secretKey.getBytes("utf-8"));
+            byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
+            SecretKey key = new SecretKeySpec(keyBytes,"DESede");
+            Cipher decipher = Cipher.getInstance("DESede");
+            decipher.init(Cipher.DECRYPT_MODE, key);
+            byte[] plainText = decipher.doFinal(message);            
+            desencriptacion = new String (plainText, "UTF-8");           
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, "No se pudo desencriptar");
+        }
+        return desencriptacion;
     }
     
 }
