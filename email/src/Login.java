@@ -127,6 +127,9 @@ public class Login extends javax.swing.JFrame {
         open.setVisible(true);
         this.setVisible(false);
         
+        //Administracion open2 = new Administracion();
+        //open2.setVisible(true);
+        //this.setVisible(false);
     }//GEN-LAST:event_ButtonIngresarActionPerformed
 
     /**

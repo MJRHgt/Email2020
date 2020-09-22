@@ -74,15 +74,21 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Cambiar configuraci&#xf3;n de la cuenta"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTNConfigCuentaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BTNOpcionesAdmin">
       <Properties>
         <Property name="text" type="java.lang.String" value="Opciones de administrador"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTNOpcionesAdminActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BTNRespaldo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Respaldo de la Ingormaci&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Respaldo de la Informaci&#xf3;n"/>
       </Properties>
     </Component>
   </SubComponents>

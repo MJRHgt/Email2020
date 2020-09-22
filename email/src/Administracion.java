@@ -38,10 +38,20 @@ public class Administracion extends javax.swing.JFrame {
         jLabel2.setText("ADMINISTRACIÓN");
 
         BTNConfigCuenta.setText("Cambiar configuración de la cuenta");
+        BTNConfigCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNConfigCuentaActionPerformed(evt);
+            }
+        });
 
         BTNOpcionesAdmin.setText("Opciones de administrador");
+        BTNOpcionesAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNOpcionesAdminActionPerformed(evt);
+            }
+        });
 
-        BTNRespaldo.setText("Respaldo de la Ingormación");
+        BTNRespaldo.setText("Respaldo de la Información");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,6 +86,19 @@ public class Administracion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BTNConfigCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNConfigCuentaActionPerformed
+        // TODO add your handling code here:
+        ConfigCuenta config = new ConfigCuenta();
+        config.setVisible(true);
+        //this.setVisible(false);
+    }//GEN-LAST:event_BTNConfigCuentaActionPerformed
+
+    private void BTNOpcionesAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNOpcionesAdminActionPerformed
+        // TODO add your handling code here:
+        OpcionesAdmin opcAdmin = new OpcionesAdmin();
+        opcAdmin.setVisible(true);
+    }//GEN-LAST:event_BTNOpcionesAdminActionPerformed
 
     /**
      * @param args the command line arguments

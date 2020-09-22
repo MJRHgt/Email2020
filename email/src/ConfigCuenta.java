@@ -1,3 +1,7 @@
+
+import java.io.File;
+import javax.swing.JFileChooser;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -54,36 +58,42 @@ public class ConfigCuenta extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(106, 82, 0));
         jLabel2.setText("INFORMACIÓN DE LA CUENTA");
 
-        jLabel1.setText("Constraseña");
+        jLabel1.setText("Nueva contraseña");
 
         jButton1.setText("Actualizar información");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText("Correo alterno");
+        jLabel3.setText("Nuevo correo alterno");
 
         jLabel4.setText("Fecha de nacimiento");
 
-        jLabel5.setText("Teléfono");
+        jLabel5.setText("Nuevo teléfono");
 
-        jLabel6.setText("Fotografía");
-
-        TFNewPassword.setText("Ingresa tu nueva contraseña");
-
-        TFNewAltEmail.setText("Ingresa tu nuevo correo alterno");
-
-        TFNewPhoneNumber.setText("Ingresa tu nuevo teléfono");
+        jLabel6.setText("Nueva fotografía");
 
         CBNewDay.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        CBNewDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBNewDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Día", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
         CBNewMonth.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        CBNewMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBNewMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mes", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
 
         CBNewYear.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        CBNewYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBNewYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Año", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953", "1952", "1951", "1950", "1949", "1948", "1947", "1946", "1945", "1944", "1943", "1942", "1941", "1940", "1939", "1938", "1937", "1936", "1935", "1934", "1933", "1932", "1931", "1930", "1929", "1928", "1927", "1926", "1925", "1924", "1923", "1922", "1921", "1920" }));
 
+        TFNewPhoto.setEditable(false);
         TFNewPhoto.setText("Seleccionar archivo");
+        TFNewPhoto.setEnabled(false);
 
         BTNNewPhoto.setText("...");
+        BTNNewPhoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNNewPhotoActionPerformed(evt);
+            }
+        });
 
         jLabel7.setForeground(new java.awt.Color(255, 0, 0));
         jLabel7.setText("*Los campos en blanco no se actualizarán");
@@ -109,9 +119,6 @@ public class ConfigCuenta extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,9 +156,12 @@ public class ConfigCuenta extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(13, 13, 13)
                                         .addComponent(jLabel8)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                                .addComponent(jLabel9)
-                                .addGap(24, 24, 24))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addGap(24, 24, 24))
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(jLabel11)
@@ -161,8 +171,8 @@ public class ConfigCuenta extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
@@ -202,11 +212,37 @@ public class ConfigCuenta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BTNDarseDeBaja)
                     .addComponent(jLabel11))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BTNNewPhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNNewPhotoActionPerformed
+        // TODO add your handling code here:
+        JFileChooser dialogo = new JFileChooser();
+
+        File ficheroImagen;
+        String rutaArchivo = "";
+        int valor = dialogo.showOpenDialog(this);
+        if (valor == JFileChooser.APPROVE_OPTION) {
+            ficheroImagen = dialogo.getSelectedFile();
+            rutaArchivo = ficheroImagen.getPath();
+        }
+        TFNewPhoto.setEnabled(true);
+        TFNewPhoto.setText(rutaArchivo);
+    }//GEN-LAST:event_BTNNewPhotoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String newPassword = (String)TFNewPassword.getText();
+        String newAltEmail = (String)TFNewAltEmail.getText();
+        String newDay = (String)CBNewDay.getSelectedItem( );
+        String newMonth = (String)CBNewMonth.getSelectedItem( );
+        String newYear = (String)CBNewDay.getSelectedItem( );
+        String newPhoneNumber = (String)TFNewPhoneNumber.getText();
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
