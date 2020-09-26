@@ -18,6 +18,9 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        //create files
+        ReadFile rf = new ReadFile();
+        rf.ValidateFile(); 
     }
 
     /**

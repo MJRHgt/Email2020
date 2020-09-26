@@ -59,12 +59,18 @@ public class CrearCuenta extends javax.swing.JFrame {
         TFAddName = new javax.swing.JTextField();
         LabelLevel = new javax.swing.JLabel();
         TFAddPhoneNumber = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDCDate = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(15, 0, 105));
         jPanel1.setForeground(new java.awt.Color(15, 0, 105));
+
+        TFAddUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddUserKeyTyped(evt);
+            }
+        });
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Apellido");
@@ -80,6 +86,12 @@ public class CrearCuenta extends javax.swing.JFrame {
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Constraseña");
+
+        TFAddLastName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddLastNameKeyTyped(evt);
+            }
+        });
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Teléfono");
@@ -98,6 +110,11 @@ public class CrearCuenta extends javax.swing.JFrame {
         jLabel4.setText("Nacimiento");
 
         TFAddPhoto.setText("Seleccionar archivo");
+        TFAddPhoto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddPhotoKeyTyped(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Castellar", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(237, 178, 0));
@@ -106,6 +123,11 @@ public class CrearCuenta extends javax.swing.JFrame {
         TFAddAltEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 TFAddAltEmailFocusLost(evt);
+            }
+        });
+        TFAddAltEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddAltEmailKeyTyped(evt);
             }
         });
 
@@ -135,6 +157,9 @@ public class CrearCuenta extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 TFAddPasswordKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddPasswordKeyTyped(evt);
+            }
         });
 
         ButtonRegresar.setBackground(new java.awt.Color(191, 0, 0));
@@ -151,6 +176,12 @@ public class CrearCuenta extends javax.swing.JFrame {
         ButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonRegresarActionPerformed(evt);
+            }
+        });
+
+        TFAddName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddNameKeyTyped(evt);
             }
         });
 
@@ -192,7 +223,7 @@ public class CrearCuenta extends javax.swing.JFrame {
                             .addComponent(TFAddAltEmail)
                             .addComponent(TFAddPassword)
                             .addComponent(TFAddLastName)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                            .addComponent(jDCDate, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                             .addComponent(TFAddPhoneNumber))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(LabelLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -229,27 +260,29 @@ public class CrearCuenta extends javax.swing.JFrame {
                     .addComponent(TFAddLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(TFAddPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LabelLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(TFAddPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TFAddAltEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDCDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(TFAddPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(TFAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BTNAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(TFAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BTNAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ButtonRegresar)
@@ -353,6 +386,24 @@ public class CrearCuenta extends javax.swing.JFrame {
     private void ButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonInsertActionPerformed
         // Enviar datos verificados para realizar el insert
         ReadFile rf = new ReadFile();//instance class
+        Password ClassPass = new Password();//instance class
+        String levelPass = ClassPass.algorithmPass(TFAddPassword.getText());
+        if (levelPass.equals("Nivel Alto.") || levelPass.equals("Nivel Medio.") || levelPass.equals("Nivel Medio alto.")) 
+        {
+            String passCypher = ClassPass.P_encode("meia", TFAddPassword.getText());//encode
+            int Tel = 0;
+            Tel = Integer.parseInt(TFAddPhoneNumber.getText());
+            String message ="";// rf.InsertUser(TFAddUser.getText(),TFAddName.getText(),TFAddLastName.getText(),passCypher,jDCDate.getDateFormatString(),
+                               //        TFAddAltEmail.getText(), Tel,photo);
+            if (message.equals("Se registro con exito.")) {
+                JOptionPane.showMessageDialog(null,message, "Crear Usuario", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(null,message, "Crear Uusario", JOptionPane.INFORMATION_MESSAGE);
+            }     
+        }else{
+            JOptionPane.showMessageDialog(null,"Aumente nivel de contraseña.", "Campo Contraseña", JOptionPane.INFORMATION_MESSAGE);
+        }
         
     }//GEN-LAST:event_ButtonInsertActionPerformed
 
@@ -416,6 +467,54 @@ public class CrearCuenta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BTNAddPhotoActionPerformed
 
+    private void TFAddUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddUserKeyTyped
+        // varchar 20
+        if (TFAddUser.getText().length()== 20) 
+        {
+         evt.consume(); 
+        } 
+    }//GEN-LAST:event_TFAddUserKeyTyped
+
+    private void TFAddNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddNameKeyTyped
+        // varchar 30
+        if (TFAddName.getText().length()== 30) 
+        {
+         evt.consume(); 
+        } 
+    }//GEN-LAST:event_TFAddNameKeyTyped
+
+    private void TFAddLastNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddLastNameKeyTyped
+        // varchar 30
+        if (TFAddLastName.getText().length()== 30) 
+        {
+         evt.consume(); 
+        } 
+    }//GEN-LAST:event_TFAddLastNameKeyTyped
+
+    private void TFAddPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddPasswordKeyTyped
+        // varchar 40
+        if (TFAddPassword.getText().length()== 40) 
+        {
+         evt.consume(); 
+        }
+    }//GEN-LAST:event_TFAddPasswordKeyTyped
+
+    private void TFAddAltEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddAltEmailKeyTyped
+        // varchar 40
+        if (TFAddAltEmail.getText().length()== 40) 
+        {
+         evt.consume(); 
+        }
+    }//GEN-LAST:event_TFAddAltEmailKeyTyped
+
+    private void TFAddPhotoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddPhotoKeyTyped
+        // varchar 200
+        if (TFAddAltEmail.getText().length()== 200) 
+        {
+         evt.consume(); 
+        }
+    }//GEN-LAST:event_TFAddPhotoKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -463,7 +562,7 @@ public class CrearCuenta extends javax.swing.JFrame {
     private javax.swing.JTextField TFAddPhoneNumber;
     private javax.swing.JTextField TFAddPhoto;
     private javax.swing.JTextField TFAddUser;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDCDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
