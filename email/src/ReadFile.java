@@ -1,8 +1,10 @@
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JFileChooser;
@@ -110,53 +112,24 @@ public class ReadFile {
     public String InsertUser(String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath)
     {
         String res = "";
-        res = ValidateUser(user,name,lastName,pass,date,email,tel,photoPath);
+        res = InsertUser_P(user,name,lastName,pass,date,email,tel,photoPath);
         return res;
     }
     
     //------------------------------- PRIVATE FUNCTIONS -------------------------------------------
     
     //Method for insert user
-    private String ValidateUser(String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath)
-    {
-        String res = "";
-        if (!user.equals("")) {
-            if (!name.equals("")) {
-                if (!lastName.equals("")) {
-                    if (!date.equals("")) {
-                        if (!email.equals("")) {
-                            if (tel != 0) {
-                                if (photoPath!= null) {
-                                    res =  InsertUser_P(user,name,lastName,pass,date,email,tel,photoPath);           
-                                }
-                                else
-                                    res = "Campo fotografia se encuentra vacio.";                               
-                            }
-                            else
-                                res = "Campo telefono se encuentra vacio.";            
-                        }
-                        else
-                            res = "Campo email se encuentra vacio.";            
-                    }
-                    else
-                        res = "Campo nacimiento se encuentra vacio.";         
-                }
-                else
-                    res = "Campo apellido se encuentra vacio.";           
-            }
-            else
-                res = "Campo nombre se encuentra vacio.";        
-        }
-        else
-            res = "Campo usuario se encuentra vacio.";
-        
-        return res;
-    }
-    
-    //Method for insert user
     private String InsertUser_P(String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath)
     {
+        File file = new File("file_path");
+
         return "Se registro con exito.";
+    }
+    
+    //Method for validate different user
+    private boolean isRepeatUser()
+    {
+        return false;
     }
     
 }

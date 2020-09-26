@@ -388,23 +388,36 @@ public class CrearCuenta extends javax.swing.JFrame {
         ReadFile rf = new ReadFile();//instance class
         Password ClassPass = new Password();//instance class
         String levelPass = ClassPass.algorithmPass(TFAddPassword.getText());
-        if (levelPass.equals("Nivel Alto.") || levelPass.equals("Nivel Medio.") || levelPass.equals("Nivel Medio alto.")) 
+        //validate not null fieldtext
+        if ((TFAddPassword.getText().length() != 0) && (TFAddPhoneNumber.getText().length() != 0) && (TFAddUser.getText().length() != 0)
+                && (TFAddName.getText().length() != 0) && (TFAddLastName.getText().length() != 0) && (TFAddAltEmail.getText().length() != 0)
+                && (!TFAddPhoto.getText().equals("Seleccionar archivo")) && (jDCDate.getDate() != null)) 
         {
-            String passCypher = ClassPass.P_encode("meia", TFAddPassword.getText());//encode
-            int Tel = 0;
-            Tel = Integer.parseInt(TFAddPhoneNumber.getText());
-            String message ="";// rf.InsertUser(TFAddUser.getText(),TFAddName.getText(),TFAddLastName.getText(),passCypher,jDCDate.getDateFormatString(),
-                               //        TFAddAltEmail.getText(), Tel,photo);
-            if (message.equals("Se registro con exito.")) {
-                JOptionPane.showMessageDialog(null,message, "Crear Usuario", JOptionPane.INFORMATION_MESSAGE);
+            if (levelPass.equals("Nivel Alto.") || levelPass.equals("Nivel Medio.") || levelPass.equals("Nivel Medio alto.")) 
+            {
+                String passCypher = ClassPass.P_encode("meia", TFAddPassword.getText());//encode
+                int Tel = 0;
+                Tel = Integer.parseInt(TFAddPhoneNumber.getText());
+                String message = rf.InsertUser(TFAddUser.getText(),TFAddName.getText(),TFAddLastName.getText(),passCypher,jDCDate.getDateFormatString(),
+                                               TFAddAltEmail.getText(), Tel,photo);
+                if (message.equals("Se registro con exito.")) {
+                    JOptionPane.showMessageDialog(null,message, "Crear Usuario", JOptionPane.INFORMATION_MESSAGE);
+                    //Regresar al Login
+                    Login open = new Login();
+                    open.setVisible(true);
+                    this.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,message, "Crear Uusario", JOptionPane.INFORMATION_MESSAGE);
+                }     
+            }else{
+                JOptionPane.showMessageDialog(null,"Aumente nivel de contraseña.", "Campo Contraseña", JOptionPane.INFORMATION_MESSAGE);
             }
-            else{
-                JOptionPane.showMessageDialog(null,message, "Crear Uusario", JOptionPane.INFORMATION_MESSAGE);
-            }     
-        }else{
-            JOptionPane.showMessageDialog(null,"Aumente nivel de contraseña.", "Campo Contraseña", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Existen todavia campos vacios.", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
+        }        
     }//GEN-LAST:event_ButtonInsertActionPerformed
 
     private void TFAddPhoneNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddPhoneNumberKeyTyped
