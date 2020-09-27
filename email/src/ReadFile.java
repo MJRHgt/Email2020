@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
 
@@ -108,20 +109,21 @@ public class ReadFile {
     }
     
     //Method public for insert user
-    public String InsertUser(String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath)
+    public String InsertUser(String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath, boolean rol, boolean estatus)
     {
         String res = "";
-        res = InsertUser_P(user,name,lastName,pass,date,email,tel,photoPath);
+        res = InsertUser_P(user,name,lastName,pass,date,email,tel,photoPath,rol,estatus);
         return res;
     }
     
     //------------------------------- PRIVATE FUNCTIONS -------------------------------------------
     
     //Method for insert user
-    private String InsertUser_P(String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath)
+    private String InsertUser_P(String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath,  boolean rol, boolean estatus)
     {
         //Validate file empty
         File fileUser = new File("C:/MEIA/usuario.txt");
+        List<UserClass> users ;
         if (fileUser.length() == 0) {
             UserClass userC = new UserClass();
             userC.user = "admin";
@@ -141,7 +143,29 @@ public class ReadFile {
         else
         {
             //crear una lista de tipo UserClass que obtenga todos los valores del user.txt con un metodo privado 
+            users = ReadFileUser(fileUser);
             //luego usar el metodo isRepeatuser para verificar que no sea el mismo usuario
+            if (!isRepeatUser(users,user)) 
+            {
+                UserClass userC = new UserClass();
+                userC.user = user;
+                userC.name = name;
+                userC.lastName = lastName;
+                userC.password = pass;
+                userC.date = date;
+                userC.email = email;
+                userC.number = tel;
+                userC.photoPath = "C:/MEIA/fotografia/"+user+".jpeg";//+user+".jpeg";
+                userC.rol = rol;//first admin
+                userC.estatus = estatus; //vigente
+                Insert(userC, fileUser);
+                SaveFile(userC.photoPath,photoPath);
+                //crear metodo para insertar en desc_user.txt
+            }
+            else
+            {
+                return "El usuario '"+user+"' ya existe.";          
+            }
         }
         
         return "Se registro con exito.";
@@ -150,6 +174,13 @@ public class ReadFile {
     //Method for validate different user because this camp is primary key
     private boolean isRepeatUser(List<UserClass> userC, String userN)
     {
+        //scroll list
+        for (UserClass uc:userC) {
+            if (uc.user.equals(userN)) 
+            {
+                return true;
+            }
+        }
         return false;
     }
     
@@ -167,4 +198,40 @@ public class ReadFile {
             System.out.println("Error al escribir");
         }
     }
+    
+    //Method for fill list with existing users in the file
+    private List<UserClass> ReadFileUser(File file){
+        List<UserClass> users = new ArrayList<UserClass>();
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+           fr = new FileReader (file);
+           br = new BufferedReader(fr);          
+           // read the file
+           String linea;
+           while((linea=br.readLine())!=null)
+           {
+               String[] userChar = linea.split("|");
+               UserClass userC = new UserClass();
+               userC.user = userChar[0];
+               userC.name = userChar[1];
+               userC.lastName = userChar[2];
+               userC.password = userChar[3];
+               userC.rol = Boolean.parseBoolean(userChar[4]);//first admin
+               userC.date = userChar[5];
+               userC.email = userChar[6];
+               userC.number = Integer.parseInt(userChar[7]);
+               userC.photoPath = userChar[8];//+user+".jpeg";             
+               userC.estatus = Boolean.parseBoolean(userChar[9]); //vigente
+               users.add(userC);
+           }
+        }
+        catch(Exception e){
+           e.printStackTrace();
+        }
+        
+        return users;
+    }
+  
 }
