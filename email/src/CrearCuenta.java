@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JFileChooser;
@@ -395,10 +397,13 @@ public class CrearCuenta extends javax.swing.JFrame {
         {
             if (levelPass.equals("Nivel Alto.") || levelPass.equals("Nivel Medio.") || levelPass.equals("Nivel Medio alto.")) 
             {
+                String formato = jDCDate.getDateFormatString();               
+                Date fecha = jDCDate.getDate();
+                SimpleDateFormat sdf = new SimpleDateFormat(formato);
                 String passCypher = ClassPass.P_encode("meia", TFAddPassword.getText());//encode
                 int Tel = 0;
                 Tel = Integer.parseInt(TFAddPhoneNumber.getText());
-                String message = rf.InsertUser(TFAddUser.getText(),TFAddName.getText(),TFAddLastName.getText(),passCypher,jDCDate.getDateFormatString(),
+                String message = rf.InsertUser(TFAddUser.getText(),TFAddName.getText(),TFAddLastName.getText(),passCypher,String.valueOf(sdf.format(fecha).toString()),
                                                TFAddAltEmail.getText(), Tel,photo);
                 if (message.equals("Se registro con exito.")) {
                     JOptionPane.showMessageDialog(null,message, "Crear Usuario", JOptionPane.INFORMATION_MESSAGE);

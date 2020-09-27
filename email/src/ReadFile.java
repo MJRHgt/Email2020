@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import javax.swing.JFileChooser;
 
 
@@ -30,18 +31,18 @@ public class ReadFile {
             File directorio = new File("C:/MEIA");
             if (!directorio.exists()) {
                 if (directorio.mkdirs()) {
-                    System.out.println("Directorio creado");
+                   // System.out.println("Directorio creado");
                 } else {
-                    System.out.println("Error al crear directorio");
+                   // System.out.println("Error al crear directorio");
                 }
             }
             //Exist directory fotografia
             File directorio2 = new File("C:/MEIA/fotografia");
             if (!directorio2.exists()) {
                 if (directorio2.mkdirs()) {
-                    System.out.println("Directorio2 creado");
+                   // System.out.println("Directorio2 creado");
                 } else {
-                    System.out.println("Error al crear directorio2");
+                  //  System.out.println("Error al crear directorio2");
                 }
             }
             //Exist File user
@@ -94,18 +95,16 @@ public class ReadFile {
     }
     
     //Method for save photo
-    public String SaveFile(File file, byte[]photo){
-        String message = null;
+    public void SaveFile(String path, byte[]photo){
         try
         {
+            File file = new File(path);
             out = new FileOutputStream(file);
             out.write(photo);
-            message = "Succesful";
         }
         catch(Exception e)
         {
         }
-        return message;
     }
     
     //Method public for insert user
@@ -121,15 +120,51 @@ public class ReadFile {
     //Method for insert user
     private String InsertUser_P(String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath)
     {
-        File file = new File("file_path");
-
+        //Validate file empty
+        File fileUser = new File("C:/MEIA/usuario.txt");
+        if (fileUser.length() == 0) {
+            UserClass userC = new UserClass();
+            userC.user = "admin";
+            userC.name = name;
+            userC.lastName = lastName;
+            userC.password = pass;
+            userC.date = date;
+            userC.email = email;
+            userC.number = tel;
+            userC.photoPath = "C:/MEIA/fotografia/admin.jpeg";//+user+".jpeg";
+            userC.rol = true;//first admin
+            userC.estatus = true; //vigente
+            Insert(userC, fileUser);
+            SaveFile(userC.photoPath,photoPath);
+            //crear metodo para insertar en desc_user.txt
+        }
+        else
+        {
+            //crear una lista de tipo UserClass que obtenga todos los valores del user.txt con un metodo privado 
+            //luego usar el metodo isRepeatuser para verificar que no sea el mismo usuario
+        }
+        
         return "Se registro con exito.";
     }
     
-    //Method for validate different user
-    private boolean isRepeatUser()
+    //Method for validate different user because this camp is primary key
+    private boolean isRepeatUser(List<UserClass> userC, String userN)
     {
         return false;
     }
     
+    private void Insert(UserClass userC, File file)
+    {
+        try 
+        {
+            //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
+            FileWriter escribir = new FileWriter(file, true);
+            escribir.write(userC.InsertData()+"\n");
+            //Cerramos la conexion
+            escribir.close();
+        } //Si existe un problema al escribir cae aqui
+        catch (Exception e) {
+            System.out.println("Error al escribir");
+        }
+    }
 }
