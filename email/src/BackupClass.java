@@ -1,13 +1,16 @@
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -104,6 +107,7 @@ public class BackupClass {
             {
                 //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
                 FileWriter escribir = new FileWriter(file, true);
+                Registros = "0";
                 escribir.write("nombre_simbólico: bitacora_backup"+"\n");//nombre_simbolico
                 escribir.write("fecha_creación: "+fecha+"\n");//fecha_Creacion
                 escribir.write("usuario_creación: "+user+"\n");//usuario_creacion
@@ -115,10 +119,15 @@ public class BackupClass {
             }
             else
             {
-                DeleteLineFile();
+                String[] lista = DeleteLineFile();
                 //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
                 FileWriter escribir = new FileWriter(file, true);
-                escribir.write(""+"\n");
+                for (int i = 0; i < lista.length; i++) {
+                    escribir.write(lista[i]+"\n");
+                }
+                escribir.write("fecha_modificación: "+fecha+"\n");//fecha_modificacion
+                escribir.write("usuario_modificación: "+user+"\n");//usuario_modificacion
+                escribir.write("#_registros: "+Registros+"\n");//#_Registros
                 //Cerramos la conexion
                 escribir.close();
             }
@@ -162,9 +171,36 @@ public class BackupClass {
     }
     
     //Method delete line file
-    private void DeleteLineFile()
+    private String[] DeleteLineFile()
     {
+        String[] lineas = new String[6];
+        File file = new File("C:/MEIA/bitacora_backup.txt");
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+           fr = new FileReader (file);
+           br = new BufferedReader(fr);          
+           // read the file
+           String linea;
+           int x = 0;
+           while((linea=br.readLine())!=null)
+           {
+               lineas[x] = linea;
+               x++;
+           }
+           fr.close();
+        }
+        catch(Exception e){
+            System.out.println("linea error");
+           e.printStackTrace();
+        }
         
+        file.delete();
+        ReadFile rf = new ReadFile();
+        rf.ValidateFile();
+        
+        return lineas;
     }
     
 }
