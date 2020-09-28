@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -36,10 +37,10 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         ButtonIngresar = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        TFUser = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        TFPassword = new javax.swing.JPasswordField();
         jLabelRegister = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,9 +67,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        TFUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                TFUserActionPerformed(evt);
             }
         });
 
@@ -109,8 +110,8 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPasswordField1)
-                            .addComponent(jTextField1))))
+                            .addComponent(TFPassword)
+                            .addComponent(TFUser))))
                 .addGap(62, 62, 62))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(154, 154, 154)
@@ -135,12 +136,12 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TFUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TFPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(ButtonIngresar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -162,24 +163,47 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void TFUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFUserActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_TFUserActionPerformed
 
     private void ButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonIngresarActionPerformed
-        // Moverse a Crear cuenta
-        CrearCuenta open = new CrearCuenta();
-        open.setVisible(true);
-        this.setVisible(false);
-        
-        //Administracion open2 = new Administracion();
-        //open2.setVisible(true);
-        //this.setVisible(false);
+       //get camp
+        String valorPass = new String(TFPassword.getPassword());
+        if ((TFUser.getText().length() != 0) && (valorPass.length() != 0)) 
+        {
+           ReadFile rf = new ReadFile();//instance
+           String isUser = rf.Login(TFUser.getText(), valorPass);
+            if (isUser.equals("usuario")) 
+            {
+                JOptionPane.showMessageDialog(null,"Bienvenido usuario.", "Login Correct", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else if(isUser.equals("admin"))
+            {
+                JOptionPane.showMessageDialog(null,"Bienvenido admin.", "Login Correct", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else if(isUser.equals("archivo vacio"))
+            {
+                JOptionPane.showMessageDialog(null,"Crear cuenta.", "Login", JOptionPane.INFORMATION_MESSAGE);
+                // Send the form CrearCuenta
+                CrearCuenta open = new CrearCuenta();
+                open.setVisible(true);
+                this.dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,isUser, "Login Incorrect", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Existen todavia campos vacios.", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_ButtonIngresarActionPerformed
 
     private void jLabelRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelRegisterMouseClicked
         // Send the form CrearCuenta
-         CrearCuenta open = new CrearCuenta();
+        CrearCuenta open = new CrearCuenta();
         open.setVisible(true);
         this.dispose();
         //this.setVisible(false);
@@ -232,13 +256,13 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonIngresar;
+    private javax.swing.JPasswordField TFPassword;
+    private javax.swing.JTextField TFUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelRegister;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

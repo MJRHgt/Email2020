@@ -116,6 +116,14 @@ public class ReadFile {
         return res;
     }
     
+    //Method public login
+    public String Login(String user, String password)
+    {
+        String res = "";
+        res = Login_V(user,password);
+        return res;
+    }
+    
     //------------------------------- PRIVATE FUNCTIONS -------------------------------------------
     
     //Method for insert user
@@ -212,7 +220,8 @@ public class ReadFile {
            String linea;
            while((linea=br.readLine())!=null)
            {
-               String[] userChar = linea.split("|");
+               String separador = "\\|";
+               String[] userChar = linea.split(separador);
                UserClass userC = new UserClass();
                userC.user = userChar[0];
                userC.name = userChar[1];
@@ -226,12 +235,66 @@ public class ReadFile {
                userC.estatus = Boolean.parseBoolean(userChar[9]); //vigente
                users.add(userC);
            }
+           fr.close();
         }
         catch(Exception e){
+            System.out.println("linea error");
            e.printStackTrace();
         }
         
         return users;
     }
   
+    //Method for validate login
+    private String Login_V(String user, String password){
+        //var
+        String res="";
+        List<UserClass> users ;
+        File fileUser = new File("C:/MEIA/usuario.txt");
+        users = ReadFileUser(fileUser);
+        boolean flag_Exist=false;
+        Password passClass = new Password();
+        
+        //Exist users
+         if (fileUser.length() == 0) 
+         {
+            res = "archivo vacio";
+         }
+         else
+         {
+             //Exist user - scroll list
+            for (UserClass uc:users) 
+            {
+                if (uc.user.equals(user)) 
+                {
+                    flag_Exist = true;
+                    String pass = passClass.P_dencode("meia", uc.password);
+                    if (pass.equals(password)) {
+                        if (uc.estatus == true) {
+                            if (uc.rol == true) {
+                                res = "admin";
+                            }
+                            else
+                            {
+                                res = "usuario";
+                            }
+                        }
+                        else
+                        {
+                            res = "Su cuenta no se encuentra vigente.";
+                        }
+                    }
+                    else
+                    {
+                        res = "Contraseña incorrecta.";
+                    }
+                }
+            }
+            if (flag_Exist == false) 
+            {
+                res = "El ususario no existe.";
+            }
+         }
+        return res;
+    }
 }

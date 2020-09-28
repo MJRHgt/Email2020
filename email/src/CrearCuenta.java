@@ -404,7 +404,7 @@ public class CrearCuenta extends javax.swing.JFrame {
                 int Tel = 0;
                 Tel = Integer.parseInt(TFAddPhoneNumber.getText());
                 String message = rf.InsertUser(TFAddUser.getText(),TFAddName.getText(),TFAddLastName.getText(),passCypher,String.valueOf(sdf.format(fecha).toString()),
-                                               TFAddAltEmail.getText(), Tel,photo,true,true);
+                                               TFAddAltEmail.getText(), Tel,photo,false,true);
                 if (message.equals("Se registro con exito.")) {
                     JOptionPane.showMessageDialog(null,message, "Crear Usuario", JOptionPane.INFORMATION_MESSAGE);
                     //Regresar al Login
