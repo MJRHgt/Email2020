@@ -1,6 +1,17 @@
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import java.awt.Color;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -78,6 +89,11 @@ public class OpcionesAdmin extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(0, 204, 0));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButton1.setText("Ingresar usuario");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         BTNDarDeBajaUsuario.setBackground(new java.awt.Color(153, 0, 51));
         BTNDarDeBajaUsuario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -266,6 +282,11 @@ public class OpcionesAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //BTNAddPhoto
+     JFileChooser select = new JFileChooser();
+     File file;
+     byte[] photo;
+     
     private void BTNAddPhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNAddPhotoActionPerformed
         // TODO add your handling code here:
         JFileChooser dialogo = new JFileChooser();
@@ -280,6 +301,73 @@ public class OpcionesAdmin extends javax.swing.JFrame {
         TFAddPhoto.setEnabled(true);
         TFAddPhoto.setText(rutaArchivo);
     }//GEN-LAST:event_BTNAddPhotoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        // Enviar datos verificados para realizar el insert
+        ReadFile rf = new ReadFile();//instance class
+        Password ClassPass = new Password();//instance class
+        String levelPass = ClassPass.algorithmPass(TFAddPassword.getText());
+        //validate not null fieldtext
+        if ((TFAddPassword.getText().length() != 0) && (TFAddPhoneNumber.getText().length() != 0) && (TFAddUser.getText().length() != 0)
+                && (TFAddName.getText().length() != 0) && (TFAddLastName.getText().length() != 0) && (TFAddAltEmail.getText().length() != 0)
+                && (!TFAddPhoto.getText().equals("Seleccionar archivo")) && (jDCDate.getDate() != null)) 
+        {
+            if (levelPass.equals("Nivel Alto.") || levelPass.equals("Nivel Medio.") || levelPass.equals("Nivel Medio alto.")) 
+            {
+                String formato = jDCDate.getDateFormatString();               
+                Date fecha = jDCDate.getDate();
+                SimpleDateFormat sdf = new SimpleDateFormat(formato);
+                String passCypher = ClassPass.P_encode("meia", TFAddPassword.getText());//encode
+                int Tel = 0;
+                Tel = Integer.parseInt(TFAddPhoneNumber.getText());
+                String message = rf.InsertUser(TFAddUser.getText(),TFAddName.getText(),TFAddLastName.getText(),passCypher,String.valueOf(sdf.format(fecha).toString()),
+                                               TFAddAltEmail.getText(), Tel,photo,false,true);
+                if (message.equals("Se registro con exito.")) {
+                    JOptionPane.showMessageDialog(null,message, "Crear Usuario", JOptionPane.INFORMATION_MESSAGE);
+                    //Regresar al Login
+                    Login open = new Login();
+                    open.setVisible(true);
+                    this.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,message, "Crear Uusario", JOptionPane.INFORMATION_MESSAGE);
+                }     
+            }else{
+                JOptionPane.showMessageDialog(null,"Aumente nivel de contraseña.", "Campo Contraseña", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Existen todavia campos vacios.", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
+        }        
+    }                                            
+
+    private void TFAddPhoneNumberKeyTyped(java.awt.event.KeyEvent evt) {                                          
+        // Solo puede ingresar numeros
+        char c = evt.getKeyChar();
+        
+        if (c<'0' || c>'9') {
+            evt.consume();
+            JOptionPane.showMessageDialog(null,"Solo números", "Valdiar números", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }                                         
+
+    //Method for ER email
+    private boolean isEmail(String email)
+    {
+        Pattern pat = null;
+        Matcher mat = null;
+        pat = Pattern.compile("^[\\w\\\\\\+]+(\\.[\\w\\\\]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$");
+        mat = pat.matcher(email);
+        if (mat.find()) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -318,31 +406,119 @@ public class OpcionesAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTNAddPhoto;
+    private javax.swing.JButton BTNAddPhoto1;
+    private javax.swing.JButton BTNAddPhoto2;
+    private javax.swing.JButton BTNAddPhoto3;
+    private javax.swing.JButton BTNAddPhoto4;
     private javax.swing.JButton BTNDarDeBajaUsuario;
     private javax.swing.JButton BTNSearchUser;
+    private javax.swing.JButton ButtonInsert;
+    private javax.swing.JButton ButtonInsert1;
+    private javax.swing.JButton ButtonInsert2;
+    private javax.swing.JButton ButtonInsert3;
+    private javax.swing.JButton ButtonRegresar;
+    private javax.swing.JButton ButtonRegresar1;
+    private javax.swing.JButton ButtonRegresar2;
+    private javax.swing.JButton ButtonRegresar3;
     private javax.swing.JComboBox<String> CBAddDay;
     private javax.swing.JComboBox<String> CBAddMonth;
     private javax.swing.JComboBox<String> CBAddYear;
+    private javax.swing.JLabel LabelLevel;
+    private javax.swing.JLabel LabelLevel1;
+    private javax.swing.JLabel LabelLevel2;
+    private javax.swing.JLabel LabelLevel3;
     private javax.swing.JTextField TFAddAltEmail;
+    private javax.swing.JTextField TFAddAltEmail1;
+    private javax.swing.JTextField TFAddAltEmail2;
+    private javax.swing.JTextField TFAddAltEmail3;
+    private javax.swing.JTextField TFAddAltEmail4;
     private javax.swing.JTextField TFAddLastName;
+    private javax.swing.JTextField TFAddLastName1;
+    private javax.swing.JTextField TFAddLastName2;
+    private javax.swing.JTextField TFAddLastName3;
+    private javax.swing.JTextField TFAddLastName4;
     private javax.swing.JTextField TFAddName;
+    private javax.swing.JTextField TFAddName1;
+    private javax.swing.JTextField TFAddName2;
+    private javax.swing.JTextField TFAddName3;
+    private javax.swing.JTextField TFAddName4;
     private javax.swing.JTextField TFAddPassword;
+    private javax.swing.JTextField TFAddPassword1;
+    private javax.swing.JTextField TFAddPassword2;
+    private javax.swing.JTextField TFAddPassword3;
+    private javax.swing.JTextField TFAddPassword4;
     private javax.swing.JTextField TFAddPhoneNumber;
+    private javax.swing.JTextField TFAddPhoneNumber1;
+    private javax.swing.JTextField TFAddPhoneNumber2;
+    private javax.swing.JTextField TFAddPhoneNumber3;
+    private javax.swing.JTextField TFAddPhoneNumber4;
     private javax.swing.JTextField TFAddPhoto;
+    private javax.swing.JTextField TFAddPhoto1;
+    private javax.swing.JTextField TFAddPhoto2;
+    private javax.swing.JTextField TFAddPhoto3;
+    private javax.swing.JTextField TFAddPhoto4;
     private javax.swing.JTextField TFAddUser;
+    private javax.swing.JTextField TFAddUser1;
+    private javax.swing.JTextField TFAddUser2;
+    private javax.swing.JTextField TFAddUser3;
+    private javax.swing.JTextField TFAddUser4;
     private javax.swing.JTextField TFSearchUser;
     private javax.swing.JButton jButton1;
+    private com.toedter.calendar.JDateChooser jDCDate;
+    private com.toedter.calendar.JDateChooser jDCDate1;
+    private com.toedter.calendar.JDateChooser jDCDate2;
+    private com.toedter.calendar.JDateChooser jDCDate3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
 }
