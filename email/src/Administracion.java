@@ -69,7 +69,7 @@ public class Administracion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(jLabel2)
-                .addContainerGap(268, Short.MAX_VALUE))
+                .addContainerGap(334, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -103,7 +103,7 @@ public class Administracion extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(32, 32, 32)
                         .addComponent(jLabel4)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         pack();
