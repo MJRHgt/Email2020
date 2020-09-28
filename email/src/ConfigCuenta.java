@@ -107,6 +107,7 @@ public class ConfigCuenta extends javax.swing.JFrame {
         jLabel11.setText("Información de la cuenta");
 
         jButton1.setBackground(new java.awt.Color(0, 153, 0));
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton1.setText("Actualizar información");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,6 +116,7 @@ public class ConfigCuenta extends javax.swing.JFrame {
         });
 
         BTNDarseDeBaja.setBackground(new java.awt.Color(204, 0, 51));
+        BTNDarseDeBaja.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         BTNDarseDeBaja.setText("Darse de baja");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

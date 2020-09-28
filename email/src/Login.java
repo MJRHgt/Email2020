@@ -59,7 +59,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Sing in");
 
-        ButtonIngresar.setBackground(new java.awt.Color(97, 72, 0));
+        ButtonIngresar.setBackground(new java.awt.Color(0, 153, 0));
         ButtonIngresar.setForeground(new java.awt.Color(255, 255, 255));
         ButtonIngresar.setText("INGRESAR");
         ButtonIngresar.addActionListener(new java.awt.event.ActionListener() {
