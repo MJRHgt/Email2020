@@ -98,6 +98,7 @@ public class CrearCuenta extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Teléfono");
 
+        BTNAddPhoto.setBackground(new java.awt.Color(18, 30, 49));
         BTNAddPhoto.setText("...");
         BTNAddPhoto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

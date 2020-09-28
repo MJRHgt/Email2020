@@ -56,7 +56,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setText("CORREO ELECTRÓNICO");
 
         jLabel2.setFont(new java.awt.Font("Castellar", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 191, 0));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Sing in");
 
         ButtonIngresar.setBackground(new java.awt.Color(97, 72, 0));
@@ -80,7 +80,7 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("CONTRASEÑA:");
 
-        jLabelRegister.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabelRegister.setFont(new java.awt.Font("Castellar", 1, 18)); // NOI18N
         jLabelRegister.setForeground(new java.awt.Color(255, 255, 255));
         jLabelRegister.setText("Sing Up!");
         jLabelRegister.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -121,7 +121,7 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ButtonIngresar)
-                            .addComponent(jLabelRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
