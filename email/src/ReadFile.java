@@ -133,6 +133,14 @@ public class ReadFile {
         return res;
     }
     
+     //Method public for insert user
+    public String InsertUser3(String UserL, String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath, boolean rol, boolean estatus)
+    {
+        String res = "";
+        //res = InsertUser_P(user,name,lastName,pass,date,email,tel,photoPath,rol,estatus);
+        return res;
+    }
+    
     //Method public login
     public String Login(String user, String password)
     {
