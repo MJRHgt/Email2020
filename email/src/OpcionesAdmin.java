@@ -30,6 +30,8 @@ public class OpcionesAdmin extends javax.swing.JFrame {
      */
     public OpcionesAdmin() {
         initComponents();
+        BTNDarDeBajaUsuario.setVisible(false);
+        BTNModificar.setVisible(false);
     }
 
     /**
@@ -79,6 +81,11 @@ public class OpcionesAdmin extends javax.swing.JFrame {
         BTNSearchUser.setBackground(new java.awt.Color(18, 30, 49));
         BTNSearchUser.setForeground(new java.awt.Color(255, 255, 255));
         BTNSearchUser.setText("Buscar");
+        BTNSearchUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNSearchUserActionPerformed(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(0, 204, 0));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -93,6 +100,11 @@ public class OpcionesAdmin extends javax.swing.JFrame {
         BTNDarDeBajaUsuario.setBackground(new java.awt.Color(153, 0, 51));
         BTNDarDeBajaUsuario.setForeground(new java.awt.Color(255, 255, 255));
         BTNDarDeBajaUsuario.setText("Dar de baja a este usuario");
+        BTNDarDeBajaUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNDarDeBajaUsuarioActionPerformed(evt);
+            }
+        });
 
         jLabel12.setBackground(new java.awt.Color(237, 178, 0));
         jLabel12.setFont(new java.awt.Font("High Tower Text", 3, 24)); // NOI18N
@@ -207,6 +219,11 @@ public class OpcionesAdmin extends javax.swing.JFrame {
         BTNModificar.setBackground(new java.awt.Color(18, 30, 49));
         BTNModificar.setForeground(new java.awt.Color(255, 255, 255));
         BTNModificar.setText("Modificar");
+        BTNModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -541,6 +558,49 @@ public class OpcionesAdmin extends javax.swing.JFrame {
     private void TFAddPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFAddPhoneNumberActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TFAddPhoneNumberActionPerformed
+
+    private void BTNSearchUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNSearchUserActionPerformed
+        // TODO add your handling code here:
+        if (TFSearchUser.getText().length() != 0) {
+            ReadFile rf = new ReadFile();
+            if (rf.isUser(TFSearchUser.getText())) {
+                UserClass uc = new UserClass();
+                uc = rf.DataUser(TFSearchUser.getText());
+                TFAddPassword.setText(uc.password);
+                TFAddPhoneNumber.setText(String.valueOf(uc.number));
+                TFAddUser.setText(uc.user);
+                TFAddName.setText(uc.name);
+                TFAddLastName.setText(uc.lastName);
+                TFAddAltEmail.setText(uc.email);
+                TFAddPhoto.setText(uc.photoPath); 
+                BTNDarDeBajaUsuario.setVisible(true);
+                BTNModificar.setVisible(true);
+                jButton1.setVisible(false);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"No existe el usuario.", "Usuario", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"El campo se encuentra vacio.", "Campo vacio", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_BTNSearchUserActionPerformed
+
+    private void BTNDarDeBajaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNDarDeBajaUsuarioActionPerformed
+        // TODO add your handling code here:
+        ReadFile rf = new ReadFile();
+        rf.DropOut(TFSearchUser.getText());
+        JOptionPane.showMessageDialog(null,"El ususario ya no esta vigente.", "Vigente", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_BTNDarDeBajaUsuarioActionPerformed
+
+    private void BTNModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNModificarActionPerformed
+            jButton1.setVisible(true);  
+            BTNDarDeBajaUsuario.setVisible(false);
+            BTNModificar.setVisible(false);
+            JOptionPane.showMessageDialog(null,"El ususario se modifico", "Modificar", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_BTNModificarActionPerformed
 
     //BTNAddPhoto
      JFileChooser select = new JFileChooser();

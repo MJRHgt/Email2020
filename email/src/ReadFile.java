@@ -129,7 +129,7 @@ public class ReadFile {
     public String InsertUser2(String user, String pass, String date, String email, int tel, byte[] photoPath, boolean rol, boolean estatus)
     {
         String res = "";
-        //res = InsertUser_P(user,name,lastName,pass,date,email,tel,photoPath,rol,estatus);
+        res = ModifyUser(user,pass,date,email,tel,photoPath,rol,estatus);
         return res;
     }
     
@@ -137,7 +137,7 @@ public class ReadFile {
     public String InsertUser3(String UserL, String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath, boolean rol, boolean estatus)
     {
         String res = "";
-        //res = InsertUser_P(user,name,lastName,pass,date,email,tel,photoPath,rol,estatus);
+        res = InsertUser_P2(UserL,user,name,lastName,pass,date,email,tel,photoPath,rol,estatus);
         return res;
     }
     
@@ -152,7 +152,47 @@ public class ReadFile {
     //Method public darse de baja
     public void DropOut(String user)
     {
+       File file = new File("C:/MEIA/usuario.txt");
+        List<UserClass> users = ReadFileUser(file);
+        file.delete();
+        ValidateFile();
+        
+        for (UserClass uc:users) {
+            if (uc.user.equals(user)) {
+                uc.estatus = false;
+                Insert(uc,file);
+            }
+            else
+            {
+                Insert(uc,file);
+            }
+        }
+         
+    }
     
+    public boolean isUser(String user)
+    {
+        File file = new File("C:/MEIA/usuario.txt");
+        List<UserClass> users = ReadFileUser(file);
+        for (UserClass uc:users) {
+            if (uc.user.equals(user)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public UserClass DataUser(String user)
+    {
+        File file = new File("C:/MEIA/usuario.txt");
+        UserClass userN = new UserClass();
+        List<UserClass> users = ReadFileUser(file);
+        for (UserClass uc:users) {
+            if (uc.user.equals(user)) {
+                userN=uc;
+            }
+        }
+        return userN;
     }
     
     //------------------------------- PRIVATE FUNCTIONS -------------------------------------------
@@ -329,5 +369,84 @@ public class ReadFile {
         return res;
     }
     
+    //method modify
+    private String ModifyUser(String user, String pass, String date, String email, int tel, byte[] photoPath, boolean rol, boolean estatus)
+    {
+        File file = new File("C:/MEIA/usuario.txt");
+        List<UserClass> users = ReadFileUser(file);
+        file.delete();
+        ValidateFile();
+        
+        for (UserClass uc:users) {
+            if (uc.user.equals(user)) {
+                uc.password = pass;
+                uc.date = date;
+                uc.email = email;
+                uc.number = tel;
+                Insert(uc,file);
+                SaveFile(uc.photoPath,photoPath);
+            }
+            else
+            {
+                Insert(uc,file);
+                SaveFile(uc.photoPath,photoPath);
+            }
+        }
+        
+           
+        return "Modificado con exito.";
+    }
     
+    //Method for insert user
+    private String InsertUser_P2(String UserL, String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath,  boolean rol, boolean estatus)
+    {
+        //Validate file empty
+        File fileUser = new File("C:/MEIA/usuario.txt");
+        List<UserClass> users ;
+        if (fileUser.length() == 0) {
+            UserClass userC = new UserClass();
+            userC.user = "admin";
+            userC.name = name;
+            userC.lastName = lastName;
+            userC.password = pass;
+            userC.date = date;
+            userC.email = email;
+            userC.number = tel;
+            userC.photoPath = "C:/MEIA/fotografia/admin.jpeg";//+user+".jpeg";
+            userC.rol = true;//first admin
+            userC.estatus = true; //vigente
+            Insert(userC, fileUser);
+            SaveFile(userC.photoPath,photoPath);
+            //crear metodo para insertar en desc_user.txt
+        }
+        else
+        {
+            //crear una lista de tipo UserClass que obtenga todos los valores del user.txt con un metodo privado 
+            users = ReadFileUser(fileUser);
+            //luego usar el metodo isRepeatuser para verificar que no sea el mismo usuario
+            if (!isRepeatUser(users,user)) 
+            {
+                UserClass userC = new UserClass();
+                userC.user = user;
+                userC.name = name;
+                userC.lastName = lastName;
+                userC.password = pass;
+                userC.date = date;
+                userC.email = email;
+                userC.number = tel;
+                userC.photoPath = "C:/MEIA/fotografia/"+user+".jpeg";//+user+".jpeg";
+                userC.rol = rol;//first admin
+                userC.estatus = estatus; //vigente
+                Insert(userC, fileUser);
+                SaveFile(userC.photoPath,photoPath);
+                //crear metodo para insertar en desc_user.txt
+            }
+            else
+            {
+                return "El usuario '"+user+"' ya existe.";          
+            }
+        }
+        
+        return "Se registro con exito.";
+    }
 }

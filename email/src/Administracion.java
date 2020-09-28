@@ -209,12 +209,17 @@ public class Administracion extends javax.swing.JFrame {
     private void BTNRespaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNRespaldoActionPerformed
         // TODO add your handling code here:
         JFileChooser save = new JFileChooser();
-        save.showSaveDialog(null);
-        save.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        File file = save.getSelectedFile();
-        BackupClass bc = new BackupClass();
-        bc.Backup_Public(LUser.getText(), file.getAbsolutePath());
-        JOptionPane.showMessageDialog(null,"Respaldo con exito.","Respaldo", JOptionPane.INFORMATION_MESSAGE);
+        save.setCurrentDirectory(new File("."));
+        save.setDialogTitle("Seleccione carpeta.");
+        save.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        save.setAcceptAllFileFilterUsed(false);
+        if (save.showOpenDialog(this)== JFileChooser.APPROVE_OPTION) {
+            File file = save.getCurrentDirectory();
+            BackupClass bc = new BackupClass();
+            bc.Backup_Public(LUser.getText(), file.getAbsolutePath());
+            JOptionPane.showMessageDialog(null,"Respaldo con exito.","Respaldo", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
     }//GEN-LAST:event_BTNRespaldoActionPerformed
 
     /**

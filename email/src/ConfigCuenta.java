@@ -309,8 +309,8 @@ public class ConfigCuenta extends javax.swing.JFrame {
                 Tel = Integer.parseInt(TFAddPhoneNumber.getText());
                 String message = rf.InsertUser2(user,passCypher,String.valueOf(sdf.format(fecha).toString()),
                                                TFAddAltEmail.getText(), Tel,photo,false,true);
-                if (message.equals("Se registro con exito.")) {
-                    JOptionPane.showMessageDialog(null,message, "Crear Usuario", JOptionPane.INFORMATION_MESSAGE);
+                if (message.equals("Modificado con exito.")) {
+                    JOptionPane.showMessageDialog(null,message, "Modificar Usuario", JOptionPane.INFORMATION_MESSAGE);
                     //Regresar al Login
                     Login open = new Login();
                     open.setVisible(true);
@@ -472,7 +472,7 @@ public class ConfigCuenta extends javax.swing.JFrame {
         ReadFile rf = new ReadFile();
         rf.DropOut(user);
         JOptionPane.showMessageDialog(null,"El usuario se dio de baja.", "Usuario no vigente", JOptionPane.INFORMATION_MESSAGE);
-        Administracion open = new Administracion();
+        Login open = new Login();
         open.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BTNDarseDeBajaActionPerformed
