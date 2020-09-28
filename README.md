@@ -11,6 +11,8 @@
 **Serie I**
 
 - *Login*
+- *Usuario administrador*
+- *Generar archivos y modificarlos*
 
 ### Pre-requisitos 📋
 
@@ -22,6 +24,6 @@
 
 ## Autores ✒️
 
-- **Walter Orozco** - 
-- **Luis Roldán** - 
-- **Mario Roldán** - 
+- **Walter Orozco** 
+- **Luis Roldán** 
+- **Mario Roldán**  
