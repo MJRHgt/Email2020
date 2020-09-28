@@ -40,6 +40,7 @@ public class CrearCuenta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPasswordField1 = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         TFAddUser = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -62,6 +63,8 @@ public class CrearCuenta extends javax.swing.JFrame {
         LabelLevel = new javax.swing.JLabel();
         TFAddPhoneNumber = new javax.swing.JTextField();
         jDCDate = new com.toedter.calendar.JDateChooser();
+
+        jPasswordField1.setText("jPasswordField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,6 +116,11 @@ public class CrearCuenta extends javax.swing.JFrame {
         jLabel4.setText("Nacimiento");
 
         TFAddPhoto.setText("Seleccionar archivo");
+        TFAddPhoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFAddPhotoActionPerformed(evt);
+            }
+        });
         TFAddPhoto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFAddPhotoKeyTyped(evt);
@@ -286,9 +294,9 @@ public class CrearCuenta extends javax.swing.JFrame {
                         .addComponent(TFAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(BTNAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonRegresar)
-                    .addComponent(ButtonInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ButtonInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonRegresar))
                 .addGap(27, 27, 27))
         );
 
@@ -296,9 +304,7 @@ public class CrearCuenta extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -537,6 +543,10 @@ public class CrearCuenta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TFAddPhotoKeyTyped
 
+    private void TFAddPhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFAddPhotoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFAddPhotoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -595,5 +605,6 @@ public class CrearCuenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
     // End of variables declaration//GEN-END:variables
 }

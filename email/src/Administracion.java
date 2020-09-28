@@ -1,3 +1,8 @@
+
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +20,7 @@ public class Administracion extends javax.swing.JFrame {
      */
     public Administracion() {
         initComponents();
+        
     }
 
     /**
@@ -33,8 +39,11 @@ public class Administracion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        LFoto = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        LUser = new javax.swing.JLabel();
+        LRol = new javax.swing.JLabel();
+        ButtonExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(15, 0, 105));
@@ -42,7 +51,8 @@ public class Administracion extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(15, 0, 105));
 
-        BTNConfigCuenta.setBackground(new java.awt.Color(0, 153, 153));
+        BTNConfigCuenta.setBackground(new java.awt.Color(17, 81, 0));
+        BTNConfigCuenta.setForeground(new java.awt.Color(255, 255, 255));
         BTNConfigCuenta.setText("Cambiar configuración de la cuenta");
         BTNConfigCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,7 +60,8 @@ public class Administracion extends javax.swing.JFrame {
             }
         });
 
-        BTNOpcionesAdmin.setBackground(new java.awt.Color(0, 153, 0));
+        BTNOpcionesAdmin.setBackground(new java.awt.Color(17, 81, 0));
+        BTNOpcionesAdmin.setForeground(new java.awt.Color(255, 255, 255));
         BTNOpcionesAdmin.setText("Opciones de administrador");
         BTNOpcionesAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,68 +69,104 @@ public class Administracion extends javax.swing.JFrame {
             }
         });
 
-        BTNRespaldo.setBackground(new java.awt.Color(102, 0, 102));
+        BTNRespaldo.setBackground(new java.awt.Color(17, 81, 0));
+        BTNRespaldo.setForeground(new java.awt.Color(255, 255, 255));
         BTNRespaldo.setText("Respaldo de la Información");
+        BTNRespaldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNRespaldoActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setText("Usuario");
+        jLabel1.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Usuario:");
 
-        jLabel3.setText("Rol");
+        jLabel3.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Rol:");
 
-        jLabel4.setText("Fotografia");
-
-        jLabel5.setText("jLabel5");
+        jLabel4.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Fotografia:");
 
         jLabel6.setFont(new java.awt.Font("Castellar", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(237, 178, 0));
         jLabel6.setText("Administración");
+
+        LUser.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
+        LUser.setForeground(new java.awt.Color(255, 191, 0));
+        LUser.setText("___________________");
+
+        LRol.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
+        LRol.setForeground(new java.awt.Color(255, 191, 0));
+        LRol.setText("______________________");
+
+        ButtonExit.setBackground(new java.awt.Color(97, 0, 0));
+        ButtonExit.setForeground(new java.awt.Color(255, 255, 255));
+        ButtonExit.setText("Salir");
+        ButtonExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(120, 120, 120))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BTNConfigCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3)
-                            .addComponent(BTNOpcionesAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BTNRespaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(74, 74, 74))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(188, 188, 188)
                 .addComponent(jLabel6)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(ButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(BTNConfigCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addComponent(BTNOpcionesAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BTNRespaldo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(LUser, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LRol))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4))
-                .addGap(91, 91, 91)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LUser)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BTNConfigCuenta)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(LRol)
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BTNConfigCuenta)
+                            .addComponent(ButtonExit))
+                        .addGap(18, 18, 18)
                         .addComponent(BTNOpcionesAdmin)
                         .addGap(18, 18, 18)
                         .addComponent(BTNRespaldo))
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(LFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(204, 204, 204))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -130,24 +177,45 @@ public class Administracion extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BTNConfigCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNConfigCuentaActionPerformed
+    private void ButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExitActionPerformed
         // TODO add your handling code here:
-        ConfigCuenta config = new ConfigCuenta();
-        config.setVisible(true);
-        //this.setVisible(false);
-    }//GEN-LAST:event_BTNConfigCuentaActionPerformed
+        Login open = new Login();
+        open.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ButtonExitActionPerformed
 
     private void BTNOpcionesAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNOpcionesAdminActionPerformed
         // TODO add your handling code here:
         OpcionesAdmin opcAdmin = new OpcionesAdmin();
         opcAdmin.setVisible(true);
+        opcAdmin.user = LUser.getText();
+        //this.dispose();
     }//GEN-LAST:event_BTNOpcionesAdminActionPerformed
+
+    private void BTNConfigCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNConfigCuentaActionPerformed
+        // TODO add your handling code here:
+        ConfigCuenta config = new ConfigCuenta();
+        config.setVisible(true);
+        config.user = LUser.getText();
+        //this.dispose();
+    }//GEN-LAST:event_BTNConfigCuentaActionPerformed
+
+    private void BTNRespaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNRespaldoActionPerformed
+        // TODO add your handling code here:
+        JFileChooser save = new JFileChooser();
+        save.showSaveDialog(null);
+        save.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        File file = save.getSelectedFile();
+        BackupClass bc = new BackupClass();
+        bc.Backup_Public(LUser.getText(), file.getAbsolutePath());
+        JOptionPane.showMessageDialog(null,"Respaldo con exito.","Respaldo", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_BTNRespaldoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,12 +254,15 @@ public class Administracion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTNConfigCuenta;
-    private javax.swing.JButton BTNOpcionesAdmin;
-    private javax.swing.JButton BTNRespaldo;
+    public static javax.swing.JButton BTNOpcionesAdmin;
+    public static javax.swing.JButton BTNRespaldo;
+    private javax.swing.JButton ButtonExit;
+    public static javax.swing.JLabel LFoto;
+    public static javax.swing.JLabel LRol;
+    public static javax.swing.JLabel LUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

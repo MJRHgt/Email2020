@@ -1,6 +1,12 @@
 
+import java.awt.Color;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -32,12 +38,6 @@ public class ConfigCuenta extends javax.swing.JFrame {
 
         jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        TFNewPhoneNumber = new javax.swing.JTextField();
-        CBNewDay = new javax.swing.JComboBox<>();
-        CBNewMonth = new javax.swing.JComboBox<>();
-        CBNewYear = new javax.swing.JComboBox<>();
-        TFNewPhoto = new javax.swing.JTextField();
-        BTNNewPhoto = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -45,12 +45,18 @@ public class ConfigCuenta extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        TFNewPassword = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        TFNewAltEmail = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         BTNDarseDeBaja = new javax.swing.JButton();
+        jDCDate = new com.toedter.calendar.JDateChooser();
+        TFAddPassword = new javax.swing.JTextField();
+        LabelLevel = new javax.swing.JLabel();
+        TFAddAltEmail = new javax.swing.JTextField();
+        TFAddPhoneNumber = new javax.swing.JTextField();
+        BTNAddPhoto = new javax.swing.JButton();
+        TFAddPhoto = new javax.swing.JTextField();
+        ButtonExit = new javax.swing.JButton();
 
         jLabel7.setFont(new java.awt.Font("Castellar", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(237, 178, 0));
@@ -61,42 +67,25 @@ public class ConfigCuenta extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(15, 0, 105));
 
-        CBNewDay.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        CBNewDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Día", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-
-        CBNewMonth.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        CBNewMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mes", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
-
-        CBNewYear.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        CBNewYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Año", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953", "1952", "1951", "1950", "1949", "1948", "1947", "1946", "1945", "1944", "1943", "1942", "1941", "1940", "1939", "1938", "1937", "1936", "1935", "1934", "1933", "1932", "1931", "1930", "1929", "1928", "1927", "1926", "1925", "1924", "1923", "1922", "1921", "1920" }));
-
-        TFNewPhoto.setEditable(false);
-        TFNewPhoto.setBackground(new java.awt.Color(18, 30, 49));
-        TFNewPhoto.setText("Seleccionar archivo");
-        TFNewPhoto.setEnabled(false);
-
-        BTNNewPhoto.setBackground(new java.awt.Color(18, 30, 49));
-        BTNNewPhoto.setText("...");
-        BTNNewPhoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BTNNewPhotoActionPerformed(evt);
-            }
-        });
-
         jLabel8.setForeground(new java.awt.Color(153, 153, 153));
         jLabel8.setText("____________________________");
 
         jLabel9.setForeground(new java.awt.Color(153, 153, 153));
         jLabel9.setText("____________________________");
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nueva contraseña");
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nuevo correo alterno");
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Fecha de nacimiento");
 
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Nuevo teléfono");
 
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Nueva fotografía");
 
         jLabel10.setForeground(new java.awt.Color(153, 153, 153));
@@ -107,7 +96,7 @@ public class ConfigCuenta extends javax.swing.JFrame {
         jLabel11.setText("Información de la cuenta");
 
         jButton1.setBackground(new java.awt.Color(0, 153, 0));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Actualizar información");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,8 +105,70 @@ public class ConfigCuenta extends javax.swing.JFrame {
         });
 
         BTNDarseDeBaja.setBackground(new java.awt.Color(204, 0, 51));
-        BTNDarseDeBaja.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        BTNDarseDeBaja.setForeground(new java.awt.Color(255, 255, 255));
         BTNDarseDeBaja.setText("Darse de baja");
+        BTNDarseDeBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNDarseDeBajaActionPerformed(evt);
+            }
+        });
+
+        TFAddPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFAddPasswordActionPerformed(evt);
+            }
+        });
+        TFAddPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TFAddPasswordKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddPasswordKeyTyped(evt);
+            }
+        });
+
+        LabelLevel.setForeground(new java.awt.Color(255, 0, 0));
+
+        TFAddAltEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TFAddAltEmailFocusLost(evt);
+            }
+        });
+        TFAddAltEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddAltEmailKeyTyped(evt);
+            }
+        });
+
+        TFAddPhoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddPhoneNumberKeyTyped(evt);
+            }
+        });
+
+        BTNAddPhoto.setBackground(new java.awt.Color(18, 30, 49));
+        BTNAddPhoto.setText("...");
+        BTNAddPhoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNAddPhotoActionPerformed(evt);
+            }
+        });
+
+        TFAddPhoto.setText("Seleccionar archivo");
+        TFAddPhoto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddPhotoKeyTyped(evt);
+            }
+        });
+
+        ButtonExit.setBackground(new java.awt.Color(97, 0, 0));
+        ButtonExit.setForeground(new java.awt.Color(255, 255, 255));
+        ButtonExit.setText("Salir");
+        ButtonExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -127,44 +178,50 @@ public class ConfigCuenta extends javax.swing.JFrame {
                 .addGap(79, 79, 79)
                 .addComponent(jLabel11)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(TFAddPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TFAddAltEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDCDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFAddPassword))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(LabelLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(TFNewPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                            .addComponent(CBNewDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(CBNewMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(CBNewYear, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(TFNewAltEmail)
-                                .addComponent(TFNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TFAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(TFNewPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(BTNNewPhoto))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BTNDarseDeBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)))
-                        .addContainerGap(23, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BTNAddPhoto))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(BTNDarseDeBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 27, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(210, 210, 210)
+                                .addComponent(ButtonExit)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,84 +231,251 @@ public class ConfigCuenta extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(jLabel1)
                 .addGap(4, 4, 4)
-                .addComponent(TFNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LabelLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TFAddPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addGap(3, 3, 3)
-                .addComponent(TFNewAltEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TFAddAltEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CBNewDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CBNewMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CBNewYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jDCDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
                 .addComponent(jLabel5)
-                .addGap(1, 1, 1)
-                .addComponent(TFNewPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(7, 7, 7)
+                .addComponent(TFAddPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
+                .addGap(8, 8, 8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TFAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BTNAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(42, 42, 42)
+                        .addComponent(jButton1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TFNewPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BTNNewPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
                             .addComponent(jLabel8)
                             .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(BTNDarseDeBaja))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10)
-                        .addGap(61, 61, 61))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BTNDarseDeBaja)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(ButtonExit)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BTNNewPhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNNewPhotoActionPerformed
-        // TODO add your handling code here:
-        JFileChooser dialogo = new JFileChooser();
-
-        File ficheroImagen;
-        String rutaArchivo = "";
-        int valor = dialogo.showOpenDialog(this);
-        if (valor == JFileChooser.APPROVE_OPTION) {
-            ficheroImagen = dialogo.getSelectedFile();
-            rutaArchivo = ficheroImagen.getPath();
-        }
-        TFNewPhoto.setEnabled(true);
-        TFNewPhoto.setText(rutaArchivo);
-    }//GEN-LAST:event_BTNNewPhotoActionPerformed
-
+    public String user;
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String newPassword = (String)TFNewPassword.getText();
-        String newAltEmail = (String)TFNewAltEmail.getText();
-        String newDay = (String)CBNewDay.getSelectedItem( );
-        String newMonth = (String)CBNewMonth.getSelectedItem( );
-        String newYear = (String)CBNewDay.getSelectedItem( );
-        String newPhoneNumber = (String)TFNewPhoneNumber.getText();
+        // Enviar datos verificados para realizar el insert
+        ReadFile rf = new ReadFile();//instance class
+        Password ClassPass = new Password();//instance class
+        String levelPass = ClassPass.algorithmPass(TFAddPassword.getText());
+        //validate not null fieldtext
+        if ((TFAddPassword.getText().length() != 0) && (TFAddPhoneNumber.getText().length() != 0) && 
+            (TFAddAltEmail.getText().length() != 0)&& (!TFAddPhoto.getText().equals("Seleccionar archivo")) && (jDCDate.getDate() != null)) 
+        {
+            if (levelPass.equals("Nivel Alto.") || levelPass.equals("Nivel Medio.") || levelPass.equals("Nivel Medio alto.")) 
+            {
+                String formato = jDCDate.getDateFormatString();               
+                Date fecha = jDCDate.getDate();
+                SimpleDateFormat sdf = new SimpleDateFormat(formato);
+                String passCypher = ClassPass.P_encode("meia", TFAddPassword.getText());//encode
+                int Tel = 0;
+                Tel = Integer.parseInt(TFAddPhoneNumber.getText());
+                String message = rf.InsertUser2(user,passCypher,String.valueOf(sdf.format(fecha).toString()),
+                                               TFAddAltEmail.getText(), Tel,photo,false,true);
+                if (message.equals("Se registro con exito.")) {
+                    JOptionPane.showMessageDialog(null,message, "Crear Usuario", JOptionPane.INFORMATION_MESSAGE);
+                    //Regresar al Login
+                    Login open = new Login();
+                    open.setVisible(true);
+                    this.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,message, "Crear Uusario", JOptionPane.INFORMATION_MESSAGE);
+                }     
+            }else{
+                JOptionPane.showMessageDialog(null,"Aumente nivel de contraseña.", "Campo Contraseña", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Existen todavia campos vacios.", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
+        }      
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void TFAddPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFAddPasswordActionPerformed
+        // Insert password the new user
+    }//GEN-LAST:event_TFAddPasswordActionPerformed
+
+    private void TFAddPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddPasswordKeyReleased
+        //Permiso para modificar la etiqueta
+        LabelLevel.setOpaque(true);
+        // Para modificar el nivel de la contraseña
+        String password = TFAddPassword.getText();
+        //instancear clase
+        Password CP = new Password();//class password
+        String levelPass = CP.algorithmPass(password);
+        //color panel
+        Color BlueN = new Color(9,0,103);
+        //depend the level
+        if(levelPass.equals("Nivel Bajo."))
+        {
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.red);
+            LabelLevel.setBackground(BlueN);
+        }
+        else if (levelPass.equals("Nivel Medio."))
+        {
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.orange);
+            LabelLevel.setBackground(BlueN);
+        }
+        else if (levelPass.equals("Nivel Medio alto."))
+        {
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.yellow);
+            LabelLevel.setBackground(BlueN);
+        }
+        else if (levelPass.equals("Nivel Alto."))
+        {
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.green);
+            LabelLevel.setBackground(BlueN);
+        }
+        else
+        {
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.white);
+            LabelLevel.setBackground(BlueN);
+        }
+    }//GEN-LAST:event_TFAddPasswordKeyReleased
+
+    private void TFAddPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddPasswordKeyTyped
+        // varchar 40
+        if (TFAddPassword.getText().length()== 40)
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TFAddPasswordKeyTyped
+
+    //Method for ER email
+    private boolean isEmail(String email)
+    {
+        Pattern pat = null;
+        Matcher mat = null;
+        pat = Pattern.compile("^[\\w\\\\\\+]+(\\.[\\w\\\\]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$");
+        mat = pat.matcher(email);
+        if (mat.find()) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private void TFAddAltEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFAddAltEmailFocusLost
+        // TODO add your handling code here:
+        if (isEmail(TFAddAltEmail.getText())) {
+            //no hace nada porque esta bien
+        }else{
+            JOptionPane.showMessageDialog(null,"Email Incorrecto","Validar email", JOptionPane.INFORMATION_MESSAGE);
+            TFAddAltEmail.requestFocus();
+        }
+    }//GEN-LAST:event_TFAddAltEmailFocusLost
+
+    private void TFAddAltEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddAltEmailKeyTyped
+        // varchar 40
+        if (TFAddAltEmail.getText().length()== 40)
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TFAddAltEmailKeyTyped
+
+    private void TFAddPhoneNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddPhoneNumberKeyTyped
+        // Solo puede ingresar numeros
+        char c = evt.getKeyChar();
+
+        if (c<'0' || c>'9') {
+            evt.consume();
+            JOptionPane.showMessageDialog(null,"Solo números", "Valdiar números", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_TFAddPhoneNumberKeyTyped
+
+    //BTNAddPhoto
+     JFileChooser select = new JFileChooser();
+     File file;
+     byte[] photo;
+     
+    private void BTNAddPhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNAddPhotoActionPerformed
+        // Get photo
+        if (select.showDialog(null, null) == JFileChooser.APPROVE_OPTION ) {
+            file = select.getSelectedFile();
+            if (file.canRead()) {
+                if (file.getName().endsWith("jpg")||file.getName().endsWith("png") || file.getName().endsWith("gif")) {
+                    //instance class
+                    ReadFile rf = new ReadFile();
+                    photo = rf.OpenFile(file);
+                    TFAddPhoto.setText(file.getPath().toString());
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Archivo no compatible");
+            }
+        }
+    }//GEN-LAST:event_BTNAddPhotoActionPerformed
+
+    private void TFAddPhotoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddPhotoKeyTyped
+        // varchar 200
+        if (TFAddAltEmail.getText().length()== 200)
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TFAddPhotoKeyTyped
+
+    private void ButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExitActionPerformed
+        // TODO add your handling code here:
+        Administracion open = new Administracion();
+        open.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ButtonExitActionPerformed
+
+    private void BTNDarseDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNDarseDeBajaActionPerformed
+        // TODO add your handling code here:
+        ReadFile rf = new ReadFile();
+        rf.DropOut(user);
+        JOptionPane.showMessageDialog(null,"El usuario se dio de baja.", "Usuario no vigente", JOptionPane.INFORMATION_MESSAGE);
+        Administracion open = new Administracion();
+        open.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BTNDarseDeBajaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,16 +513,16 @@ public class ConfigCuenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BTNAddPhoto;
     private javax.swing.JButton BTNDarseDeBaja;
-    private javax.swing.JButton BTNNewPhoto;
-    private javax.swing.JComboBox<String> CBNewDay;
-    private javax.swing.JComboBox<String> CBNewMonth;
-    private javax.swing.JComboBox<String> CBNewYear;
-    private javax.swing.JTextField TFNewAltEmail;
-    private javax.swing.JTextField TFNewPassword;
-    private javax.swing.JTextField TFNewPhoneNumber;
-    private javax.swing.JTextField TFNewPhoto;
+    private javax.swing.JButton ButtonExit;
+    private javax.swing.JLabel LabelLevel;
+    private javax.swing.JTextField TFAddAltEmail;
+    private javax.swing.JTextField TFAddPassword;
+    private javax.swing.JTextField TFAddPhoneNumber;
+    private javax.swing.JTextField TFAddPhoto;
     private javax.swing.JButton jButton1;
+    private com.toedter.calendar.JDateChooser jDCDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

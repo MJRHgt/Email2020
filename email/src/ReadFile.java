@@ -52,17 +52,13 @@ public class ReadFile {
             {
                 archivoUser.createNewFile();
             }
-
-            //FileWriter fw = new FileWriter(archivoUser);
-            //BufferedWriter bw = new BufferedWriter(fw);
-            //bw.write("asd");
-            //bw.close();
-            //Exist File desc_user
+            
             File archivoDescUser = new File("C:/MEIA/desc_usuario.txt");
             if (!archivoDescUser.exists())
             {
                 archivoDescUser.createNewFile();
             }    
+            
             //Exist File bitacora_backup
             File archivoBit_b = new File("C:/MEIA/bitacora_backup.txt");
             if (!archivoBit_b.exists())
@@ -74,6 +70,19 @@ public class ReadFile {
             if (!archivoDescBit_br.exists())
             {
                 archivoDescBit_br.createNewFile();
+            }   
+            
+            //Exist File bitacora_backup
+            File archivoBit_user = new File("C:/MEIA/bitacora_usuario.txt");
+            if (!archivoBit_user.exists())
+            {
+                archivoBit_user.createNewFile();
+            }   
+            //Exist File desc_bitacora_backup"
+            File archivoDescBit_user = new File("C:/MEIA/desc_bitacora_usuario.txt");
+            if (!archivoDescBit_user.exists())
+            {
+                archivoDescBit_user.createNewFile();
             }   
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,12 +125,26 @@ public class ReadFile {
         return res;
     }
     
+    //Method public for insert user
+    public String InsertUser2(String user, String pass, String date, String email, int tel, byte[] photoPath, boolean rol, boolean estatus)
+    {
+        String res = "";
+        //res = InsertUser_P(user,name,lastName,pass,date,email,tel,photoPath,rol,estatus);
+        return res;
+    }
+    
     //Method public login
     public String Login(String user, String password)
     {
         String res = "";
         res = Login_V(user,password);
         return res;
+    }
+    
+    //Method public darse de baja
+    public void DropOut(String user)
+    {
+    
     }
     
     //------------------------------- PRIVATE FUNCTIONS -------------------------------------------
@@ -297,4 +320,6 @@ public class ReadFile {
          }
         return res;
     }
+    
+    
 }

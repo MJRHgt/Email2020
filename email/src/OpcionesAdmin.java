@@ -42,52 +42,47 @@ public class OpcionesAdmin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        TFAddLastName = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         TFSearchUser = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         BTNSearchUser = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        TFAddPassword = new javax.swing.JTextField();
         BTNDarDeBajaUsuario = new javax.swing.JButton();
-        TFAddAltEmail = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        TFAddPhoneNumber = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        CBAddDay = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        CBAddMonth = new javax.swing.JComboBox<>();
-        CBAddYear = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        TFAddPhoto = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        BTNAddPhoto = new javax.swing.JButton();
         TFAddUser = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         TFAddName = new javax.swing.JTextField();
+        TFAddLastName = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        TFAddPassword = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        TFAddAltEmail = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jDCDate = new com.toedter.calendar.JDateChooser();
+        jLabel5 = new javax.swing.JLabel();
+        TFAddPhoneNumber = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        TFAddPhoto = new javax.swing.JTextField();
+        BTNAddPhoto = new javax.swing.JButton();
+        LabelLevel = new javax.swing.JLabel();
+        BTNModificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(15, 0, 105));
 
-        jLabel8.setText("Nombre");
-
-        jLabel9.setText("Apellido");
-
-        jLabel11.setText("Usuario a buscar");
-
-        jLabel5.setText("Teléfono");
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Buscar");
 
         BTNSearchUser.setBackground(new java.awt.Color(18, 30, 49));
+        BTNSearchUser.setForeground(new java.awt.Color(255, 255, 255));
         BTNSearchUser.setText("Buscar");
-
-        jLabel6.setText("Fotografía");
 
         jButton1.setBackground(new java.awt.Color(0, 204, 0));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Ingresar usuario");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +91,7 @@ public class OpcionesAdmin extends javax.swing.JFrame {
         });
 
         BTNDarDeBajaUsuario.setBackground(new java.awt.Color(153, 0, 51));
-        BTNDarDeBajaUsuario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        BTNDarDeBajaUsuario.setForeground(new java.awt.Color(255, 255, 255));
         BTNDarDeBajaUsuario.setText("Dar de baja a este usuario");
 
         jLabel12.setBackground(new java.awt.Color(237, 178, 0));
@@ -107,30 +102,97 @@ public class OpcionesAdmin extends javax.swing.JFrame {
         jLabel13.setBackground(new java.awt.Color(237, 178, 0));
         jLabel13.setFont(new java.awt.Font("High Tower Text", 3, 24)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(237, 178, 0));
-        jLabel13.setText("INGRESO DE UN NUEVO USURIO");
+        jLabel13.setText("INGRESO DE UN NUEVO USUARIO");
 
-        CBAddDay.setBackground(new java.awt.Color(18, 30, 49));
-        CBAddDay.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        CBAddDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Día", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        TFAddUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddUserKeyTyped(evt);
+            }
+        });
 
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Usuario");
+
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Nombre");
+
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Apellido");
+
+        TFAddName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddNameKeyTyped(evt);
+            }
+        });
+
+        TFAddLastName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddLastNameKeyTyped(evt);
+            }
+        });
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Constraseña");
 
-        CBAddMonth.setBackground(new java.awt.Color(18, 30, 49));
-        CBAddMonth.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        CBAddMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mes", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        TFAddPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFAddPasswordActionPerformed(evt);
+            }
+        });
+        TFAddPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TFAddPasswordKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddPasswordKeyTyped(evt);
+            }
+        });
 
-        CBAddYear.setBackground(new java.awt.Color(18, 30, 49));
-        CBAddYear.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        CBAddYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Año", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953", "1952", "1951", "1950", "1949", "1948", "1947", "1946", "1945", "1944", "1943", "1942", "1941", "1940", "1939", "1938", "1937", "1936", "1935", "1934", "1933", "1932", "1931", "1930", "1929", "1928", "1927", "1926", "1925", "1924", "1923", "1922", "1921", "1920" }));
-
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Correo alterno");
 
-        TFAddPhoto.setEditable(false);
-        TFAddPhoto.setBackground(new java.awt.Color(18, 30, 49));
-        TFAddPhoto.setText("Seleccionar archivo");
-        TFAddPhoto.setEnabled(false);
+        TFAddAltEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TFAddAltEmailFocusLost(evt);
+            }
+        });
+        TFAddAltEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddAltEmailKeyTyped(evt);
+            }
+        });
 
-        jLabel4.setText("Fecha de nacimiento");
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Nacimiento");
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Teléfono");
+
+        TFAddPhoneNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFAddPhoneNumberActionPerformed(evt);
+            }
+        });
+        TFAddPhoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddPhoneNumberKeyTyped(evt);
+            }
+        });
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Fotografía");
+
+        TFAddPhoto.setText("Seleccionar archivo");
+        TFAddPhoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFAddPhotoActionPerformed(evt);
+            }
+        });
+        TFAddPhoto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFAddPhotoKeyTyped(evt);
+            }
+        });
 
         BTNAddPhoto.setBackground(new java.awt.Color(18, 30, 49));
         BTNAddPhoto.setText("...");
@@ -140,132 +202,131 @@ public class OpcionesAdmin extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setText("Usuario");
+        LabelLevel.setForeground(new java.awt.Color(255, 0, 0));
+
+        BTNModificar.setBackground(new java.awt.Color(18, 30, 49));
+        BTNModificar.setForeground(new java.awt.Color(255, 255, 255));
+        BTNModificar.setText("Modificar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(131, 131, 131)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel13))
-                        .addGap(65, 65, 65))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel3)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel11)))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TFAddName, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TFAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
-                                .addGap(34, 34, 34)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TFAddPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(TFAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(BTNAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel12)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(TFAddLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jLabel3))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(TFAddAltEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(TFAddPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(CBAddDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(CBAddMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(CBAddYear, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel7)
-                                        .addComponent(jLabel8))
-                                    .addGap(46, 46, 46)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(TFAddUser)
-                                        .addComponent(TFAddName, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TFSearchUser, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(BTNSearchUser)))
-                        .addGap(64, 64, 64))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel12)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(TFAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(BTNAddPhoto))
+                                        .addComponent(TFAddAltEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(TFAddPassword, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(TFAddLastName, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jDCDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(TFAddPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(LabelLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(77, 77, 77))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(TFSearchUser, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BTNModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BTNSearchUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(193, 193, 193)
-                .addComponent(BTNDarDeBajaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(192, 192, 192)
+                        .addComponent(BTNDarDeBajaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel13)))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(182, 182, 182)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TFAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TFAddName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(TFAddLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TFAddPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(TFAddUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(TFAddAltEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(CBAddDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CBAddMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CBAddYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8)
+                    .addComponent(TFAddName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TFAddLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LabelLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(TFAddPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TFAddAltEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDCDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(TFAddPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(TFAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BTNAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(TFAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BTNAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(TFSearchUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BTNSearchUser))
-                .addGap(18, 18, 18)
-                .addComponent(BTNDarDeBajaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BTNDarDeBajaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BTNModificar))
+                .addGap(31, 31, 31))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -276,32 +337,16 @@ public class OpcionesAdmin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //BTNAddPhoto
-     JFileChooser select = new JFileChooser();
-     File file;
-     byte[] photo;
-     
-    private void BTNAddPhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNAddPhotoActionPerformed
-        // TODO add your handling code here:
-        JFileChooser dialogo = new JFileChooser();
-
-        File ficheroImagen;
-        String rutaArchivo = "";
-        int valor = dialogo.showOpenDialog(this);
-        if (valor == JFileChooser.APPROVE_OPTION) {
-            ficheroImagen = dialogo.getSelectedFile();
-            rutaArchivo = ficheroImagen.getPath();
-        }
-        TFAddPhoto.setEnabled(true);
-        TFAddPhoto.setText(rutaArchivo);
-    }//GEN-LAST:event_BTNAddPhotoActionPerformed
-
+    public String user ;
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         // Enviar datos verificados para realizar el insert
@@ -310,29 +355,25 @@ public class OpcionesAdmin extends javax.swing.JFrame {
         String levelPass = ClassPass.algorithmPass(TFAddPassword.getText());
         //validate not null fieldtext
         if ((TFAddPassword.getText().length() != 0) && (TFAddPhoneNumber.getText().length() != 0) && (TFAddUser.getText().length() != 0)
-                && (TFAddName.getText().length() != 0) && (TFAddLastName.getText().length() != 0) && (TFAddAltEmail.getText().length() != 0)
-                && (!TFAddPhoto.getText().equals("Seleccionar archivo")) && (jDCDate.getDate() != null)) 
+            && (TFAddName.getText().length() != 0) && (TFAddLastName.getText().length() != 0) && (TFAddAltEmail.getText().length() != 0)
+            && (!TFAddPhoto.getText().equals("Seleccionar archivo")) && (jDCDate.getDate() != null))
         {
-            if (levelPass.equals("Nivel Alto.") || levelPass.equals("Nivel Medio.") || levelPass.equals("Nivel Medio alto.")) 
+            if (levelPass.equals("Nivel Alto.") || levelPass.equals("Nivel Medio.") || levelPass.equals("Nivel Medio alto."))
             {
-                String formato = jDCDate.getDateFormatString();               
+                String formato = jDCDate.getDateFormatString();
                 Date fecha = jDCDate.getDate();
                 SimpleDateFormat sdf = new SimpleDateFormat(formato);
                 String passCypher = ClassPass.P_encode("meia", TFAddPassword.getText());//encode
                 int Tel = 0;
                 Tel = Integer.parseInt(TFAddPhoneNumber.getText());
-                String message = rf.InsertUser(TFAddUser.getText(),TFAddName.getText(),TFAddLastName.getText(),passCypher,String.valueOf(sdf.format(fecha).toString()),
-                                               TFAddAltEmail.getText(), Tel,photo,false,true);
+                String message = rf.InsertUser3(user,TFAddUser.getText(),TFAddName.getText(),TFAddLastName.getText(),passCypher,String.valueOf(sdf.format(fecha).toString()),
+                    TFAddAltEmail.getText(), Tel,photo,false,true);
                 if (message.equals("Se registro con exito.")) {
                     JOptionPane.showMessageDialog(null,message, "Crear Usuario", JOptionPane.INFORMATION_MESSAGE);
-                    //Regresar al Login
-                    Login open = new Login();
-                    open.setVisible(true);
-                    this.dispose();
                 }
                 else{
                     JOptionPane.showMessageDialog(null,message, "Crear Uusario", JOptionPane.INFORMATION_MESSAGE);
-                }     
+                }
             }else{
                 JOptionPane.showMessageDialog(null,"Aumente nivel de contraseña.", "Campo Contraseña", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -340,35 +381,172 @@ public class OpcionesAdmin extends javax.swing.JFrame {
         else
         {
             JOptionPane.showMessageDialog(null,"Existen todavia campos vacios.", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
-        }        
-    }                                            
-
-    private void TFAddPhoneNumberKeyTyped(java.awt.event.KeyEvent evt) {                                          
-        // Solo puede ingresar numeros
-        char c = evt.getKeyChar();
-        
-        if (c<'0' || c>'9') {
-            evt.consume();
-            JOptionPane.showMessageDialog(null,"Solo números", "Valdiar números", JOptionPane.INFORMATION_MESSAGE);
         }
-    }                                         
+        }
 
-    //Method for ER email
-    private boolean isEmail(String email)
-    {
-        Pattern pat = null;
-        Matcher mat = null;
-        pat = Pattern.compile("^[\\w\\\\\\+]+(\\.[\\w\\\\]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$");
-        mat = pat.matcher(email);
-        if (mat.find()) {
-            return true;
+        //Method for ER email
+        private boolean isEmail(String email)
+        {
+            Pattern pat = null;
+            Matcher mat = null;
+            pat = Pattern.compile("^[\\w\\\\\\+]+(\\.[\\w\\\\]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$");
+            mat = pat.matcher(email);
+            if (mat.find()) {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void TFAddUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddUserKeyTyped
+        // varchar 20
+        if (TFAddUser.getText().length()== 20)
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TFAddUserKeyTyped
+
+    private void TFAddNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddNameKeyTyped
+        // varchar 30
+        if (TFAddName.getText().length()== 30)
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TFAddNameKeyTyped
+
+    private void TFAddLastNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddLastNameKeyTyped
+        // varchar 30
+        if (TFAddLastName.getText().length()== 30)
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TFAddLastNameKeyTyped
+
+    private void TFAddPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFAddPasswordActionPerformed
+        // Insert password the new user
+    }//GEN-LAST:event_TFAddPasswordActionPerformed
+
+    private void TFAddPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddPasswordKeyReleased
+        //Permiso para modificar la etiqueta
+        LabelLevel.setOpaque(true);
+        // Para modificar el nivel de la contraseña
+        String password = TFAddPassword.getText();
+        //instancear clase
+        Password CP = new Password();//class password
+        String levelPass = CP.algorithmPass(password);
+        //color panel
+        Color BlueN = new Color(9,0,103);
+        //depend the level
+        if(levelPass.equals("Nivel Bajo."))
+        {
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.red);
+            LabelLevel.setBackground(BlueN);
+        }
+        else if (levelPass.equals("Nivel Medio."))
+        {
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.orange);
+            LabelLevel.setBackground(BlueN);
+        }
+        else if (levelPass.equals("Nivel Medio alto."))
+        {
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.yellow);
+            LabelLevel.setBackground(BlueN);
+        }
+        else if (levelPass.equals("Nivel Alto."))
+        {
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.green);
+            LabelLevel.setBackground(BlueN);
         }
         else
         {
-            return false;
+            LabelLevel.setText(levelPass);
+            LabelLevel.setForeground(Color.white);
+            LabelLevel.setBackground(BlueN);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_TFAddPasswordKeyReleased
 
+    private void TFAddPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddPasswordKeyTyped
+        // varchar 40
+        if (TFAddPassword.getText().length()== 40)
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TFAddPasswordKeyTyped
+
+    private void TFAddAltEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFAddAltEmailFocusLost
+        // TODO add your handling code here:
+        if (isEmail(TFAddAltEmail.getText())) {
+            //no hace nada porque esta bien
+        }else{
+            JOptionPane.showMessageDialog(null,"Email Incorrecto","Validar email", JOptionPane.INFORMATION_MESSAGE);
+            TFAddAltEmail.requestFocus();
+        }
+    }//GEN-LAST:event_TFAddAltEmailFocusLost
+
+    private void TFAddAltEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddAltEmailKeyTyped
+        // varchar 40
+        if (TFAddAltEmail.getText().length()== 40)
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TFAddAltEmailKeyTyped
+
+    private void TFAddPhoneNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddPhoneNumberKeyTyped
+         // Solo puede ingresar numeros
+            char c = evt.getKeyChar();
+
+            if (c<'0' || c>'9') {
+                evt.consume();
+                JOptionPane.showMessageDialog(null,"Solo números", "Valdiar números", JOptionPane.INFORMATION_MESSAGE);
+            }
+    }//GEN-LAST:event_TFAddPhoneNumberKeyTyped
+
+    private void TFAddPhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFAddPhotoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFAddPhotoActionPerformed
+
+    private void TFAddPhotoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAddPhotoKeyTyped
+        // varchar 200
+        if (TFAddAltEmail.getText().length()== 200)
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TFAddPhotoKeyTyped
+
+    private void BTNAddPhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNAddPhotoActionPerformed
+        // Get photo
+        if (select.showDialog(null, null) == JFileChooser.APPROVE_OPTION ) {
+            file = select.getSelectedFile();
+            if (file.canRead()) {
+                if (file.getName().endsWith("jpg")||file.getName().endsWith("png") || file.getName().endsWith("gif")) {
+                    //instance class
+                    ReadFile rf = new ReadFile();
+                    photo = rf.OpenFile(file);
+                    TFAddPhoto.setText(file.getPath().toString());
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Archivo no compatible");
+            }
+        }
+    }//GEN-LAST:event_BTNAddPhotoActionPerformed
+
+    private void TFAddPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFAddPhoneNumberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFAddPhoneNumberActionPerformed
+
+    //BTNAddPhoto
+     JFileChooser select = new JFileChooser();
+     File file;
+     byte[] photo;
+     
     /**
      * @param args the command line arguments
      */
@@ -406,119 +584,31 @@ public class OpcionesAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTNAddPhoto;
-    private javax.swing.JButton BTNAddPhoto1;
-    private javax.swing.JButton BTNAddPhoto2;
-    private javax.swing.JButton BTNAddPhoto3;
-    private javax.swing.JButton BTNAddPhoto4;
     private javax.swing.JButton BTNDarDeBajaUsuario;
+    private javax.swing.JButton BTNModificar;
     private javax.swing.JButton BTNSearchUser;
-    private javax.swing.JButton ButtonInsert;
-    private javax.swing.JButton ButtonInsert1;
-    private javax.swing.JButton ButtonInsert2;
-    private javax.swing.JButton ButtonInsert3;
-    private javax.swing.JButton ButtonRegresar;
-    private javax.swing.JButton ButtonRegresar1;
-    private javax.swing.JButton ButtonRegresar2;
-    private javax.swing.JButton ButtonRegresar3;
-    private javax.swing.JComboBox<String> CBAddDay;
-    private javax.swing.JComboBox<String> CBAddMonth;
-    private javax.swing.JComboBox<String> CBAddYear;
     private javax.swing.JLabel LabelLevel;
-    private javax.swing.JLabel LabelLevel1;
-    private javax.swing.JLabel LabelLevel2;
-    private javax.swing.JLabel LabelLevel3;
     private javax.swing.JTextField TFAddAltEmail;
-    private javax.swing.JTextField TFAddAltEmail1;
-    private javax.swing.JTextField TFAddAltEmail2;
-    private javax.swing.JTextField TFAddAltEmail3;
-    private javax.swing.JTextField TFAddAltEmail4;
     private javax.swing.JTextField TFAddLastName;
-    private javax.swing.JTextField TFAddLastName1;
-    private javax.swing.JTextField TFAddLastName2;
-    private javax.swing.JTextField TFAddLastName3;
-    private javax.swing.JTextField TFAddLastName4;
     private javax.swing.JTextField TFAddName;
-    private javax.swing.JTextField TFAddName1;
-    private javax.swing.JTextField TFAddName2;
-    private javax.swing.JTextField TFAddName3;
-    private javax.swing.JTextField TFAddName4;
     private javax.swing.JTextField TFAddPassword;
-    private javax.swing.JTextField TFAddPassword1;
-    private javax.swing.JTextField TFAddPassword2;
-    private javax.swing.JTextField TFAddPassword3;
-    private javax.swing.JTextField TFAddPassword4;
     private javax.swing.JTextField TFAddPhoneNumber;
-    private javax.swing.JTextField TFAddPhoneNumber1;
-    private javax.swing.JTextField TFAddPhoneNumber2;
-    private javax.swing.JTextField TFAddPhoneNumber3;
-    private javax.swing.JTextField TFAddPhoneNumber4;
     private javax.swing.JTextField TFAddPhoto;
-    private javax.swing.JTextField TFAddPhoto1;
-    private javax.swing.JTextField TFAddPhoto2;
-    private javax.swing.JTextField TFAddPhoto3;
-    private javax.swing.JTextField TFAddPhoto4;
     private javax.swing.JTextField TFAddUser;
-    private javax.swing.JTextField TFAddUser1;
-    private javax.swing.JTextField TFAddUser2;
-    private javax.swing.JTextField TFAddUser3;
-    private javax.swing.JTextField TFAddUser4;
     private javax.swing.JTextField TFSearchUser;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDCDate;
-    private com.toedter.calendar.JDateChooser jDCDate1;
-    private com.toedter.calendar.JDateChooser jDCDate2;
-    private com.toedter.calendar.JDateChooser jDCDate3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
 }
