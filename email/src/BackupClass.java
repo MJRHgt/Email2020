@@ -34,13 +34,13 @@ public class BackupClass {
     //Method private for perform all backup steps
     private String Backup_P(String user, String pathRelative)
     {
-        String res = "";
-        //Copiar y pegar la carpeta MEIA en la ruta definida por el usuario
-        BackupFull(pathRelative+"/MEIA_Backup");
+        String res = "";      
         //Escribir en bitacora_backup.txt
         WriteBackuptxt(user,pathRelative);
         //Escribir en desc_bitacora_backup.txt
         WriteDesBackuptxt(user);
+        //Copiar y pegar la carpeta MEIA en la ruta definida por el usuario
+        BackupFull(pathRelative+"/MEIA_Backup");
         res = "Se realizo con exito el Backup.";
         return res;
     }
@@ -107,13 +107,13 @@ public class BackupClass {
             {
                 //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
                 FileWriter escribir = new FileWriter(file, true);
-                Registros = "0";
+                Registros = "1";
                 escribir.write("nombre_simbólico: bitacora_backup"+"\n");//nombre_simbolico
                 escribir.write("fecha_creación: "+fecha+"\n");//fecha_Creacion
                 escribir.write("usuario_creación: "+user+"\n");//usuario_creacion
                 escribir.write("fecha_modificación: "+fecha+"\n");//fecha_modificacion
                 escribir.write("usuario_modificación: "+user+"\n");//usuario_modificacion
-                escribir.write("#_registros: "+Registros+"\n");//#_Registros
+                escribir.write("#_registros:"+Registros+"\n");//#_Registros
                 //Cerramos la conexion
                 escribir.close();
             }
@@ -122,19 +122,20 @@ public class BackupClass {
                 String[] lista = DeleteLineFile();
                 //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
                 FileWriter escribir = new FileWriter(file, true);
-                for (int i = 0; i < lista.length; i++) {
+                for (int i = 0; i < 3; i++) {
                     escribir.write(lista[i]+"\n");
                 }
+                Registros = RegisterBackup(lista[5]);
                 escribir.write("fecha_modificación: "+fecha+"\n");//fecha_modificacion
                 escribir.write("usuario_modificación: "+user+"\n");//usuario_modificacion
-                escribir.write("#_registros: "+Registros+"\n");//#_Registros
+                escribir.write("#_registros:"+Registros+"\n");//#_Registros
                 //Cerramos la conexion
                 escribir.close();
             }
             
         } //Si existe un problema al escribir cae aqui
         catch (Exception e) {
-            System.out.println("Error al escribir backup");
+            System.out.println("Error al escribir desbackup");
         }
     }
     
@@ -201,6 +202,16 @@ public class BackupClass {
         rf.ValidateFile();
         
         return lineas;
+    }
+    
+    //Method int register
+    private String RegisterBackup(String x){
+        String r = "";
+        String[] a = x.split("\\:");
+        int data = Integer.parseInt(a[1]);
+        data++;
+        r = String.valueOf(data);
+        return r;
     }
     
 }
