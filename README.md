@@ -13,6 +13,7 @@
 - *Login*
 - *Usuario administrador*
 - *Generar archivos y modificarlos*
+- *Backup*
 
 ### Pre-requisitos 📋
 

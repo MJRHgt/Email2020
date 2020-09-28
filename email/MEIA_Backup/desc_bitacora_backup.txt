@@ -1,0 +1,6 @@
+nombre_simbólico: bitacora_backup
+fecha_creación: 28/sep/AM 06: 47: 18 AM
+usuario_creación: admin
+fecha_modificación: 28/sep/AM 06: 47: 18 AM
+usuario_modificación: admin
+#_registros:1

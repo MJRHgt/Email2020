@@ -8,7 +8,6 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.swing.JOptionPane;
 import org.apache.commons.codec.binary.Base64;
 
-
 public class Password {
     
     //------------------------------- PUBLIC FUNCTIONS --------------------------------------------

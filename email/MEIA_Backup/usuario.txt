@@ -1,2 +1,2 @@
-admin|walter|orozco|THxVnQUYjhrFQ8SIUMacZQ==|true|15/08/1999|w@correo.com|54202291|C:/MEIA/fotografia/admin.jpeg|true
-RodCas|rodrigo|castillo|fAYT4Fhv+5WlvogHYzSMxg==|false|17/09/2020|rod@correo.com|12345678|C:/MEIA/fotografia/RodCas.jpeg|true
+admin|g|o|hKTH609LkbgbdN82FFngbA==|true|01-jun-2020|mario@g.com|111111|C:/MEIA/fotografia/admin.jpeg|true
+Mario|mario|h|UdPY0Z/SHn3dfOzpKgjaPA==|false|01-jun-2001|ma@gmail.com|11111111|C:/MEIA/fotografia/Mario.jpeg|true
