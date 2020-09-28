@@ -56,7 +56,6 @@ public class OpcionesAdmin extends javax.swing.JFrame {
         BTNSearchUser = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         BTNDarDeBajaUsuario = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,9 +113,6 @@ public class OpcionesAdmin extends javax.swing.JFrame {
         BTNDarDeBajaUsuario.setBackground(new java.awt.Color(255, 153, 153));
         BTNDarDeBajaUsuario.setText("Dar de baja a este usuario");
 
-        jLabel12.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel12.setText("*No disponible si el usuario es admin");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,10 +145,7 @@ public class OpcionesAdmin extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel10)
                                     .addGap(138, 138, 138))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel12)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(BTNDarDeBajaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(BTNDarDeBajaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,9 +234,7 @@ public class OpcionesAdmin extends javax.swing.JFrame {
                     .addComponent(TFSearchUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BTNSearchUser))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BTNDarDeBajaUsuario)
-                    .addComponent(jLabel12))
+                .addComponent(BTNDarDeBajaUsuario)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -319,7 +310,6 @@ public class OpcionesAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
