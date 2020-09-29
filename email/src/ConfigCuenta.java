@@ -312,8 +312,6 @@ public class ConfigCuenta extends javax.swing.JFrame {
                 if (message.equals("Modificado con exito.")) {
                     JOptionPane.showMessageDialog(null,message, "Modificar Usuario", JOptionPane.INFORMATION_MESSAGE);
                     //Regresar al Login
-                    Login open = new Login();
-                    open.setVisible(true);
                     this.dispose();
                 }
                 else{
@@ -462,8 +460,6 @@ public class ConfigCuenta extends javax.swing.JFrame {
 
     private void ButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExitActionPerformed
         // TODO add your handling code here:
-        Administracion open = new Administracion();
-        open.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ButtonExitActionPerformed
 
