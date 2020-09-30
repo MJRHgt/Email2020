@@ -7,7 +7,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JFileChooser;
 
@@ -125,7 +127,7 @@ public class ReadFile {
         return res;
     }
     
-    //Method public for insert user
+    //Method public for modify user
     public String InsertUser2(String user, String pass, String date, String email, int tel, byte[] photoPath, boolean rol, boolean estatus)
     {
         String res = "";
@@ -141,6 +143,14 @@ public class ReadFile {
         return res;
     }
     
+    //Method public for modify 2 user
+    public String ModifyUser(String userL,String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath, boolean rol, boolean estatus)
+    {
+        String res = "";
+        res = ModifyUser2(userL,user,name,lastName,pass,date,email,tel,photoPath,rol,estatus);
+        return res;
+    }
+    
     //Method public login
     public String Login(String user, String password)
     {
@@ -150,16 +160,18 @@ public class ReadFile {
     }
     
     //Method public darse de baja
-    public void DropOut(String user)
+    public boolean DropOut(String user)
     {
-       File file = new File("C:/MEIA/usuario.txt");
+        boolean isAdmin = true;
+        File file = new File("C:/MEIA/usuario.txt");
         List<UserClass> users = ReadFileUser(file);
         file.delete();
         ValidateFile();
         
         for (UserClass uc:users) {
-            if (uc.user.equals(user)) {
+            if (uc.user.equals(user) && uc.rol == false) {
                 uc.estatus = false;
+                isAdmin= false;
                 Insert(uc,file);
             }
             else
@@ -167,7 +179,8 @@ public class ReadFile {
                 Insert(uc,file);
             }
         }
-         
+
+        return isAdmin;
     }
     
     public boolean isUser(String user)
@@ -218,6 +231,7 @@ public class ReadFile {
             Insert(userC, fileUser);
             SaveFile(userC.photoPath,photoPath);
             //crear metodo para insertar en desc_user.txt
+            InsertDescUser(user,user,"1","1","0");
         }
         else
         {
@@ -240,6 +254,8 @@ public class ReadFile {
                 Insert(userC, fileUser);
                 SaveFile(userC.photoPath,photoPath);
                 //crear metodo para insertar en desc_user.txt
+                String[] R= RegistroTxt();
+                InsertDescUser(user,user,R[0],R[1],R[2]);
             }
             else
             {
@@ -389,11 +405,45 @@ public class ReadFile {
             else
             {
                 Insert(uc,file);
-                SaveFile(uc.photoPath,photoPath);
             }
+            
+
         }
         
-           
+        String[] R= RegistroTxt();
+        InsertDescUser(user,user,R[0],R[1],R[2]);             
+        return "Modificado con exito.";
+    }
+    
+    //method modify
+    private String ModifyUser2(String userL,String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath, boolean rol, boolean estatus)
+    {
+        File file = new File("C:/MEIA/usuario.txt");
+        List<UserClass> users = ReadFileUser(file);
+        file.delete();
+        ValidateFile();
+        
+       for (UserClass uc:users) {
+            if (uc.user.equals(user)) {
+                uc.user = user;
+                uc.name = name;
+                uc.lastName = lastName;
+                uc.password = pass;
+                uc.date = date;
+                uc.email = email;
+                uc.number = tel;
+                Insert(uc,file);
+                SaveFile(uc.photoPath,photoPath);
+            }
+            else
+            {
+                Insert(uc,file);
+            }
+            
+        }
+        
+        String[] R= RegistroTxt();
+        InsertDescUser(userL,userL,R[0],R[1],R[2]);             
         return "Modificado con exito.";
     }
     
@@ -418,6 +468,8 @@ public class ReadFile {
             Insert(userC, fileUser);
             SaveFile(userC.photoPath,photoPath);
             //crear metodo para insertar en desc_user.txt
+            String[] R= RegistroTxt();
+            InsertDescUser(UserL,UserL,R[0],R[1],R[2]);
         }
         else
         {
@@ -440,6 +492,8 @@ public class ReadFile {
                 Insert(userC, fileUser);
                 SaveFile(userC.photoPath,photoPath);
                 //crear metodo para insertar en desc_user.txt
+                String[] R= RegistroTxt();
+                InsertDescUser(UserL,UserL,R[0],R[1],R[2]);
             }
             else
             {
@@ -449,4 +503,110 @@ public class ReadFile {
         
         return "Se registro con exito.";
     }
+    
+    //Method for insert desc_user
+    private void InsertDescUser(String UserC, String UserM,String Registros, String RA, String RI)
+    {
+        try 
+        {
+            File file = new File("C:/MEIA/desc_usuario.txt");
+            Date objDate = new Date();
+            String strDateFormat = "dd/MMM/aaaa hh: mm: ss a";
+            SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
+            String fecha = objSDF.format(objDate);
+            //validar primera insercion
+            if (file.length() == 0) {               
+                //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
+                FileWriter escribir = new FileWriter(file, true);
+                escribir.write("nombre_simbolico: Usuario"+"\n");
+                escribir.write("fecha_creación: "+fecha+"\n");
+                escribir.write("usuario_creación: admin"+"\n");
+                escribir.write("fecha_modificación: "+fecha+"\n");
+                escribir.write("usuario_modificación: admin"+"\n");
+                escribir.write("#_registros: "+Registros+"\n");
+                escribir.write("Registros_activos: "+RA+"\n");
+                escribir.write("Registros_inactivos: "+RI+"\n");
+                //Cerramos la conexion
+                escribir.close();
+            }
+            else
+            {
+                String[] dato = DataDescUser();
+                FileWriter escribir = new FileWriter(file, true);
+                escribir.write(dato[0]+"\n");
+                escribir.write(dato[1]+"\n");
+                escribir.write(dato[2]+"\n");
+                escribir.write("fecha_modificación: "+fecha+"\n");
+                escribir.write("usuario_modificación: "+UserM+"\n");
+                escribir.write("#_registros: "+Registros+"\n");
+                escribir.write("Registros_activos: "+RA+"\n");
+                escribir.write("Registros_inactivos: "+RI+"\n");
+                //Cerramos la conexion
+                escribir.close();
+            }
+            
+        } //Si existe un problema al escribir cae aqui
+        catch (Exception e) {
+            System.out.println("Error al escribir desc_user");
+        }
+    }
+    
+    //Method for get Registros
+    private String[] RegistroTxt()
+    {
+        String[] R = new String[3];
+        File file = new File("C:/MEIA/usuario.txt");
+        List<UserClass> users = ReadFileUser(file);
+        int a=0;
+        int i=0;
+        R[0] = Integer.toString(users.size());
+        
+        for (UserClass uc: users) {
+            if (uc.estatus == true) {
+                a++;
+            }else{
+                i++;
+            }
+        }       
+        R[1] = Integer.toString(a);
+        R[2] = Integer.toString(i);       
+        return R;
+    }
+    
+    //Method for get data the desc_user
+    private String[] DataDescUser ()
+    {
+        String[]  d = new String[3];
+        File file = new File("C:/MEIA/desc_usuario.txt");
+        FileReader fr = null;
+        BufferedReader br = null;
+        
+        try {
+           fr = new FileReader (file);
+           br = new BufferedReader(fr);
+           int x = 0;
+           // read the file
+           String linea;
+           while((linea=br.readLine())!=null && x < d.length)
+           {
+               d[x] = linea;
+               x++; 
+           }
+           fr.close();
+        }
+        catch(Exception e){
+            System.out.println("linea error");
+           e.printStackTrace();
+        }
+        
+        //borramos datos 
+        file.delete();
+        //creamos de nuevo
+        ValidateFile();
+        
+        return d;
+    }
+    
+    
+    
 }

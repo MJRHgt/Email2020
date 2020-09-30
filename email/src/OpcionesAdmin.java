@@ -5,8 +5,11 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JFileChooser;
@@ -70,6 +73,7 @@ public class OpcionesAdmin extends javax.swing.JFrame {
         BTNAddPhoto = new javax.swing.JButton();
         LabelLevel = new javax.swing.JLabel();
         BTNModificar = new javax.swing.JButton();
+        ButtonExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -225,6 +229,15 @@ public class OpcionesAdmin extends javax.swing.JFrame {
             }
         });
 
+        ButtonExit.setBackground(new java.awt.Color(97, 0, 0));
+        ButtonExit.setForeground(new java.awt.Color(255, 255, 255));
+        ButtonExit.setText("Salir");
+        ButtonExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonExitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -285,7 +298,9 @@ public class OpcionesAdmin extends javax.swing.JFrame {
                         .addComponent(jLabel13)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(182, 182, 182)
+                .addGap(108, 108, 108)
+                .addComponent(ButtonExit)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -331,7 +346,9 @@ public class OpcionesAdmin extends javax.swing.JFrame {
                         .addComponent(TFAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(BTNAddPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonExit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -573,6 +590,14 @@ public class OpcionesAdmin extends javax.swing.JFrame {
                 TFAddLastName.setText(uc.lastName);
                 TFAddAltEmail.setText(uc.email);
                 TFAddPhoto.setText(uc.photoPath); 
+                SimpleDateFormat date = new SimpleDateFormat("MM/dd/yyyy");
+                Date dateValue = null;
+                try {
+                    dateValue = date.parse(uc.date);
+                } catch (ParseException ex) {
+                    Logger.getLogger(OpcionesAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                jDCDate.setDate(dateValue);
                 BTNDarDeBajaUsuario.setVisible(true);
                 BTNModificar.setVisible(true);
                 jButton1.setVisible(false);
@@ -591,16 +616,61 @@ public class OpcionesAdmin extends javax.swing.JFrame {
     private void BTNDarDeBajaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNDarDeBajaUsuarioActionPerformed
         // TODO add your handling code here:
         ReadFile rf = new ReadFile();
-        rf.DropOut(TFSearchUser.getText());
-        JOptionPane.showMessageDialog(null,"El ususario ya no esta vigente.", "Vigente", JOptionPane.INFORMATION_MESSAGE);
+        boolean isAdmin= false;
+        isAdmin = rf.DropOut(user);
+        if (isAdmin == true) {
+            JOptionPane.showMessageDialog(null,"Un admin no puede.", "Usuario no vigente incorrecto", JOptionPane.INFORMATION_MESSAGE);
+        }else
+        {
+            JOptionPane.showMessageDialog(null,"El usuario se dio de baja.", "Usuario no vigente", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        }
     }//GEN-LAST:event_BTNDarDeBajaUsuarioActionPerformed
 
     private void BTNModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNModificarActionPerformed
             jButton1.setVisible(true);  
             BTNDarDeBajaUsuario.setVisible(false);
             BTNModificar.setVisible(false);
-            JOptionPane.showMessageDialog(null,"El ususario se modifico", "Modificar", JOptionPane.INFORMATION_MESSAGE);
+           //-------------------------------------
+           // Enviar datos verificados para realizar el insert
+        ReadFile rf = new ReadFile();//instance class
+        Password ClassPass = new Password();//instance class
+        String levelPass = ClassPass.algorithmPass(TFAddPassword.getText());
+        //validate not null fieldtext
+        if ((TFAddPassword.getText().length() != 0) && (TFAddPhoneNumber.getText().length() != 0) && (TFAddUser.getText().length() != 0)
+                && (TFAddName.getText().length() != 0) && (TFAddLastName.getText().length() != 0) && (TFAddAltEmail.getText().length() != 0)
+                && (!TFAddPhoto.getText().equals("Seleccionar archivo")) && (jDCDate.getDate() != null)) 
+        {
+            if (levelPass.equals("Nivel Alto.") || levelPass.equals("Nivel Medio.") || levelPass.equals("Nivel Medio alto.")) 
+            {
+                String formato = jDCDate.getDateFormatString();               
+                Date fecha = jDCDate.getDate();
+                SimpleDateFormat sdf = new SimpleDateFormat(formato);
+                String passCypher = ClassPass.P_encode("meia", TFAddPassword.getText());//encode
+                int Tel = 0;
+                Tel = Integer.parseInt(TFAddPhoneNumber.getText());
+                String message = rf.ModifyUser(user,TFAddUser.getText(),TFAddName.getText(),TFAddLastName.getText(),passCypher,String.valueOf(sdf.format(fecha).toString()),
+                                               TFAddAltEmail.getText(), Tel,photo,false,true);
+                if (message.equals("Se registro con exito.")) {
+                    JOptionPane.showMessageDialog(null,message, "Crear Usuario", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,message, "Crear Uusario", JOptionPane.INFORMATION_MESSAGE);
+                }     
+            }else{
+                JOptionPane.showMessageDialog(null,"Aumente nivel de contraseña.", "Campo Contraseña", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Existen todavia campos vacios.", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
+        }        
     }//GEN-LAST:event_BTNModificarActionPerformed
+
+    private void ButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExitActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_ButtonExitActionPerformed
 
     //BTNAddPhoto
      JFileChooser select = new JFileChooser();
@@ -647,6 +717,7 @@ public class OpcionesAdmin extends javax.swing.JFrame {
     private javax.swing.JButton BTNDarDeBajaUsuario;
     private javax.swing.JButton BTNModificar;
     private javax.swing.JButton BTNSearchUser;
+    private javax.swing.JButton ButtonExit;
     private javax.swing.JLabel LabelLevel;
     private javax.swing.JTextField TFAddAltEmail;
     private javax.swing.JTextField TFAddLastName;
