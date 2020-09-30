@@ -466,11 +466,16 @@ public class ConfigCuenta extends javax.swing.JFrame {
     private void BTNDarseDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNDarseDeBajaActionPerformed
         // TODO add your handling code here:
         ReadFile rf = new ReadFile();
-        rf.DropOut(user);
-        JOptionPane.showMessageDialog(null,"El usuario se dio de baja.", "Usuario no vigente", JOptionPane.INFORMATION_MESSAGE);
-        Login open = new Login();
-        open.setVisible(true);
-        this.dispose();
+        boolean isAdmin= false;
+        isAdmin = rf.DropOut(user);
+        if (isAdmin == true) {
+            JOptionPane.showMessageDialog(null,"Un admin no puede.", "Usuario no vigente incorrecto", JOptionPane.INFORMATION_MESSAGE);
+        }else
+        {
+            JOptionPane.showMessageDialog(null,"El usuario se dio de baja.", "Usuario no vigente", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        }
+      
     }//GEN-LAST:event_BTNDarseDeBajaActionPerformed
 
     /**

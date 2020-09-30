@@ -85,6 +85,7 @@ public class BackupClass {
             escribir.write(campos+"\n");
             //Cerramos la conexion
             escribir.close();
+            
         } //Si existe un problema al escribir cae aqui
         catch (Exception e) {
             System.out.println("Error al escribir backup");
@@ -175,7 +176,7 @@ public class BackupClass {
     private String[] DeleteLineFile()
     {
         String[] lineas = new String[6];
-        File file = new File("C:/MEIA/bitacora_backup.txt");
+        File file = new File("C:/MEIA/desc_bitacora_backup.txt");
         FileReader fr = null;
         BufferedReader br = null;
 

@@ -127,7 +127,7 @@ public class ReadFile {
         return res;
     }
     
-    //Method public for insert user
+    //Method public for modify user
     public String InsertUser2(String user, String pass, String date, String email, int tel, byte[] photoPath, boolean rol, boolean estatus)
     {
         String res = "";
@@ -143,6 +143,14 @@ public class ReadFile {
         return res;
     }
     
+    //Method public for modify 2 user
+    public String ModifyUser(String userL,String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath, boolean rol, boolean estatus)
+    {
+        String res = "";
+        res = ModifyUser2(userL,user,name,lastName,pass,date,email,tel,photoPath,rol,estatus);
+        return res;
+    }
+    
     //Method public login
     public String Login(String user, String password)
     {
@@ -152,16 +160,18 @@ public class ReadFile {
     }
     
     //Method public darse de baja
-    public void DropOut(String user)
+    public boolean DropOut(String user)
     {
-       File file = new File("C:/MEIA/usuario.txt");
+        boolean isAdmin = true;
+        File file = new File("C:/MEIA/usuario.txt");
         List<UserClass> users = ReadFileUser(file);
         file.delete();
         ValidateFile();
         
         for (UserClass uc:users) {
-            if (uc.user.equals(user)) {
+            if (uc.user.equals(user) && uc.rol == false) {
                 uc.estatus = false;
+                isAdmin= false;
                 Insert(uc,file);
             }
             else
@@ -169,7 +179,8 @@ public class ReadFile {
                 Insert(uc,file);
             }
         }
-         
+
+        return isAdmin;
     }
     
     public boolean isUser(String user)
@@ -404,6 +415,38 @@ public class ReadFile {
         return "Modificado con exito.";
     }
     
+    //method modify
+    private String ModifyUser2(String userL,String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath, boolean rol, boolean estatus)
+    {
+        File file = new File("C:/MEIA/usuario.txt");
+        List<UserClass> users = ReadFileUser(file);
+        file.delete();
+        ValidateFile();
+        
+       for (UserClass uc:users) {
+            if (uc.user.equals(user)) {
+                uc.user = user;
+                uc.name = name;
+                uc.lastName = lastName;
+                uc.password = pass;
+                uc.date = date;
+                uc.email = email;
+                uc.number = tel;
+                Insert(uc,file);
+                SaveFile(uc.photoPath,photoPath);
+            }
+            else
+            {
+                Insert(uc,file);
+            }
+            
+        }
+        
+        String[] R= RegistroTxt();
+        InsertDescUser(userL,userL,R[0],R[1],R[2]);             
+        return "Modificado con exito.";
+    }
+    
     //Method for insert user
     private String InsertUser_P2(String UserL, String user, String name, String lastName, String pass, String date, String email, int tel, byte[] photoPath,  boolean rol, boolean estatus)
     {
@@ -425,6 +468,8 @@ public class ReadFile {
             Insert(userC, fileUser);
             SaveFile(userC.photoPath,photoPath);
             //crear metodo para insertar en desc_user.txt
+            String[] R= RegistroTxt();
+            InsertDescUser(UserL,UserL,R[0],R[1],R[2]);
         }
         else
         {
@@ -447,6 +492,8 @@ public class ReadFile {
                 Insert(userC, fileUser);
                 SaveFile(userC.photoPath,photoPath);
                 //crear metodo para insertar en desc_user.txt
+                String[] R= RegistroTxt();
+                InsertDescUser(UserL,UserL,R[0],R[1],R[2]);
             }
             else
             {
