@@ -79,12 +79,42 @@ public class ReadFile {
             {
                 archivoBit_user.createNewFile();
             }   
+            
             //Exist File desc_bitacora_backup"
             File archivoDescBit_user = new File("C:/MEIA/desc_bitacora_usuario.txt");
             if (!archivoDescBit_user.exists())
             {
                 archivoDescBit_user.createNewFile();
             }   
+            
+            //Exist File contactos"
+            File archivoContactos = new File("C:/MEIA/contactos.txt");
+            if (!archivoContactos.exists())
+            {
+                archivoContactos.createNewFile();
+            }
+            
+            //Exist File bitacora_contactos"
+            File archivoBit_contact = new File("C:/MEIA/bitacora_contactos.txt");
+            if (!archivoBit_contact.exists())
+            {
+                archivoBit_contact.createNewFile();
+            }
+            
+            //Exist File desc_contacto"
+            File archivoDesc_Contactos = new File("C:/MEIA/desc_contactos.txt");
+            if (!archivoDesc_Contactos.exists())
+            {
+                archivoDesc_Contactos.createNewFile();
+            }
+            
+            //Exist File desc_bitacora_contactos"
+            File archivoDescBit_Contactos = new File("C:/MEIA/desc_bitacora_contactos.txt");
+            if (!archivoDescBit_Contactos.exists())
+            {
+                archivoDescBit_Contactos.createNewFile();
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
