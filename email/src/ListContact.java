@@ -227,7 +227,7 @@ public class ListContact {
     private String[] DescBitCont()
     {
         String[] d = new String[9];
-         File file = new File("C:/MEIA/desc_bitacora_contactos.txt");
+        File file = new File("C:/MEIA/desc_bitacora_contactos.txt");
         FileReader fr = null;
         BufferedReader br = null;
         
@@ -316,11 +316,18 @@ public class ListContact {
     private void Regorganizar_bit_contactos(String user)
     {
         //Guardar los datos de bitacora
+        File fileContact = new File("C:/MEIA/bitacora_contactos.txt");
+        List<ContactClass> bit_contact = ReadFileContact(fileContact);
         //Guardar los datos de deesc_bitacora
+        String[] desc_bit_contact = DescBitCont();
         //Limpiar el archivo bitacora
+        
         //Cambio el archivo de desc_bitacora
+        
         //inserto en contactos
+        
         //inserto en desc_contactos
+        
     }
     
 }
