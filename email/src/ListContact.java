@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -171,7 +173,7 @@ public class ListContact {
         return "El usuario: " + user + " agrego con exito al contacto: " + Contact + ".";
     }
     
-    //Metodo para agregar bitacora contacto
+    //Metodo para agregar desc bitacora contacto
     private void AddBitacoraContact(String user)
     { 
         try 
@@ -223,11 +225,46 @@ public class ListContact {
         }
     }
     
-    //Metodo para obtner las lineas del documento de bitacora contacto
+    //Metodo para obtner las lineas del documento de desc bitacora contacto
     private String[] DescBitCont()
     {
         String[] d = new String[9];
         File file = new File("C:/MEIA/desc_bitacora_contactos.txt");
+        FileReader fr = null;
+        BufferedReader br = null;
+        
+        try {
+           fr = new FileReader (file);
+           br = new BufferedReader(fr);
+           int x = 0;
+           // read the file
+           String linea;
+           while((linea=br.readLine())!=null && x < d.length)
+           {
+               d[x] = linea;
+               x++; 
+           }
+           fr.close();
+        }
+        catch(Exception e){
+            System.out.println("linea error");
+           e.printStackTrace();
+        }
+        
+        //borramos datos 
+        file.delete();
+        //creamos de nuevo
+        ReadFile rf = new ReadFile();
+        rf.ValidateFile();
+        
+        return d;
+    }
+    
+    //Metodo para obtner las lineas del documento de desc contacto
+    private String[] DescCont()
+    {
+        String[] d = new String[9];
+        File file = new File("C:/MEIA/desc_contactos.txt");
         FileReader fr = null;
         BufferedReader br = null;
         
@@ -321,13 +358,163 @@ public class ListContact {
         //Guardar los datos de deesc_bitacora
         String[] desc_bit_contact = DescBitCont();
         //Limpiar el archivo bitacora
-        
+        fileContact.delete();
+        //creamos de nuevo
+        ReadFile rf = new ReadFile();
+        rf.ValidateFile();
         //Cambio el archivo de desc_bitacora
-        
+        File fileDescContact = new File("C:/MEIA/desc_bitacora_contactos.txt");
+        try
+        {
+            FileWriter escribir = new FileWriter(fileDescContact, true);
+            escribir.write(desc_bit_contact[0]+"\n");
+            escribir.write(desc_bit_contact[1]+"\n");
+            escribir.write(desc_bit_contact[2]+"\n");
+            escribir.write(desc_bit_contact[3]+"\n");
+            escribir.write("usuario_modificacion:"+user+"\n");
+            escribir.write("#_registros:"+0+"\n");
+            escribir.write("registros_activos:"+0+"\n");
+            escribir.write("registros_inactivos:"+0+"\n");
+            escribir.write(desc_bit_contact[8]+"\n");
+            //Cerramos la conexion
+            escribir.close();                   
+        }
+        catch (Exception e) {
+            System.out.println("Error al escribir desc_bitacora_contacto");
+        }
         //inserto en contactos
-        
-        //inserto en desc_contactos
-        
+        InsertContact(bit_contact,user);
+        //inserto en desc_contactos    
     }
+    
+    //metodo para insertar los contactos en el archivo de contactos
+    private void InsertContact(List<ContactClass> bit_contact, String user)
+    {   
+        //El archivo esta vacio?
+        File fileContact = new File("C:/MEIA/contactos.txt");
+        if (fileContact.length() == 0) {
+            //vacio
+            List<ContactClass> contactos = bit_contact;
+            contactos = EliminarContactosLista(contactos);
+            Collections.sort(contactos); //se ordenan
+            try
+            {
+                //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
+                FileWriter escribir = new FileWriter(fileContact, true);
+                for (ContactClass c: contactos) {
+                    String insertContact = c.user + "|";
+                    insertContact = insertContact + c.contact +"|";
+                    insertContact = insertContact + c.date +"|";
+                    insertContact = insertContact + c.user_trans +"|";
+                    insertContact = insertContact + c.estatus;
+                    escribir.write(insertContact+"\n");
+                }              
+                //Cerramos la conexion
+                escribir.close();
+                //inserto en desc_contactos    
+                AddDescContactos(user);
+            } //Si existe un problema al escribir cae aqui
+            catch (Exception e) {
+                System.out.println("Error al escribir bitacora_contactos");
+            }
+        }
+        else
+        {
+            //no vacio
+            List<ContactClass> contactos1 = ReadFileContact(fileContact);
+            List<ContactClass> contactos2 = bit_contact;
+            //agregar los nuevos contactos
+            for(ContactClass c: contactos2){
+                contactos1.add(c);
+            }
+            contactos1 = EliminarContactosLista(contactos1);
+            Collections.sort(contactos1); //se ordenan
+            try
+            {
+                //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
+                FileWriter escribir = new FileWriter(fileContact, true);
+                for (ContactClass c: contactos1) {
+                    String insertContact = c.user + "|";
+                    insertContact = insertContact + c.contact +"|";
+                    insertContact = insertContact + c.date +"|";
+                    insertContact = insertContact + c.user_trans +"|";
+                    insertContact = insertContact + c.estatus;
+                    escribir.write(insertContact+"\n");
+                }              
+                //Cerramos la conexion
+                escribir.close();
+                //inserto en desc_contactos    
+                AddDescContactos(user);
+            } //Si existe un problema al escribir cae aqui
+            catch (Exception e) {
+                System.out.println("Error al escribir bitacora_contactos");
+            }
+            
+        }
+    }
+    
+    //metodo para insertar los datos en el desc_contactos
+    private void AddDescContactos(String user)
+    {
+        try 
+        {
+           //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
+            File fileContact = new File("C:/MEIA/desc_contactos.txt");
+            Date objDate = new Date();
+            String strDateFormat = "dd/MMM/aaaa hh: mm: ss a";
+            SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
+            String fecha = objSDF.format(objDate);
+            //archivo vacio
+            if (fileContact.length() == 0) {
+                FileWriter escribir = new FileWriter(fileContact, true);
+                escribir.write("nombre_simbolico:contactos"+"\n");
+                escribir.write("fecha_creacion:"+fecha+"\n");
+                escribir.write("usuario_creacion:admin"+"\n");
+                escribir.write("fecha_modificacion:"+fecha+"\n");
+                escribir.write("usuario_modificacion:"+user+"\n");
+                escribir.write("#_registros:3"+"\n");
+                escribir.write("registros_activos:3"+"\n");
+                escribir.write("registros_inactivos:0"+"\n");
+                //Cerramos la conexion
+                escribir.close();
+            }
+            else
+            {
+                //FALTA AHORA LLENARLO SI LOS DATOS YA FUERON CREADOS POR PRIMERA VEZ
+                String[] datos = DescCont();
+                File file = new File("C:/MEIA/contactos.txt");
+                String[] registro =RegistroContacto(file);
+                FileWriter escribir = new FileWriter(fileContact, true);
+                escribir.write(datos[0]+"\n");
+                escribir.write(datos[1]+"\n");
+                escribir.write(datos[2]+"\n");
+                escribir.write("fecha_modificacion:"+fecha+"\n");
+                escribir.write("usuario_modificacion:"+user+"\n");
+                escribir.write("#_registros:"+registro[0]+"\n");
+                escribir.write("registros_activos:"+registro[1]+"\n");
+                escribir.write("registros_inactivos:"+registro[2]+"\n");
+                //Cerramos la conexion
+                escribir.close();              
+            }
+            
+        } //Si existe un problema al escribir cae aqui
+        catch (Exception e) {
+            System.out.println("Error al escribir desc_bitacora_contacto");
+        }
+    }
+    
+    //Metodo para eliminar todos los contactos que tiene un estado falso
+    private List<ContactClass> EliminarContactosLista(List<ContactClass> c)
+    {
+        List<ContactClass> res = new ArrayList<ContactClass>();
+        
+        for (ContactClass contact: c) {
+            if (contact.estatus == true) {
+                res.add(contact);
+            }
+        }     
+        return res;
+    }
+    
     
 }
