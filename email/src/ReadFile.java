@@ -115,6 +115,34 @@ public class ReadFile {
                 archivoDescBit_Contactos.createNewFile();
             }
             
+            //Exist File lista"
+            File archivoLista = new File("C:/MEIA/lista.txt");
+            if (!archivoLista.exists())
+            {
+                archivoLista.createNewFile();
+            }
+            
+            //Exist File bitacora_lista"
+            File archivoBit_Lista = new File("C:/MEIA/bitacora_lista.txt");
+            if (!archivoBit_Lista.exists())
+            {
+                archivoBit_Lista.createNewFile();
+            }
+            
+            //Exist File desc_lista"
+            File archivoDesc_Lista = new File("C:/MEIA/desc_lista.txt");
+            if (!archivoDesc_Lista.exists())
+            {
+                archivoDesc_Lista.createNewFile();
+            }
+            
+            //Exist File desc_bitacora_lista"
+            File archivoDescBit_Lista = new File("C:/MEIA/desc_bitacora_lista.txt");
+            if (!archivoDescBit_Lista.exists())
+            {
+                archivoDescBit_Lista.createNewFile();
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
