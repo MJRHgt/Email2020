@@ -281,7 +281,7 @@ public class ListaContacto extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -409,6 +409,20 @@ public class ListaContacto extends javax.swing.JFrame {
 
     private void BTNAddListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNAddListActionPerformed
         // TODO add your handling code here:
+        
+        //validate not null text fields
+        if ((TFListName.getText().length() != 0) && (TFListDescription.getText().length() != 0))
+        {
+            String listName = TFListName.getText();
+            String listDesc = TFListDescription.getText();
+            
+            
+            ListClass ListC = new ListClass();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Existen todavia campos vacios.", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
+        }   
     }//GEN-LAST:event_BTNAddListActionPerformed
 
     private void BTNModifyListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNModifyListActionPerformed
