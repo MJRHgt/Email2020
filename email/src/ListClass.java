@@ -43,7 +43,7 @@ public class ListClass {
     public String InsertList()
     {
         String res = "";
-        res = InsertList_P();
+        //res = InsertList_P();
         return res;
     }
     
@@ -154,7 +154,7 @@ public class ListClass {
            e.printStackTrace();
         }
         
-        return users;
+        return lists;
     }
     
     private void InsertDescList(boolean descOption, String UserC, String UserM,String Registros, String RA, String RI)

@@ -417,7 +417,7 @@ public class ListaContacto extends javax.swing.JFrame {
             String listDesc = TFListDescription.getText();
             
             
-            ListClass ListC = new ListClass();
+            //ListClass ListC = new ListClass();
         }
         else
         {
