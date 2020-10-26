@@ -77,6 +77,94 @@ public class ListClass implements Comparable<ListClass>{
         return listC;
     }
     
+    // method that modifies lists
+    public String ModifyList(String originalListName, String username, String newListName, String newListDescription)
+    {
+        String res = "";
+        ListClass listC = SearchList(originalListName, username);
+        
+        if (listC.name.equals(null)) // si no encuentra la lista a modificar
+        {
+            res = "La lista a modificar no existe.";
+        }
+        else // si existe la lista a modificar
+        {
+            File file1 = new File("C:/MEIA/bitacora_lista.txt");
+            List<ListClass> lists1 = ReadFileList(file1);
+            file1.delete();
+            //creamos de nuevo
+            ReadFile rf1 = new ReadFile();
+            rf1.ValidateFile();
+
+           for (ListClass lc:lists1) {
+                if (lc.user.equals(username) && lc.name.equals(originalListName)) {
+                    name = newListName;
+                    description = newListDescription;
+                    user = username;
+                    num_users = lc.num_users;
+                    date = lc.date;
+                    estatus = lc.estatus;
+
+                    Insert(file1);
+                }
+                else
+                {
+                    name = lc.name;
+                    description = lc.description;
+                    user = lc.user;
+                    num_users = lc.num_users;
+                    date = lc.date;
+                    estatus = lc.estatus;
+                    
+                    Insert(file1);
+                }
+            }
+           
+            File file2 = new File("C:/MEIA/lista.txt");
+            List<ListClass> lists2 = ReadFileList(file2);
+            file2.delete();
+            //creamos de nuevo
+            ReadFile rf2 = new ReadFile();
+            rf2.ValidateFile();
+
+           for (ListClass lc:lists2) {
+                if (lc.user.equals(username) && lc.name.equals(originalListName)) {
+                    name = newListName;
+                    description = newListDescription;
+                    user = username;
+                    num_users = lc.num_users;
+                    date = lc.date;
+                    estatus = lc.estatus;
+
+                    Insert(file2);
+                }
+                else
+                {
+                    name = lc.name;
+                    description = lc.description;
+                    user = lc.user;
+                    num_users = lc.num_users;
+                    date = lc.date;
+                    estatus = lc.estatus;
+                    
+                    Insert(file2);
+                }
+            }
+           
+           res = "Modificado con éxito.";
+        }
+        
+        
+        
+        String[] R = RegistroTxt(true);
+        InsertDescList(true, username,username, R[0], R[1], R[2]); 
+        
+        R = RegistroTxt(false);
+        InsertDescList(false, username,username, R[0], R[1], R[2]);
+        
+        return res;
+    }
+    
     public List<ListClass> AddListsToList(String user)
     {
         List<ListClass> lists1 = new ArrayList<ListClass>();
@@ -107,7 +195,7 @@ public class ListClass implements Comparable<ListClass>{
     }
     
     //------------------------------- PRIVATE FUNCTIONS --------------------------------------------
-    
+     
     //Method that fills a list with all the active distribution lists for a specified user
     private List<ListClass> ReadFileList(File file, String user){
         List<ListClass> lists = new ArrayList<ListClass>();
