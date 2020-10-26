@@ -143,6 +143,34 @@ public class ReadFile {
                 archivoDescBit_Lista.createNewFile();
             }
             
+            //Exist File lista_usuario
+            File archivoListaUsuario = new File("C:/MEIA/lista_usuario.txt");
+            if (!archivoListaUsuario.exists())
+            {
+                archivoListaUsuario.createNewFile();
+            }
+            
+            //Exist File desc_lista_usuario
+            File archivoDesc_ListaUsuario = new File("C:/MEIA/desc_lista_usuario.txt");
+            if (!archivoDesc_ListaUsuario.exists())
+            {
+                archivoDesc_ListaUsuario.createNewFile();
+            }
+            
+            //Exist File indice
+            File archivoIndice = new File("C:/MEIA/indice.txt");
+            if (!archivoIndice.exists())
+            {
+                archivoIndice.createNewFile();
+            }
+            
+            //Exist File desc_indice
+            File archivoDescIndice = new File("C:/MEIA/desc_indice.txt");
+            if (!archivoDescIndice.exists())
+            {
+                archivoDescIndice.createNewFile();
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
