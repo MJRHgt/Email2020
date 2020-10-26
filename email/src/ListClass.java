@@ -386,7 +386,7 @@ public class ListClass implements Comparable<ListClass>{
     }
     
     //Metodo para reorganizar el archivo bitacora_lista
-    private void Reorganizar_bit_lista(String user)
+    public void Reorganizar_bit_lista(String user)
     {
         //Guardar los datos de bitacora
         File fileList = new File("C:/MEIA/bitacora_lista.txt");

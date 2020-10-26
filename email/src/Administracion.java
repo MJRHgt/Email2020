@@ -209,9 +209,12 @@ public class Administracion extends javax.swing.JFrame {
 
     private void ButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExitActionPerformed
         // TODO add your handling code here:
-        //reorganizacion
+        //reorganización contactos
         ListContact lc = new ListContact();
         lc.Regorganizar_Contact(LUser.getText());
+        //reorganización listas
+        ListClass listC = new ListClass();
+        listC.Reorganizar_bit_lista(LUser.getText());
         //cambio de pantalla
         Login open = new Login();
         open.setVisible(true);
