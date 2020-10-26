@@ -554,20 +554,15 @@ public class ListaContacto extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         //validate not null text fields
-        if ((TFListName.getText().length() != 0) && (TFNewListDesc.getText().length() != 0) && (TFNewListName.getText().length() != 0))
+        if ((TFListName.getText().length() != 0) && ( (TFNewListDesc.getText().length() != 0) || (TFNewListName.getText().length() != 0) ))
         {
-            String listName = TFListName.getText();
+            String originalListName = TFListName.getText();
             String newListName = TFNewListName.getText();
             String newListDesc = TFNewListDesc.getText();
             
-            Date objDate = new Date();
-            String strDateFormat = "dd/MMM/aaaa hh: mm: ss a";
-            SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
-            String fecha = objSDF.format(objDate);
-            
             ListClass ListC = new ListClass();
-            //String res = ListC.ModifyList();
-            //JOptionPane.showMessageDialog(null,res,"Agregar Lista", JOptionPane.INFORMATION_MESSAGE);
+            String res = ListC.ModifyList(originalListName, LUser.getText(), newListName, newListDesc);
+            JOptionPane.showMessageDialog(null,res,"Modificar Lista", JOptionPane.INFORMATION_MESSAGE);
         }
         else
         {
@@ -608,6 +603,18 @@ public class ListaContacto extends javax.swing.JFrame {
 
     private void BTNDeleteListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNDeleteListActionPerformed
         // TODO add your handling code here:
+        
+        //validate not null text fields
+        if (TFListName.getText().length() != 0)
+        {
+            ListClass ListC = new ListClass();
+            String res = ListC.DeleteList(TFListName.getText(), LUser.getText());
+            JOptionPane.showMessageDialog(null,res,"Eliminar Lista", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"El nombre de la lista está vacío.", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
+        } 
     }//GEN-LAST:event_BTNDeleteListActionPerformed
 
     private void BTNDeleteContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNDeleteContactoActionPerformed
