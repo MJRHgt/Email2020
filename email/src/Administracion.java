@@ -215,6 +215,9 @@ public class Administracion extends javax.swing.JFrame {
         //reorganización listas
         ListClass listC = new ListClass();
         listC.Reorganizar_bit_lista(LUser.getText());
+        //reorganización listas
+        ArchivoIndice ai = new ArchivoIndice();
+        ai.Reeorganizar(LUser.getText());
         //cambio de pantalla
         Login open = new Login();
         open.setVisible(true);

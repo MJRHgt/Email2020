@@ -65,6 +65,7 @@ public class ListaContacto extends javax.swing.JFrame {
         JCBListas = new javax.swing.JComboBox<>();
         JCBContactosLista = new javax.swing.JComboBox<>();
         BTNAddListContact = new javax.swing.JButton();
+        BTNEliminarListContact = new javax.swing.JButton();
         ButtonRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -208,6 +209,7 @@ public class ListaContacto extends javax.swing.JFrame {
         jLabel5.setText("Descripción:");
 
         BTNSearchList.setBackground(new java.awt.Color(153, 255, 255));
+        BTNSearchList.setForeground(new java.awt.Color(255, 255, 255));
         BTNSearchList.setText("Buscar");
         BTNSearchList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,6 +218,7 @@ public class ListaContacto extends javax.swing.JFrame {
         });
 
         BTNDeleteList.setBackground(new java.awt.Color(255, 102, 102));
+        BTNDeleteList.setForeground(new java.awt.Color(255, 255, 255));
         BTNDeleteList.setText("Eliminar");
         BTNDeleteList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,6 +227,7 @@ public class ListaContacto extends javax.swing.JFrame {
         });
 
         BTNModifyList.setBackground(new java.awt.Color(153, 255, 255));
+        BTNModifyList.setForeground(new java.awt.Color(255, 255, 255));
         BTNModifyList.setText("Modificar");
         BTNModifyList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,6 +236,7 @@ public class ListaContacto extends javax.swing.JFrame {
         });
 
         BTNAddList.setBackground(new java.awt.Color(102, 255, 102));
+        BTNAddList.setForeground(new java.awt.Color(255, 255, 255));
         BTNAddList.setText("Agregar");
         BTNAddList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,6 +370,15 @@ public class ListaContacto extends javax.swing.JFrame {
             }
         });
 
+        BTNEliminarListContact.setBackground(new java.awt.Color(255, 102, 102));
+        BTNEliminarListContact.setForeground(new java.awt.Color(255, 255, 255));
+        BTNEliminarListContact.setText("Eliminar");
+        BTNEliminarListContact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNEliminarListContactActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -383,7 +397,9 @@ public class ListaContacto extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(JCBContactosLista, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(BTNAddListContact)))))
+                                .addComponent(BTNAddListContact)
+                                .addGap(18, 18, 18)
+                                .addComponent(BTNEliminarListContact)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -399,7 +415,8 @@ public class ListaContacto extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JCBListas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JCBContactosLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BTNAddListContact))
+                    .addComponent(BTNAddListContact)
+                    .addComponent(BTNEliminarListContact))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
 
@@ -698,6 +715,17 @@ public class ListaContacto extends javax.swing.JFrame {
         FillList();
     }//GEN-LAST:event_JCBListasMousePressed
 
+    private void BTNEliminarListContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNEliminarListContactActionPerformed
+        // TODO add your handling code here:
+        ArchivoIndice ai = new ArchivoIndice();
+        String list = (String) JCBListas.getSelectedItem();
+        String contact = (String) JCBContactosLista.getSelectedItem();
+        String res = ai.Eliminar(list, LUser.getText(), contact);
+        JCBListas.removeAllItems();
+        JCBContactosLista.removeAllItems();
+        JOptionPane.showMessageDialog(null,res,"Eliminar Lista-Usuario", JOptionPane.INFORMATION_MESSAGE);   
+    }//GEN-LAST:event_BTNEliminarListContactActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -739,6 +767,7 @@ public class ListaContacto extends javax.swing.JFrame {
     private javax.swing.JButton BTNAddListContact;
     private javax.swing.JButton BTNDeleteContacto;
     private javax.swing.JButton BTNDeleteList;
+    private javax.swing.JButton BTNEliminarListContact;
     private javax.swing.JButton BTNModifyList;
     private javax.swing.JButton BTNSearchList;
     private javax.swing.JButton ButtonRegresar;

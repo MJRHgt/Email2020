@@ -29,6 +29,11 @@ public class ArchivoIndice {
         ReorganizarP(user);
     }
     
+    public String Eliminar(String list, String user, String contact)
+    {
+        return EliminarP(list, user, contact);
+    }
+    
     //------------------------------- PRIVATE FUNCTIONS -------------------------------------------
     
     //metodo para insertar en todo los archivos
@@ -440,7 +445,34 @@ public class ArchivoIndice {
     //Metodo para reorganizar
     private void ReorganizarP(String user)
     {
-    
+        List<BloqueClass> bloque = ReadFileBloque();       
+        File file2 = new File("C:/MEIA/lista_usuario.txt");
+        file2.delete();
+        ReadFile rf = new ReadFile();
+        rf.ValidateFile();
+         try
+            {
+                //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
+                FileWriter escribir = new FileWriter(file2, true);
+                for (BloqueClass c: bloque) {
+                    if (c.estatus == true) {
+                        String insertContact = c.nombre_lista + "|";
+                        insertContact = insertContact + c.usuario +"|";
+                        insertContact = insertContact + c.usuario_asociado +"|";
+                        insertContact = insertContact + c.descripcion +"|";
+                        insertContact = insertContact + c.fecha_creacion +"|";
+                        insertContact = insertContact + c.estatus;
+                        escribir.write(insertContact+"\n");
+                    }                   
+                }              
+                //Cerramos la conexion
+                escribir.close();
+                              
+            } //Si existe un problema al escribir cae aqui
+            catch (Exception e) {
+                System.out.println("Error al escribir bitacora_contactos");
+            }
+         InsertDescIndice(user);
     }
     
     //Metodo para obtener el registro mas grande
@@ -460,8 +492,9 @@ public class ArchivoIndice {
     private void RegApuntador(int registroMax, String list, String user, String contact)
     {
         //obtener todos los datos
-        List<IndiceClass> indice = ReadFileIndice();
-        List<IndiceClass> indice2 = ReadFileIndice();
+        List<IndiceClass> indice3 = ReadFileIndice();
+        List<IndiceClass> indice = LimpiarIndice(indice3);
+        List<IndiceClass> indice2 = LimpiarIndice(indice3);
         //eliminarlos
         File file = new File("C:/MEIA/indice.txt");
         file.delete();
@@ -473,7 +506,6 @@ public class ArchivoIndice {
         int r = 0;
         for (IndiceClass c:indice2) {
             x[r] = c;
-            System.out.println(c.nombre_lista + " " + c.usuario + " " + c.usuario_asociado);
             r++;
         }
         int dato = 0;
@@ -542,6 +574,80 @@ public class ArchivoIndice {
             catch (Exception e) {
                 System.out.println("Error al escribir bitacora_contactos");
             }
+    }
+    
+    //Metodo para eliminar
+    private String EliminarP(String list, String user, String contact)
+    {
+        List<IndiceClass> indice = ReadFileIndice();
+        List<BloqueClass> bloque = ReadFileBloque();
+        boolean flag = false;
+        for (BloqueClass c : bloque) {
+            if (c.nombre_lista.equals(list) && c.usuario.equals(user) && c.usuario_asociado.equals(contact)) {
+                flag= true;
+                c.estatus = false;
+            }
+        }
+        if (flag == true) {
+            File file = new File("C:/MEIA/indice.txt");
+            File file2 = new File("C:/MEIA/lista_usuario.txt");
+            file.delete();
+            file2.delete();
+            ReadFile rf = new ReadFile();
+            rf.ValidateFile();
+            
+            for (IndiceClass c : indice) {
+                if (c.nombre_lista.equals(list) && c.usuario.equals(user) && c.usuario_asociado.equals(contact)) {
+                    c.estatus = false;
+                }
+            }
+            
+            FillIndice(indice);
+            
+             try
+            {
+                //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
+                FileWriter escribir = new FileWriter(file2, true);
+                for (BloqueClass c: bloque) {
+                    String insertContact = c.nombre_lista + "|";
+                    insertContact = insertContact + c.usuario +"|";
+                    insertContact = insertContact + c.usuario_asociado +"|";
+                    insertContact = insertContact + c.descripcion +"|";
+                    insertContact = insertContact + c.fecha_creacion +"|";
+                    insertContact = insertContact + c.estatus;
+                    escribir.write(insertContact+"\n");
+                }              
+                //Cerramos la conexion
+                escribir.close();
+                
+                
+            } //Si existe un problema al escribir cae aqui
+            catch (Exception e) {
+                System.out.println("Error al escribir bitacora_contactos");
+            }
+            RegApuntador(inicio,list,user,contact);
+            return "Se elimino correctamente.";
+        }
+        else
+        {
+            return "No se encontraron coincidencias.";
+        }
+        
+    }
+    
+    //metodo para eliminar a los de estado 0
+    private List<IndiceClass> LimpiarIndice(List<IndiceClass> x)
+    {
+        List<IndiceClass> res = new ArrayList<IndiceClass>();
+        
+        for (IndiceClass c : x) {
+            if (c.estatus == true) {
+                res.add(c);
+            }
+        }
+        
+        
+        return res;
     }
     
 }
