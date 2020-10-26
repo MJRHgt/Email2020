@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -98,8 +99,21 @@ public class ListClass implements Comparable<ListClass>{
 
            for (ListClass lc:lists1) {
                 if (lc.user.equals(username) && lc.name.equals(originalListName)) {
-                    name = newListName;
-                    description = newListDescription;
+                    
+                    if (newListName.length() == 0){
+                        name = lc.name;
+                    }
+                    else{
+                        name = newListName;
+                    }
+                    
+                    if (newListDescription.length() == 0){
+                        description = lc.description;
+                    }
+                    else{
+                        description = newListDescription;
+                    }
+                    
                     user = username;
                     num_users = lc.num_users;
                     date = lc.date;
@@ -129,8 +143,21 @@ public class ListClass implements Comparable<ListClass>{
 
            for (ListClass lc:lists2) {
                 if (lc.user.equals(username) && lc.name.equals(originalListName)) {
-                    name = newListName;
-                    description = newListDescription;
+                    
+                    if (newListName.length() == 0){
+                        name = lc.name;
+                    }
+                    else{
+                        name = newListName;
+                    }
+                    
+                    if (newListDescription.length() == 0){
+                        description = lc.description;
+                    }
+                    else{
+                        description = newListDescription;
+                    }
+                    
                     user = username;
                     num_users = lc.num_users;
                     date = lc.date;
@@ -152,6 +179,94 @@ public class ListClass implements Comparable<ListClass>{
             }
            
            res = "Modificado con éxito.";
+        }
+        
+        
+        
+        String[] R = RegistroTxt(true);
+        InsertDescList(true, username,username, R[0], R[1], R[2]); 
+        
+        R = RegistroTxt(false);
+        InsertDescList(false, username,username, R[0], R[1], R[2]);
+        
+        return res;
+    }
+    
+    // method that deletes lists (estatus -> false)
+    public String DeleteList(String listName, String username)
+    {
+        String res = "";
+        ListClass listC = SearchList(listName, username);
+        
+        if (listC.name.equals(null)) // si no encuentra la lista a eliminar
+        {
+            res = "La lista a eliminar no existe.";
+        }
+        else // si existe la lista a eliminar
+        {
+            File file1 = new File("C:/MEIA/bitacora_lista.txt");
+            List<ListClass> lists1 = ReadFileList(file1);
+            file1.delete();
+            //creamos de nuevo
+            ReadFile rf1 = new ReadFile();
+            rf1.ValidateFile();
+
+           for (ListClass lc:lists1) {
+                if (lc.user.equals(username) && lc.name.equals(listName)) {
+                    name = lc.name;
+                    description = lc.description;
+                    user = lc.user;
+                    num_users = lc.num_users;
+                    date = lc.date;
+                    estatus = false;
+
+                    Insert(file1);
+                }
+                else
+                {
+                    name = lc.name;
+                    description = lc.description;
+                    user = lc.user;
+                    num_users = lc.num_users;
+                    date = lc.date;
+                    estatus = lc.estatus;
+                    
+                    Insert(file1);
+                }
+            }
+           
+            File file2 = new File("C:/MEIA/lista.txt");
+            List<ListClass> lists2 = ReadFileList(file2);
+            file2.delete();
+            //creamos de nuevo
+            ReadFile rf2 = new ReadFile();
+            rf2.ValidateFile();
+
+           for (ListClass lc:lists2) {
+                if (lc.user.equals(username) && lc.name.equals(listName)) {
+                    name = lc.name;
+                    description = lc.description;
+                    user = lc.user;
+                    num_users = lc.num_users;
+                    date = lc.date;
+                    estatus = false;
+
+                    Insert(file2);
+                }
+                else
+                {
+                    name = lc.name;
+                    description = lc.description;
+                    user = lc.user;
+                    num_users = lc.num_users;
+                    date = lc.date;
+                    estatus = lc.estatus;
+                    
+                    Insert(file2);
+                }
+            }
+           
+           res = "Eliminado con éxito.";
         }
         
         
@@ -271,7 +386,7 @@ public class ListClass implements Comparable<ListClass>{
     }
     
     //Metodo para reorganizar el archivo bitacora_lista
-    private void Reorganizar_bit_lista(String user)
+    public void Reorganizar_bit_lista(String user)
     {
         //Guardar los datos de bitacora
         File fileList = new File("C:/MEIA/bitacora_lista.txt");
@@ -319,6 +434,7 @@ public class ListClass implements Comparable<ListClass>{
             List<ListClass> listas = bit_lista;
             listas = EliminarListasInactivas(listas);
             Collections.sort(listas); //se ordenan
+            //listas = SortList(listas);
             try
             {
                 //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
@@ -346,12 +462,17 @@ public class ListClass implements Comparable<ListClass>{
             //no vacio
             List<ListClass> listas1 = ReadFileList(fileList);
             List<ListClass> listas2 = bit_lista;
-            //agregar los nuevos contactos
+            //limpiar listas
+            fileList.delete();
+            ReadFile rf = new ReadFile();
+            rf.ValidateFile();
+            //agregar las nuevas listas
             for(ListClass c: listas2){
                 listas1.add(c);
             }
             listas1 = EliminarListasInactivas(listas1);
             Collections.sort(listas1); //se ordenan
+            //listas1 = SortList(listas1);
             try
             {
                 //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
@@ -375,6 +496,32 @@ public class ListClass implements Comparable<ListClass>{
             }
             
         }
+    }
+    
+    // method that sorts a list of lists
+    private List<ListClass> SortList(List<ListClass> list)
+    {
+        ListClass[] arrList = new ListClass[list.size()];
+        arrList = list.toArray(arrList);
+        ListClass aux = new ListClass();
+        
+        for(int i = 0; i < list.size() - 1; i++)
+        {
+            for(int j = 0; j < list.size(); j++)
+            {
+                if (arrList[i] != null && arrList[j] != null)
+                {
+                    if (arrList[i].compareTo(arrList[j]) == 1)
+                    {
+                        aux = arrList[i];
+                        arrList[i] = arrList[j];
+                        arrList[j] = aux;
+                    }
+                }
+            }
+        }
+        List<ListClass> listResult = new ArrayList(Arrays.asList(arrList));
+        return listResult;
     }
     
     //metodo para insertar los datos en el desc_lista
