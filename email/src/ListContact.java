@@ -27,12 +27,27 @@ public class ListContact {
         return users;
     }
     
-    public List<UserClass> AddListContact(String user)
+    public List<ContactClass> AddListContact(String user)
     {
-        List<UserClass> contact = new ArrayList<UserClass>();
+        List<ContactClass> contact = new ArrayList<ContactClass>();
+        List<ContactClass> contact2 = new ArrayList<ContactClass>();
         File fileContact = new File("C:/MEIA/contactos.txt");
-        contact = ReadFileContact(fileContact,user);
-        return contact;
+        File fileContact2 = new File("C:/MEIA/bitacora_contactos.txt");
+        contact = ReadFileContact(fileContact);
+        contact2 = ReadFileContact(fileContact2);
+        List<ContactClass> Ncontact = new ArrayList<ContactClass>();
+        
+        for (ContactClass c : contact2) {
+                contact.add(c);
+        }
+        
+        for (ContactClass c : contact) {
+            if (c.user.equals(user) && c.estatus == true) {
+                Ncontact.add(c);
+            }
+        }
+        
+        return Ncontact;
     }
     
     public String AddContact(String Contact , String user)
@@ -46,6 +61,11 @@ public class ListContact {
         Regorganizar_bit_contactos(user);
     }
 
+    public void EliminarContactoP(String contacto, String user)
+    {
+        EliminarContacto(contacto, user);
+    }
+    
     //------------------------------- PRIVATE FUNCTIONS -------------------------------------------    
     
     
@@ -87,44 +107,6 @@ public class ListContact {
         return users;
     }
   
-    //Method for fill list with existing contact the user in the file
-    private List<UserClass> ReadFileContact(File file, String user){
-        List<UserClass> users = new ArrayList<UserClass>();
-        FileReader fr = null;
-        BufferedReader br = null;
-
-        try {
-           fr = new FileReader (file);
-           br = new BufferedReader(fr);          
-           // read the file
-           String linea;
-           while((linea=br.readLine())!=null)
-           {
-               String separador = "\\|";
-               String[] userChar = linea.split(separador);
-               UserClass userC = new UserClass();
-               userC.user = userChar[0];
-               userC.name = userChar[1];
-               userC.lastName = userChar[2];
-               userC.password = userChar[3];
-               userC.rol = Boolean.parseBoolean(userChar[4]);//first admin
-               userC.date = userChar[5];
-               userC.email = userChar[6];
-               userC.number = Integer.parseInt(userChar[7]);
-               userC.photoPath = userChar[8];//+user+".jpeg";             
-               userC.estatus = Boolean.parseBoolean(userChar[9]); //vigente
-               users.add(userC);
-           }
-           fr.close();
-        }
-        catch(Exception e){
-            System.out.println("linea error");
-           e.printStackTrace();
-        }
-        
-        return users;
-    }
-    
     //Metodo para agregar contacto
     private String AddContactP (String Contact , String user)
     {
@@ -423,6 +405,10 @@ public class ListContact {
             //no vacio
             List<ContactClass> contactos1 = ReadFileContact(fileContact);
             List<ContactClass> contactos2 = bit_contact;
+            //limpiar contactos
+            fileContact.delete();
+            ReadFile rf = new ReadFile();
+            rf.ValidateFile();
             //agregar los nuevos contactos
             for(ContactClass c: contactos2){
                 contactos1.add(c);
@@ -514,6 +500,64 @@ public class ListContact {
             }
         }     
         return res;
+    }
+    
+    //Metodo para eliminar un contacto
+    private void EliminarContacto(String contacto, String user)
+    {
+        File file1 = new File("C:/MEIA/bitacora_contactos.txt");
+        File file2 = new File("C:/MEIA/contactos.txt");
+        List<ContactClass> contact1 = ReadFileContact(file1);
+        List<ContactClass> contact2 = ReadFileContact(file2);
+        for (ContactClass c: contact1) {
+            if (c.user.equals(user) && c.contact.equals(contacto)) {
+                c.estatus = false;
+            }
+        }
+        for (ContactClass c: contact2) {
+            if (c.user.equals(user) && c.contact.equals(contacto)) {
+                c.estatus = false;
+            }
+        }
+        
+        file1.delete();
+        file2.delete();
+        ReadFile rf = new ReadFile();
+        rf.ValidateFile();
+        
+        try
+            {
+                //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
+                FileWriter escribir = new FileWriter(file1, true);
+                for (ContactClass c: contact1) {
+                    String insertContact = c.user + "|";
+                    insertContact = insertContact + c.contact +"|";
+                    insertContact = insertContact + c.date +"|";
+                    insertContact = insertContact + c.user_trans +"|";
+                    insertContact = insertContact + c.estatus;
+                    escribir.write(insertContact+"\n");
+                }              
+                //Cerramos la conexion
+                escribir.close();
+                
+                //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
+                FileWriter escribir2 = new FileWriter(file2, true);
+                for (ContactClass c: contact2) {
+                    String insertContact = c.user + "|";
+                    insertContact = insertContact + c.contact +"|";
+                    insertContact = insertContact + c.date +"|";
+                    insertContact = insertContact + c.user_trans +"|";
+                    insertContact = insertContact + c.estatus;
+                    escribir2.write(insertContact+"\n");
+                }              
+                //Cerramos la conexion
+                escribir2.close();
+            } //Si existe un problema al escribir cae aqui
+            catch (Exception e) {
+                System.out.println("Error al escribir bitacora_contactos");
+            }
+        
+        
     }
     
     

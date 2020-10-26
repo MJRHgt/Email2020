@@ -60,6 +60,11 @@ public class ListaContacto extends javax.swing.JFrame {
         TFNewListDesc = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        JCBListas = new javax.swing.JComboBox<>();
+        JCBContactosLista = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
         ButtonRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -105,12 +110,23 @@ public class ListaContacto extends javax.swing.JFrame {
         JCBContacos.setBackground(new java.awt.Color(0, 0, 0));
         JCBContacos.setForeground(new java.awt.Color(255, 255, 255));
         JCBContacos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Contactos" }));
+        JCBContacos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                JCBContacosMousePressed(evt);
+            }
+        });
 
         BTNDeleteContacto.setBackground(new java.awt.Color(0, 0, 0));
         BTNDeleteContacto.setForeground(new java.awt.Color(255, 255, 255));
         BTNDeleteContacto.setText("Eliminar");
+        BTNDeleteContacto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNDeleteContactoActionPerformed(evt);
+            }
+        });
 
         BTNAddContacto.setBackground(new java.awt.Color(102, 255, 102));
+        BTNAddContacto.setForeground(new java.awt.Color(255, 255, 255));
         BTNAddContacto.setText("Agregar");
         BTNAddContacto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,7 +313,7 @@ public class ListaContacto extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(TFNewListDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(15, 0, 105));
@@ -309,13 +325,45 @@ public class ListaContacto extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(237, 178, 0));
         jLabel9.setText("LISTAS - USUARIOS");
 
+        jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Listas Disponibles:");
+
+        jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Contactos:");
+
+        JCBListas.setBackground(new java.awt.Color(0, 0, 0));
+        JCBListas.setForeground(new java.awt.Color(255, 255, 255));
+        JCBListas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Listas" }));
+
+        JCBContactosLista.setBackground(new java.awt.Color(0, 0, 0));
+        JCBContactosLista.setForeground(new java.awt.Color(255, 255, 255));
+        JCBContactosLista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Contactos" }));
+
+        jButton1.setBackground(new java.awt.Color(102, 255, 102));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Agregar");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(JCBListas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(JCBContactosLista, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -323,7 +371,16 @@ public class ListaContacto extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JCBListas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JCBContactosLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         ButtonRegresar.setBackground(new java.awt.Color(191, 0, 0));
@@ -388,9 +445,7 @@ public class ListaContacto extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -401,12 +456,41 @@ public class ListaContacto extends javax.swing.JFrame {
     {
         ListContact LC = new ListContact();
         List<UserClass> users = LC.AddListUser();
+        List<ContactClass> contacts = LC.AddListContact(LUser.getText());
         JCBUsuarios.removeAllItems();
+        boolean flag = false;
+        int x = 0;
         //scroll list user
-        for (UserClass uc:users) {
+        for (UserClass uc:users) {    
             if (!uc.user.equals(LUser.getText())) {
-                JCBUsuarios.addItem(uc.user);
-            }                                
+                if (contacts.size() == 0) {
+                    JCBUsuarios.addItem(uc.user);
+                }
+                else
+                {
+                    for (ContactClass cont:contacts) {
+                        if (uc.user.equals(cont.contact)) {
+                            flag = true;
+                        }
+                    }
+                    if (!flag) {
+                        JCBUsuarios.addItem(uc.user);
+                    } 
+                    flag = false;
+                }             
+            }           
+        }       
+    }
+    
+     //Metodo para llenar el combo box de usuarios
+    private void FillContact()
+    {
+        ListContact LC = new ListContact();
+        List<ContactClass> contacts = LC.AddListContact(LUser.getText());
+        JCBContacos.removeAllItems();
+        //scroll list user
+        for (ContactClass c:contacts) {
+                JCBContacos.addItem(c.contact);                               
         }       
     }
     
@@ -436,7 +520,7 @@ public class ListaContacto extends javax.swing.JFrame {
     private void BTNAddContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNAddContactoActionPerformed
         // TODO add your handling code here:
         ListContact LC = new ListContact();
-        String contact = "";
+        String contact = (String) JCBUsuarios.getSelectedItem();
         String res = LC.AddContact(contact, LUser.getText());
         JOptionPane.showMessageDialog(null,res,"Agregar Contacto", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_BTNAddContactoActionPerformed
@@ -525,6 +609,19 @@ public class ListaContacto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_BTNDeleteListActionPerformed
 
+    private void BTNDeleteContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNDeleteContactoActionPerformed
+        // TODO add your handling code here:
+        ListContact LC = new ListContact();
+        String contact = (String) JCBContacos.getSelectedItem();
+        LC.EliminarContactoP(contact, LUser.getText());
+        JOptionPane.showMessageDialog(null,"Se elimino el contacto.","Eliminar Contacto", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_BTNDeleteContactoActionPerformed
+
+    private void JCBContacosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JCBContacosMousePressed
+        // TODO add your handling code here:
+        FillContact();
+    }//GEN-LAST:event_JCBContacosMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -569,15 +666,20 @@ public class ListaContacto extends javax.swing.JFrame {
     private javax.swing.JButton BTNSearchList;
     private javax.swing.JButton ButtonRegresar;
     private javax.swing.JComboBox<String> JCBContacos;
+    private javax.swing.JComboBox<String> JCBContactosLista;
+    private javax.swing.JComboBox<String> JCBListas;
     private javax.swing.JComboBox<String> JCBUsuarios;
     public static javax.swing.JLabel LUser;
     private javax.swing.JTextField TFListDescription;
     private javax.swing.JTextField TFListName;
     private javax.swing.JTextField TFNewListDesc;
     private javax.swing.JTextField TFNewListName;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

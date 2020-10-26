@@ -209,6 +209,9 @@ public class Administracion extends javax.swing.JFrame {
 
     private void ButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExitActionPerformed
         // TODO add your handling code here:
+        //reorganizacion
+        ListContact lc = new ListContact();
+        lc.Regorganizar_Contact(LUser.getText());
         Login open = new Login();
         open.setVisible(true);
         this.dispose();
