@@ -49,9 +49,49 @@ public class ListClass implements Comparable<ListClass>{
         estatus = _estatus;
     }
     
+    public ListClass()
+    {
+        name = null;
+        user = null;
+        description = null;
+        num_users = 0;
+        date = null;
+        estatus = false;
+    }
+    
     //------------------------------- PUBLIC FUNCTIONS --------------------------------------------
     //var global
     int max_reorganizar = 3;
+    
+    public ListClass SearchList(String listName, String user)
+    {
+        List<ListClass> lists = AddListsToList(user);
+        ListClass listC = new ListClass();
+        
+        for (ListClass l: lists) {
+            
+            if (l.name.equals(listName)) {
+                listC = l;
+            }
+        }  
+        return listC;
+    }
+    
+    public List<ListClass> AddListsToList(String user)
+    {
+        List<ListClass> lists1 = new ArrayList<ListClass>();
+        List<ListClass> lists2 = new ArrayList<ListClass>();
+        
+        File fileList1 = new File("C:/MEIA/bitacora_lista.txt");
+        File fileList2 = new File("C:/MEIA/lista.txt");
+        
+        lists1 = ReadFileList(fileList1,user);
+        lists2 = ReadFileList(fileList2,user);
+        
+        lists1.addAll(lists2);
+        
+        return lists1;
+    }
     
     public String InsertList()
     {
@@ -67,6 +107,37 @@ public class ListClass implements Comparable<ListClass>{
     }
     
     //------------------------------- PRIVATE FUNCTIONS --------------------------------------------
+    
+    //Method that fills a list with all the active distribution lists for a specified user
+    private List<ListClass> ReadFileList(File file, String user){
+        List<ListClass> lists = new ArrayList<ListClass>();
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+           fr = new FileReader (file);
+           br = new BufferedReader(fr);          
+           // read the file
+           String linea;
+           while((linea=br.readLine())!=null)
+           {
+               String separador = "\\|";
+               String[] listChar = linea.split(separador);
+               ListClass listC = new ListClass(listChar[0], listChar[1], listChar[2], Integer.parseInt(listChar[3]), listChar[4], Boolean.parseBoolean(listChar[5]));
+               if (listC.estatus && listC.user.equals(user)) 
+               { 
+                   lists.add(listC); 
+               } 
+           }
+           fr.close();
+        }
+        catch(Exception e){
+            System.out.println("linea error");
+           e.printStackTrace();
+        }
+        
+        return lists;
+    }
     
     //Method that inserts lists
     private String InsertList_P(boolean listOption) // listOption -> (true = "bitacora_lista") (false = "lista")
@@ -289,7 +360,7 @@ public class ListClass implements Comparable<ListClass>{
         if (descOption) { path = "C:/MEIA/desc_bitacora_lista.txt"; }
         else { path = "C:/MEIA/desc_lista.txt"; } 
         
-        String[] d = new String[9];
+        String[] d = new String[10];
         File file = new File(path);
         FileReader fr = null;
         BufferedReader br = null;

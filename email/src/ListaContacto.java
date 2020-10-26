@@ -439,6 +439,33 @@ public class ListaContacto extends javax.swing.JFrame {
 
     private void BTNSearchListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNSearchListActionPerformed
         // TODO add your handling code here:
+        
+        //validate not null text fields
+        if (TFListName.getText().length() != 0)
+        {
+            String res = "";
+            ListClass ListC = new ListClass();
+            ListC = ListC.SearchList(TFListName.getText(), LUser.getText());
+            
+            if (ListC.name == null) 
+            { 
+                res = "La lista no existe";
+                JOptionPane.showMessageDialog(null,res,"Buscar Lista", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else 
+            {
+                res = "Nombre de la lista: " + ListC.name + "\n" +
+                        "Descripción: " + ListC.description + "\n" +
+                        "Número de usuarios: " + ListC.num_users + "\n" +
+                        "Fecha de creación: " + ListC.date + "\n";
+                JOptionPane.showMessageDialog(null,res,"Buscar Lista", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"El nombre de la lista está vacío.", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
+        }   
     }//GEN-LAST:event_BTNSearchListActionPerformed
 
     private void BTNDeleteListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNDeleteListActionPerformed
