@@ -1,4 +1,6 @@
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -416,8 +418,14 @@ public class ListaContacto extends javax.swing.JFrame {
             String listName = TFListName.getText();
             String listDesc = TFListDescription.getText();
             
+            Date objDate = new Date();
+            String strDateFormat = "dd/MMM/aaaa hh: mm: ss a";
+            SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
+            String fecha = objSDF.format(objDate);
             
-            //ListClass ListC = new ListClass();
+            ListClass ListC = new ListClass(listName, LUser.getText(), listDesc, 0, fecha, true);
+            String res = ListC.InsertList();
+            JOptionPane.showMessageDialog(null,res,"Agregar Lista", JOptionPane.INFORMATION_MESSAGE);
         }
         else
         {
