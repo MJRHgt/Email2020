@@ -522,6 +522,7 @@ public class ListaContacto extends javax.swing.JFrame {
         ListContact LC = new ListContact();
         String contact = (String) JCBUsuarios.getSelectedItem();
         String res = LC.AddContact(contact, LUser.getText());
+        JCBUsuarios.removeAllItems();
         JOptionPane.showMessageDialog(null,res,"Agregar Contacto", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_BTNAddContactoActionPerformed
 
@@ -614,6 +615,7 @@ public class ListaContacto extends javax.swing.JFrame {
         ListContact LC = new ListContact();
         String contact = (String) JCBContacos.getSelectedItem();
         LC.EliminarContactoP(contact, LUser.getText());
+        JCBContacos.removeAllItems();
         JOptionPane.showMessageDialog(null,"Se elimino el contacto.","Eliminar Contacto", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_BTNDeleteContactoActionPerformed
 
