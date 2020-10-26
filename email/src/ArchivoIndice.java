@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,10 @@ public class ArchivoIndice {
        return InsertP(list, user, contact);
     }
     
-    
+    public void Reeorganizar(String user)
+    {
+        ReorganizarP(user);
+    }
     
     //------------------------------- PRIVATE FUNCTIONS -------------------------------------------
     
@@ -149,7 +153,7 @@ public class ArchivoIndice {
             res = res + contact + "|";
             res = res + Descripcion + "|";
             res = res + fecha + "|";
-            res = res + "1";
+            res = res + "true";
             escribir.write(res+"\n");
             //Cerramos la conexion
             escribir.close();
@@ -295,14 +299,31 @@ public class ArchivoIndice {
                 res = res + user + "|";
                 res = res + contact + "|";
                 res = res + "0|";
-                res = res + "1";
+                res = res + "true";
                 escribir.write(res+"\n");
                 //Cerramos la conexion
                 escribir.close();
             }
             else
             {
-            
+                int registroMax = RegistroMax();
+                FileWriter escribir = new FileWriter(file, true);
+                String res = "";
+                //obtener el registro mas grande
+                res = res + registroMax + "|";
+                res = res + "1." + registroMax + "|";
+                //Insertamos demas datos
+                res = res + list + "|";
+                res = res + user + "|";
+                res = res + contact + "|";
+                //preguntar hacia donde apunta
+                res = res +  "-1|";
+                //colocar status
+                res = res + "true";
+                escribir.write(res+"\n");
+                //Cerramos la conexion
+                escribir.close();
+                RegApuntador(registroMax,list,user,contact);
             }
             
         } //Si existe un problema al escribir cae aqui
@@ -414,6 +435,113 @@ public class ArchivoIndice {
         R[1] = Integer.toString(a);
         R[2] = Integer.toString(i);       
         return R;
+    }
+    
+    //Metodo para reorganizar
+    private void ReorganizarP(String user)
+    {
+    
+    }
+    
+    //Metodo para obtener el registro mas grande
+    private int RegistroMax()
+    {
+        List<IndiceClass> indice = ReadFileIndice();
+        int res = 0;
+        for (IndiceClass ic : indice) {
+            if (res < ic.registro) {
+                res =ic.registro;
+            }
+        }
+        return res+1;
+    }
+    
+    //Metodo para saber hacia donde apunta en el indice
+    private void RegApuntador(int registroMax, String list, String user, String contact)
+    {
+        //obtener todos los datos
+        List<IndiceClass> indice = ReadFileIndice();
+        List<IndiceClass> indice2 = ReadFileIndice();
+        //eliminarlos
+        File file = new File("C:/MEIA/indice.txt");
+        file.delete();
+        ReadFile rf = new ReadFile();
+        rf.ValidateFile();
+        //realziar una busqueda para saber donde ingresa
+        Collections.sort(indice2); //se ordenan
+        IndiceClass[] x = new IndiceClass[indice2.size()];
+        int r = 0;
+        for (IndiceClass c:indice2) {
+            x[r] = c;
+            System.out.println(c.nombre_lista + " " + c.usuario + " " + c.usuario_asociado);
+            r++;
+        }
+        int dato = 0;
+        for (int i = 0; i < x.length; i++) {
+            if (i != x.length-1) {
+                for (IndiceClass c:indice) {
+                    if (c.nombre_lista.equals(x[i+1].nombre_lista) && c.usuario.equals(x[i+1].usuario) && c.usuario_asociado.equals(x[i+1].usuario_asociado) ) 
+                    {
+                        dato = c.registro;
+                    }
+                }
+                for (IndiceClass c:indice) {
+                    if (c.nombre_lista.equals(x[i].nombre_lista) && c.usuario.equals(x[i].usuario) && c.usuario_asociado.equals(x[i].usuario_asociado) ) 
+                    {
+                        c.apuntador = dato;
+                    }
+                }
+                
+            }
+            else
+            {
+                for (IndiceClass c:indice) {
+                    if (c.nombre_lista.equals(x[i].nombre_lista) && c.usuario.equals(x[i].usuario) && c.usuario_asociado.equals(x[i].usuario_asociado) ) 
+                    {
+                        c.apuntador = 0;
+                    }
+                }
+            }
+            
+            for (IndiceClass c:indice) {
+                    if (c.nombre_lista.equals(x[0].nombre_lista) && c.usuario.equals(x[0].usuario) && c.usuario_asociado.equals(x[0].usuario_asociado) ) 
+                    {
+                        inicio=c.registro;
+                    }
+                }
+        }
+        
+        
+        //insertar los datos guardados
+        FillIndice(indice);
+    }
+    
+    //Metodo para llenar todo el archivo nuevamente
+    private void FillIndice(List<IndiceClass> indice )
+    {
+        try
+            {
+                File file = new File("C:/MEIA/indice.txt");
+                //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
+                FileWriter escribir = new FileWriter(file, true);
+                for (IndiceClass c: indice) {
+                    String insertContact = c.registro + "|";
+                    insertContact = insertContact + c.posicion +"|";
+                    insertContact = insertContact + c.nombre_lista +"|";
+                    insertContact = insertContact + c.usuario +"|";
+                    insertContact = insertContact + c.usuario_asociado +"|";
+                    insertContact = insertContact + c.apuntador +"|";
+                    insertContact = insertContact + c.estatus;
+                    escribir.write(insertContact+"\n");
+                }              
+                //Cerramos la conexion
+                escribir.close();
+                
+                
+            } //Si existe un problema al escribir cae aqui
+            catch (Exception e) {
+                System.out.println("Error al escribir bitacora_contactos");
+            }
     }
     
 }

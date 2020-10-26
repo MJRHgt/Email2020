@@ -64,7 +64,7 @@ public class ListaContacto extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         JCBListas = new javax.swing.JComboBox<>();
         JCBContactosLista = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        BTNAddListContact = new javax.swing.JButton();
         ButtonRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -336,17 +336,32 @@ public class ListaContacto extends javax.swing.JFrame {
         JCBListas.setBackground(new java.awt.Color(0, 0, 0));
         JCBListas.setForeground(new java.awt.Color(255, 255, 255));
         JCBListas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Listas" }));
+        JCBListas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                JCBListasMousePressed(evt);
+            }
+        });
+        JCBListas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JCBListasActionPerformed(evt);
+            }
+        });
 
         JCBContactosLista.setBackground(new java.awt.Color(0, 0, 0));
         JCBContactosLista.setForeground(new java.awt.Color(255, 255, 255));
         JCBContactosLista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Contactos" }));
+        JCBContactosLista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                JCBContactosListaMousePressed(evt);
+            }
+        });
 
-        jButton1.setBackground(new java.awt.Color(102, 255, 102));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BTNAddListContact.setBackground(new java.awt.Color(102, 255, 102));
+        BTNAddListContact.setForeground(new java.awt.Color(255, 255, 255));
+        BTNAddListContact.setText("Agregar");
+        BTNAddListContact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BTNAddListContactActionPerformed(evt);
             }
         });
 
@@ -368,7 +383,7 @@ public class ListaContacto extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(JCBContactosLista, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1)))))
+                                .addComponent(BTNAddListContact)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -384,7 +399,7 @@ public class ListaContacto extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JCBListas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JCBContactosLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(BTNAddListContact))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
 
@@ -496,6 +511,28 @@ public class ListaContacto extends javax.swing.JFrame {
         //scroll list user
         for (ContactClass c:contacts) {
                 JCBContacos.addItem(c.contact);                               
+        }       
+    }
+    
+     //Metodo para llenar el combo box de usuarios
+    private void FillContact2()
+    {
+        ListContact LC = new ListContact();
+        List<ContactClass> contacts = LC.AddListContact(LUser.getText());
+        JCBContactosLista.removeAllItems();
+        //scroll list user
+        for (ContactClass c:contacts) {
+                JCBContactosLista.addItem(c.contact);                               
+        }       
+    }
+    
+    private void FillList()
+    {
+        ListClass lc = new ListClass();
+        List<ListClass> listaC = lc.AddListsToList(LUser.getText());
+        JCBListas.removeAllItems();
+        for (ListClass l : listaC) {
+            JCBListas.addItem(l.name);
         }       
     }
     
@@ -636,11 +673,30 @@ public class ListaContacto extends javax.swing.JFrame {
         FillContact();
     }//GEN-LAST:event_JCBContacosMousePressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BTNAddListContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNAddListContactActionPerformed
         // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+        ArchivoIndice ai = new ArchivoIndice();
+        String list = (String) JCBListas.getSelectedItem();
+        String contact = (String) JCBContactosLista.getSelectedItem();
+        String res = ai.Insert(list, LUser.getText(), contact);
+        JCBListas.removeAllItems();
+        JCBContactosLista.removeAllItems();
+        JOptionPane.showMessageDialog(null,res,"Agregar Lista-Usuario", JOptionPane.INFORMATION_MESSAGE);        
+    }//GEN-LAST:event_BTNAddListContactActionPerformed
+
+    private void JCBContactosListaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JCBContactosListaMousePressed
+        // TODO add your handling code here:
+        FillContact2();
+    }//GEN-LAST:event_JCBContactosListaMousePressed
+
+    private void JCBListasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBListasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JCBListasActionPerformed
+
+    private void JCBListasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JCBListasMousePressed
+        // TODO add your handling code here:
+        FillList();
+    }//GEN-LAST:event_JCBListasMousePressed
 
     /**
      * @param args the command line arguments
@@ -680,6 +736,7 @@ public class ListaContacto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTNAddContacto;
     private javax.swing.JButton BTNAddList;
+    private javax.swing.JButton BTNAddListContact;
     private javax.swing.JButton BTNDeleteContacto;
     private javax.swing.JButton BTNDeleteList;
     private javax.swing.JButton BTNModifyList;
@@ -694,7 +751,6 @@ public class ListaContacto extends javax.swing.JFrame {
     private javax.swing.JTextField TFListName;
     private javax.swing.JTextField TFNewListDesc;
     private javax.swing.JTextField TFNewListName;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
