@@ -212,6 +212,7 @@ public class Administracion extends javax.swing.JFrame {
         //reorganizacion
         ListContact lc = new ListContact();
         lc.Regorganizar_Contact(LUser.getText());
+        //cambio de pantalla
         Login open = new Login();
         open.setVisible(true);
         this.dispose();
