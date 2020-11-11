@@ -215,10 +215,11 @@ public class EnviarCorreo extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TXFArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(BTNArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BTNArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(TXFArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -241,12 +242,12 @@ public class EnviarCorreo extends javax.swing.JFrame {
 
     private void JCBContacosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JCBContacosMousePressed
         // TODO add your handling code here:
-        FillContact();
+        //FillContact();
     }//GEN-LAST:event_JCBContacosMousePressed
 
     private void JCBListasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JCBListasMousePressed
         // TODO add your handling code here:
-        FillList();
+        //FillList();
     }//GEN-LAST:event_JCBListasMousePressed
 
     private void JCBListasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBListasActionPerformed
