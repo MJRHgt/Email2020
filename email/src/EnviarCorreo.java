@@ -1,3 +1,9 @@
+
+import java.io.File;
+import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -77,6 +83,11 @@ public class EnviarCorreo extends javax.swing.JFrame {
                 JCBContacosMousePressed(evt);
             }
         });
+        JCBContacos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JCBContacosActionPerformed(evt);
+            }
+        });
 
         JCBListas.setBackground(new java.awt.Color(0, 153, 153));
         JCBListas.setForeground(new java.awt.Color(255, 255, 255));
@@ -115,6 +126,11 @@ public class EnviarCorreo extends javax.swing.JFrame {
         BTNSalir.setBackground(new java.awt.Color(97, 0, 0));
         BTNSalir.setForeground(new java.awt.Color(255, 255, 255));
         BTNSalir.setText("Salir");
+        BTNSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNSalirActionPerformed(evt);
+            }
+        });
 
         BTNEContacto.setBackground(new java.awt.Color(51, 153, 0));
         BTNEContacto.setForeground(new java.awt.Color(255, 255, 255));
@@ -128,10 +144,20 @@ public class EnviarCorreo extends javax.swing.JFrame {
         BTNELista.setBackground(new java.awt.Color(0, 153, 153));
         BTNELista.setForeground(new java.awt.Color(255, 255, 255));
         BTNELista.setText("Enviar a Lista");
+        BTNELista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNEListaActionPerformed(evt);
+            }
+        });
 
         BTNArchivo.setBackground(new java.awt.Color(0, 0, 0));
         BTNArchivo.setForeground(new java.awt.Color(255, 255, 255));
         BTNArchivo.setText("...");
+        BTNArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNArchivoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -240,14 +266,35 @@ public class EnviarCorreo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void FillContact()
+    {
+        ListContact LC = new ListContact();
+        List<ContactClass> contacts = LC.AddListContact(LUser.getText());
+        JCBContacos.removeAllItems();
+        //scroll list user
+        for (ContactClass c:contacts) {
+                JCBContacos.addItem(c.contact);                               
+        }       
+    }
+    
+    private void FillList()
+    {
+        ListClass lc = new ListClass();
+        List<ListClass> listaC = lc.AddListsToList(LUser.getText());
+        JCBListas.removeAllItems();
+        for (ListClass l : listaC) {
+            JCBListas.addItem(l.name);
+        }       
+    }
+    
     private void JCBContacosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JCBContacosMousePressed
         // TODO add your handling code here:
-        //FillContact();
+        FillContact();
     }//GEN-LAST:event_JCBContacosMousePressed
 
     private void JCBListasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JCBListasMousePressed
         // TODO add your handling code here:
-        //FillList();
+        FillList();
     }//GEN-LAST:event_JCBListasMousePressed
 
     private void JCBListasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBListasActionPerformed
@@ -256,7 +303,72 @@ public class EnviarCorreo extends javax.swing.JFrame {
 
     private void BTNEContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNEContactoActionPerformed
         // TODO add your handling code here:
+        
+        if (TXFAsunto.getText().length() > 0 && TXAMensaje.getText().length() > 0) {
+            EnviarCorreoClasss ecc = new EnviarCorreoClasss();
+            String contact = (String) JCBContacos.getSelectedItem();
+            String asunto = TXFAsunto.getText();
+            String mensaje = TXAMensaje.getText();
+            String PathArchivo = TXFArchivo.getText();
+            ecc.EnviaCorreo(true, contact, null, asunto, mensaje, PathArchivo,archivo);
+        }
+        else
+        {
+        JOptionPane.showMessageDialog(null,"Ingrese asunto y mensaje.", "Campos vacio", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
     }//GEN-LAST:event_BTNEContactoActionPerformed
+
+    private void JCBContacosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCBContacosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JCBContacosActionPerformed
+
+    private void BTNSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNSalirActionPerformed
+        // TODO add your handling code here:
+         this.dispose(); //exit this windows
+    }//GEN-LAST:event_BTNSalirActionPerformed
+
+    //BTNAddPhoto
+     JFileChooser select = new JFileChooser();
+     File file;
+     byte[] archivo;
+     
+    private void BTNArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNArchivoActionPerformed
+        // TODO add your handling code here:
+        // Get photo
+        if (select.showDialog(null, null) == JFileChooser.APPROVE_OPTION ) {
+            file = select.getSelectedFile();
+            if (file.canRead()) {
+               // if (file.getName().endsWith("jpg")||file.getName().endsWith("png") || file.getName().endsWith("gif")) {                  
+                    //instance class
+                    ReadFile rf = new ReadFile();
+                    archivo = rf.OpenFile(file);
+                    TXFArchivo.setText(file.getPath().toString());
+               // }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Archivo no compatible");
+            }
+        }
+    }//GEN-LAST:event_BTNArchivoActionPerformed
+
+    private void BTNEListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNEListaActionPerformed
+        // TODO add your handling code here:
+         
+        if (TXFAsunto.getText().length() > 0 && TXAMensaje.getText().length() > 0) {
+            EnviarCorreoClasss ecc = new EnviarCorreoClasss();
+            String list = (String) JCBListas.getSelectedItem();
+            String asunto = TXFAsunto.getText();
+            String mensaje = TXAMensaje.getText();
+            String PathArchivo = TXFArchivo.getText();
+            ecc.EnviaCorreo(false, null, list, asunto, mensaje, PathArchivo,archivo);
+        }
+        else
+        {
+        JOptionPane.showMessageDialog(null,"Ingrese asunto y mensaje.", "Campos vacio", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_BTNEListaActionPerformed
 
     /**
      * @param args the command line arguments
