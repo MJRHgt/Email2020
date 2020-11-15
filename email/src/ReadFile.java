@@ -47,6 +47,15 @@ public class ReadFile {
                   //  System.out.println("Error al crear directorio2");
                 }
             }
+             //Exist directory archivos
+            File directorio3 = new File("C:/MEIA/archivos");
+            if (!directorio3.exists()) {
+                if (directorio3.mkdirs()) {
+                   // System.out.println("Directorio2 creado");
+                } else {
+                  //  System.out.println("Error al crear directorio2");
+                }
+            }
             //Exist File user
             File archivoUser = new File("C:/MEIA/usuario.txt");
             if (!archivoUser.exists())
@@ -170,6 +179,21 @@ public class ReadFile {
             {
                 archivoDescIndice.createNewFile();
             }
+            
+            //Exist File arbolbinario
+            File archivoArbolBinario = new File("C:/MEIA/arbolbinario.txt");
+            if (!archivoArbolBinario.exists())
+            {
+                archivoArbolBinario.createNewFile();
+            }
+
+            //Exist File desc_arbolbinario
+            File archivoDescArbolBinario = new File("C:/MEIA/desc_arbolbinario.txt");
+            if (!archivoDescArbolBinario.exists())
+            {
+                archivoDescArbolBinario.createNewFile();
+            }
+            
             
         } catch (Exception e) {
             e.printStackTrace();

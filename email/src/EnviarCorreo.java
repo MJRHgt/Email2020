@@ -246,7 +246,7 @@ public class EnviarCorreo extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(TXFArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -258,9 +258,8 @@ public class EnviarCorreo extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -310,7 +309,15 @@ public class EnviarCorreo extends javax.swing.JFrame {
             String asunto = TXFAsunto.getText();
             String mensaje = TXAMensaje.getText();
             String PathArchivo = TXFArchivo.getText();
-            ecc.EnviaCorreo(true, contact, null, asunto, mensaje, PathArchivo,archivo);
+            String res = ecc.EnviaCorreo(true,LUser.getText(), contact, null, asunto, mensaje, PathArchivo,archivo);
+            if (res.equals("")) {
+                JOptionPane.showMessageDialog(null,"Correo enviado exitosamente al contacto " + contact+"." , "Enviar Correo", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose(); //exit this windows
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,res , "Enviar Correo", JOptionPane.INFORMATION_MESSAGE);
+            }   
         }
         else
         {
@@ -335,7 +342,7 @@ public class EnviarCorreo extends javax.swing.JFrame {
      
     private void BTNArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNArchivoActionPerformed
         // TODO add your handling code here:
-        // Get photo
+        // Get file
         if (select.showDialog(null, null) == JFileChooser.APPROVE_OPTION ) {
             file = select.getSelectedFile();
             if (file.canRead()) {
@@ -362,7 +369,15 @@ public class EnviarCorreo extends javax.swing.JFrame {
             String asunto = TXFAsunto.getText();
             String mensaje = TXAMensaje.getText();
             String PathArchivo = TXFArchivo.getText();
-            ecc.EnviaCorreo(false, null, list, asunto, mensaje, PathArchivo,archivo);
+            String res = ecc.EnviaCorreo(false,LUser.getText(), null, list, asunto, mensaje, PathArchivo,archivo);
+            if (res.equals("")) {
+                JOptionPane.showMessageDialog(null,"Correo enviado a todos los contactos de la lista " + list+"." , "Enviar Correo", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose(); //exit this windows
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,res , "Enviar Correo", JOptionPane.INFORMATION_MESSAGE);
+            }            
         }
         else
         {
