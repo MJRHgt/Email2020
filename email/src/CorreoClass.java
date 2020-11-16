@@ -42,18 +42,18 @@ public class CorreoClass implements Comparable<CorreoClass>{
             Logger.getLogger(CorreoClass.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        int commparacionPorUser = date1.compareTo(date2);
+        int commparacionPorUser = Usuario_emisor.compareTo(otro.Usuario_emisor);
         if (commparacionPorUser != 0)
         {
             return commparacionPorUser;
         }
         
-        int commparacionPorList = Usuario_emisor.compareTo(otro.Usuario_emisor);
+        int commparacionPorList = Usuario_receptor.compareTo(otro.Usuario_receptor);
         if (commparacionPorList != 0)
         {
             return commparacionPorList;
         }
             
-        return Usuario_receptor.compareTo(otro.Usuario_receptor);
+        return date1.compareTo(date2);
     }
 }

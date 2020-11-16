@@ -67,7 +67,7 @@ public class EnviarCorreoClasss {
         File file = new File("C:/MEIA/arbolbinario.txt");
         //preguntar si el archivo no esta vacio 
         if (pathArchivo.length() > 0) {
-             path = GetPathArchivo(pathArchivo,user,contact);
+            path = GetPathArchivo(pathArchivo,user,contact);
             SaveFile(path,archivo);//guardo archivo en la carpeta respectiva
         }
         //Arreglar si el mensaje viene con enter para no afectar el txt
@@ -137,23 +137,25 @@ public class EnviarCorreoClasss {
             ReadFile rf = new ReadFile();
             rf.ValidateFile();
             //insertamos el nuevo nodo
-            newCorreo = root.returnLast();
-            correos.add(newCorreo);
+                
             //insertar en orden de registro en el archivo
-            for (CorreoClass c : correos) {
+            
                 //luego se inserta en el archivo 
                 try 
                 {
                    //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
-                   FileWriter escribir = new FileWriter(file, true);
-                   escribir.write(c.InsertData()+"\n");
+                   FileWriter escribir2 = new FileWriter(file, true);
+                   for (CorreoClass c : correos) {
+                   escribir2.write(c.InsertData()+"\n");
+                   }
+                   escribir2.write(newCorreo.InsertData()+"\n");
                    //Cerramos la conexion
-                   escribir.close();
+                   escribir2.close();
                 } //Si existe un problema al escribir cae aqui
                 catch (Exception e) {
                    System.out.println("Error al escribir en enviar correo");
                 }
-            }
+            
             //luego se coloca el descriptor
             DescArbolBinario(user,fecha);
         }
@@ -173,10 +175,16 @@ public class EnviarCorreoClasss {
             }
         }
         
-        for (String c : contactosLsita) {
+        if (contactosLsita.size() > 0) {
+            for (String c : contactosLsita) {
             res = res + ContactCorreo(user,c,asunto,mensaje,pathArchivo,archivo);
+            }            
         }
-        
+        else
+        {
+            res = "No hay contactos agregados a esa lista";
+        }
+    
         return res;
     }
     

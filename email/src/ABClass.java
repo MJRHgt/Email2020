@@ -77,15 +77,11 @@ public class ABClass {
         }
     }
    
+    
     //metodo para retornar el ultimo valor
     public CorreoClass returnLast()
     {
         return UltimoVal;
     }
     
-    // metodo para agregar al arbol
-    @Override
-    public String toString() {
-        return "Node [value=" + value + ", left=" + left + ", right=" + right + "]";
-    }
 }
