@@ -1,4 +1,6 @@
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -135,10 +137,20 @@ public class Administracion extends javax.swing.JFrame {
         BTNBEnviados.setBackground(new java.awt.Color(17, 81, 0));
         BTNBEnviados.setForeground(new java.awt.Color(255, 255, 255));
         BTNBEnviados.setText("Bandeja de Enviados");
+        BTNBEnviados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNBEnviadosActionPerformed(evt);
+            }
+        });
 
         BTNBEntrada.setBackground(new java.awt.Color(17, 81, 0));
         BTNBEntrada.setForeground(new java.awt.Color(255, 255, 255));
         BTNBEntrada.setText("Bandeja de Entrada");
+        BTNBEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNBEntradaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -290,6 +302,22 @@ public class Administracion extends javax.swing.JFrame {
         open.setVisible(true);
         open.LUser.setText(LUser.getText());
     }//GEN-LAST:event_BTNEnviarCorreoActionPerformed
+
+    private void BTNBEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNBEntradaActionPerformed
+        // TODO add your handling code here:
+        BandejaEntrada bandejaEnt = new BandejaEntrada();
+        bandejaEnt.setVisible(true);
+        bandejaEnt.LUser.setText(LUser.getText());
+        bandejaEnt.fillTable();
+    }//GEN-LAST:event_BTNBEntradaActionPerformed
+
+    private void BTNBEnviadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNBEnviadosActionPerformed
+        // TODO add your handling code here:
+        BandejaSalida bandejaSal = new BandejaSalida();
+        bandejaSal.setVisible(true);
+        bandejaSal.LUser.setText(LUser.getText());
+        bandejaSal.fillTable();
+    }//GEN-LAST:event_BTNBEnviadosActionPerformed
 
     /**
      * @param args the command line arguments
