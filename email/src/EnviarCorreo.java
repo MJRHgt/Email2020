@@ -348,7 +348,7 @@ public class EnviarCorreo extends javax.swing.JFrame {
             if (file.canRead()) {
                // if (file.getName().endsWith("jpg")||file.getName().endsWith("png") || file.getName().endsWith("gif")) {                  
                     //instance class
-                    ReadFile rf = new ReadFile();
+                    EnviarCorreoClasss rf = new EnviarCorreoClasss();
                     archivo = rf.OpenFile(file);
                     TXFArchivo.setText(file.getPath().toString());
                // }
